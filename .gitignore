@@ -1,0 +1,79 @@
+#################
+## Eclipse
+#################
+*.pydevproject
+.project
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+#################
+## Idea
+#################
+**/*.iml
+.idea/
+
+#################
+## Maven
+#################
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+
+#################
+## Logger Files
+#################
+/scg-sdk/logs/
+/scg-impl/logs/
+/scg-node/logs/
+
+#################
+## Configuration Files
+#################
+/scg-impl/conf/
+/scg-sdk/conf/
+/scg-node/conf/
+
+#################
+## Libext Files
+#################
+/scg-node/libext/
+
+#################
+## Opt Files
+#################
+/scg-node/opt/
+
+#################
+## Optext Files
+#################
+/scg-node/optext/
