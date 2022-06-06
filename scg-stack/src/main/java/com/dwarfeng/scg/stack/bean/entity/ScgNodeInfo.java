@@ -13,16 +13,16 @@ import java.util.Date;
  */
 public class ScgNodeInfo implements Entity<ScgNodeKey> {
 
-    private static final long serialVersionUID = -7408054568430817945L;
+    private static final long serialVersionUID = -8112439275851557120L;
 
     private ScgNodeKey key;
     private Date lastGeneratedDate;
-    private Date lastIndex;
+    private Integer lastIndex;
 
     public ScgNodeInfo() {
     }
 
-    public ScgNodeInfo(ScgNodeKey key, Date lastGeneratedDate, Date lastIndex) {
+    public ScgNodeInfo(ScgNodeKey key, Date lastGeneratedDate, Integer lastIndex) {
         this.key = key;
         this.lastGeneratedDate = lastGeneratedDate;
         this.lastIndex = lastIndex;
@@ -46,11 +46,11 @@ public class ScgNodeInfo implements Entity<ScgNodeKey> {
         this.lastGeneratedDate = lastGeneratedDate;
     }
 
-    public Date getLastIndex() {
+    public Integer getLastIndex() {
         return lastIndex;
     }
 
-    public void setLastIndex(Date lastIndex) {
+    public void setLastIndex(Integer lastIndex) {
         this.lastIndex = lastIndex;
     }
 

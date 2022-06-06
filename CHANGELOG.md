@@ -6,6 +6,11 @@
 
 - 项目建立，清除测试通过。
 
+- 实体建立，单元测试通过。
+  - com.dwarfeng.scg.stack.bean.entity.GeneratorSupport。
+  - com.dwarfeng.scg.stack.bean.entity.ScgNodeInfo。
+  - com.dwarfeng.scg.stack.bean.entity.ScgSetting。
+
 #### Bug修复
 
 - (无)

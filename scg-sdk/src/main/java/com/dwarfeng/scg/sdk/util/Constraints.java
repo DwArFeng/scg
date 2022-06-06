@@ -9,6 +9,11 @@ package com.dwarfeng.scg.sdk.util;
 public final class Constraints {
 
     /**
+     * ID的长度约束。
+     */
+    public static final int LENGTH_ID = 65;
+
+    /**
      * 类型的长度约束。
      */
     public static final int LENGTH_TYPE = 50;

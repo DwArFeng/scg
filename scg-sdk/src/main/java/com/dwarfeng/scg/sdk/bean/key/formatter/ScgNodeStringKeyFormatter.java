@@ -23,7 +23,7 @@ public class ScgNodeStringKeyFormatter implements StringKeyFormatter<ScgNodeKey>
     @Override
     public String format(ScgNodeKey key) {
         Objects.requireNonNull(key);
-        return prefix + key.getScgSettingId() + "_" + key.getDeviceId();
+        return String.format("%s%s_%s", prefix, key.getScgSettingId(), key.getDeviceId());
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class FastJsonScgNodeInfo implements Bean {
 
-    private static final long serialVersionUID = -6123099153288271210L;
+    private static final long serialVersionUID = 4810551731422236903L;
 
     public static FastJsonScgNodeInfo of(ScgNodeInfo scgNodeInfo) {
         if (Objects.isNull(scgNodeInfo)) {
@@ -36,12 +36,12 @@ public class FastJsonScgNodeInfo implements Bean {
     private Date lastGeneratedDate;
 
     @JSONField(name = "last_index", ordinal = 3)
-    private Date lastIndex;
+    private Integer lastIndex;
 
     public FastJsonScgNodeInfo() {
     }
 
-    public FastJsonScgNodeInfo(FastJsonScgNodeKey key, Date lastGeneratedDate, Date lastIndex) {
+    public FastJsonScgNodeInfo(FastJsonScgNodeKey key, Date lastGeneratedDate, Integer lastIndex) {
         this.key = key;
         this.lastGeneratedDate = lastGeneratedDate;
         this.lastIndex = lastIndex;
@@ -63,11 +63,11 @@ public class FastJsonScgNodeInfo implements Bean {
         this.lastGeneratedDate = lastGeneratedDate;
     }
 
-    public Date getLastIndex() {
+    public Integer getLastIndex() {
         return lastIndex;
     }
 
-    public void setLastIndex(Date lastIndex) {
+    public void setLastIndex(Integer lastIndex) {
         this.lastIndex = lastIndex;
     }
 
