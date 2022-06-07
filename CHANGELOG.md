@@ -11,6 +11,10 @@
   - com.dwarfeng.scg.stack.bean.entity.ScgNodeInfo。
   - com.dwarfeng.scg.stack.bean.entity.ScgSetting。
 
+- 生成器机制实现，实现默认生成器。
+  - com.dwarfeng.scg.impl.handler.generator.AbstractGeneratorRegistry。
+  - com.dwarfeng.scg.impl.handler.generator.GroovyGeneratorRegistry。
+
 #### Bug修复
 
 - (无)

@@ -10,15 +10,15 @@ import com.dwarfeng.subgrade.stack.bean.dto.Dto;
  */
 public class GenerateResult implements Dto {
 
-    private static final long serialVersionUID = -986356399105512853L;
+    private static final long serialVersionUID = 5178075178186609277L;
 
     private String serialCode;
-    private int neoIndex;
+    private Integer neoIndex;
 
     public GenerateResult() {
     }
 
-    public GenerateResult(String serialCode, int neoIndex) {
+    public GenerateResult(String serialCode, Integer neoIndex) {
         this.serialCode = serialCode;
         this.neoIndex = neoIndex;
     }
@@ -31,11 +31,11 @@ public class GenerateResult implements Dto {
         this.serialCode = serialCode;
     }
 
-    public int getNeoIndex() {
+    public Integer getNeoIndex() {
         return neoIndex;
     }
 
-    public void setNeoIndex(int neoIndex) {
+    public void setNeoIndex(Integer neoIndex) {
         this.neoIndex = neoIndex;
     }
 

@@ -12,16 +12,16 @@ import java.util.Date;
  */
 public class GenerateInfo implements Dto {
 
-    private static final long serialVersionUID = -8867779329751462829L;
+    private static final long serialVersionUID = -5247157394934901904L;
 
     private Date lastGeneratedDate;
-    private Date lastIndex;
+    private Integer lastIndex;
     private int deviceId;
 
     public GenerateInfo() {
     }
 
-    public GenerateInfo(Date lastGeneratedDate, Date lastIndex, int deviceId) {
+    public GenerateInfo(Date lastGeneratedDate, Integer lastIndex, int deviceId) {
         this.lastGeneratedDate = lastGeneratedDate;
         this.lastIndex = lastIndex;
         this.deviceId = deviceId;
@@ -35,11 +35,11 @@ public class GenerateInfo implements Dto {
         this.lastGeneratedDate = lastGeneratedDate;
     }
 
-    public Date getLastIndex() {
+    public Integer getLastIndex() {
         return lastIndex;
     }
 
-    public void setLastIndex(Date lastIndex) {
+    public void setLastIndex(Integer lastIndex) {
         this.lastIndex = lastIndex;
     }
 
