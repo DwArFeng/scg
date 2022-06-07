@@ -20,6 +20,8 @@ public final class ServiceExceptionCodes {
             new ServiceException.Code(offset(2), "generator make failed");
     public static final ServiceException.Code UNSUPPORTED_GENERATOR_TYPE =
             new ServiceException.Code(offset(3), "unsupported generator type");
+    public static final ServiceException.Code SCG_SETTING_NOT_EXISTS =
+            new ServiceException.Code(offset(10), "scg setting not exists");
 
     private static int offset(int i) {
         return EXCEPTION_CODE_OFFSET + i;
@@ -48,6 +50,7 @@ public final class ServiceExceptionCodes {
         GENERATOR_EXECUTION_FAILED.setCode(offset(1));
         GENERATOR_MAKE_FAILED.setCode(offset(2));
         UNSUPPORTED_GENERATOR_TYPE.setCode(offset(3));
+        SCG_SETTING_NOT_EXISTS.setCode(offset(10));
     }
 
     private ServiceExceptionCodes() {

@@ -15,6 +15,9 @@
   - com.dwarfeng.scg.impl.handler.generator.AbstractGeneratorRegistry。
   - com.dwarfeng.scg.impl.handler.generator.GroovyGeneratorRegistry。
 
+- 生成服务完成。
+  - com.dwarfeng.scg.stack.service.GenerateService。
+
 #### Bug修复
 
 - (无)
