@@ -145,4 +145,24 @@ public class GenerateHandlerImpl implements GenerateHandler {
             lock.unlock();
         }
     }
+
+    @Override
+    public Generator getGenerator(StringIdKey scgSettingKey) throws HandlerException {
+        return generateLocalCacheHandler.getGenerator(scgSettingKey);
+    }
+
+    @Override
+    public void clearGenerateLocalCache() throws HandlerException {
+        generateLocalCacheHandler.clear();
+    }
+
+    @Override
+    public Lock getLocalLock(StringIdKey scgSettingKey) throws HandlerException {
+        return lockLocalCacheHandler.getLocalLock(scgSettingKey);
+    }
+
+    @Override
+    public void clearLockLocalCache() throws HandlerException {
+        lockLocalCacheHandler.clear();
+    }
 }

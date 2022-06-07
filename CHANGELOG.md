@@ -20,6 +20,11 @@
 
 - 程序开发完成，运行测试通过，打包测试通过。
 
+- 创建运维指令。
+  - com.dwarfeng.scg.impl.service.telqos.GenerateCommand。
+  - com.dwarfeng.scg.impl.service.telqos.GenerateLocalCacheCommand。
+  - com.dwarfeng.scg.impl.service.telqos.LockLocalCacheCommand。
+
 #### Bug修复
 
 - (无)

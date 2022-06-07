@@ -45,7 +45,7 @@ class ExampleGeneratorProcessor implements GroovyGeneratorRegistry.Processor {
         Integer neoIndex = Objects.isNull(index) ? 0 : index + 1
         Date currentDate = new Date()
         String serialCode = String.format(
-                "%1\$s%2\$tY%2\$tm%2\$td%3\$" + NUMBER_OF_DIGITS_DEVICE_ID + "d%4\$" + NUMBER_OF_DIGITS_INDEX + "d",
+                "%1\$s%2\$tY%2\$tm%2\$td%3\$0" + NUMBER_OF_DIGITS_DEVICE_ID + "d%4\$0" + NUMBER_OF_DIGITS_INDEX + "d",
                 PREFIX, currentDate, deviceId, neoIndex
         )
         if (Objects.nonNull(lastGeneratedDate)) {
