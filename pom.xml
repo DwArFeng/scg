@@ -245,6 +245,10 @@
                         <artifactId>netty</artifactId>
                         <groupId>io.netty</groupId>
                     </exclusion>
+                    <exclusion>
+                        <artifactId>jline</artifactId>
+                        <groupId>jline</groupId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <!-- hibernate组件 -->
