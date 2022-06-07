@@ -18,6 +18,8 @@
 - 生成服务完成。
   - com.dwarfeng.scg.stack.service.GenerateService。
 
+- 程序开发完成，运行测试通过，打包测试通过。
+
 #### Bug修复
 
 - (无)
