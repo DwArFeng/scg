@@ -7,7 +7,7 @@
     <parent>
         <artifactId>scg</artifactId>
         <groupId>com.dwarfeng</groupId>
-        <version>1.0.1.a-SNAPSHOT</version>
+        <version>1.0.1.a</version>
     </parent>
 
     <artifactId>scg-stack</artifactId>
