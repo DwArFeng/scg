@@ -12,19 +12,21 @@ import java.util.Date;
  */
 public class GenerateInfo implements Dto {
 
-    private static final long serialVersionUID = -5247157394934901904L;
+    private static final long serialVersionUID = 7007573806748800142L;
 
     private Date lastGeneratedDate;
     private Integer lastIndex;
     private int deviceId;
+    private boolean distributed;
 
     public GenerateInfo() {
     }
 
-    public GenerateInfo(Date lastGeneratedDate, Integer lastIndex, int deviceId) {
+    public GenerateInfo(Date lastGeneratedDate, Integer lastIndex, int deviceId, boolean distributed) {
         this.lastGeneratedDate = lastGeneratedDate;
         this.lastIndex = lastIndex;
         this.deviceId = deviceId;
+        this.distributed = distributed;
     }
 
     public Date getLastGeneratedDate() {
@@ -51,12 +53,21 @@ public class GenerateInfo implements Dto {
         this.deviceId = deviceId;
     }
 
+    public boolean isDistributed() {
+        return distributed;
+    }
+
+    public void setDistributed(boolean distributed) {
+        this.distributed = distributed;
+    }
+
     @Override
     public String toString() {
         return "GenerateInfo{" +
                 "lastGeneratedDate=" + lastGeneratedDate +
                 ", lastIndex=" + lastIndex +
                 ", deviceId=" + deviceId +
+                ", distributed=" + distributed +
                 '}';
     }
 }

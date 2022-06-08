@@ -4,7 +4,9 @@
 
 #### 功能构建
 
-- (无)
+- 增加 DTO 实体字段。
+  - com.dwarfeng.scg.stack.bean.dto.GenerateInfo.distributed。
+    - 用于告知生成器当前流水码生成设置是否使用分布式生成。
 
 #### Bug修复
 

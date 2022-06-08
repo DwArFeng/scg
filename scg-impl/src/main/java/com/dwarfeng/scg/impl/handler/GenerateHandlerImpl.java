@@ -81,7 +81,8 @@ public class GenerateHandlerImpl implements GenerateHandler {
             GenerateInfo generateInfo = new GenerateInfo(
                     Objects.isNull(scgNodeInfo) ? null : scgNodeInfo.getLastGeneratedDate(),
                     Objects.isNull(scgNodeInfo) ? null : scgNodeInfo.getLastIndex(),
-                    deviceId
+                    deviceId,
+                    false
             );
             Generator generator = generateLocalCacheHandler.getGenerator(scgSettingKey);
             GenerateResult generateResult = generator.generate(generateInfo);
@@ -126,7 +127,8 @@ public class GenerateHandlerImpl implements GenerateHandler {
             GenerateInfo generateInfo = new GenerateInfo(
                     Objects.isNull(scgNodeInfo) ? null : scgNodeInfo.getLastGeneratedDate(),
                     Objects.isNull(scgNodeInfo) ? null : scgNodeInfo.getLastIndex(),
-                    deviceId
+                    deviceId,
+                    false
             );
             Generator generator = generateLocalCacheHandler.getGenerator(scgSettingKey);
             List<String> result = new ArrayList<>();
