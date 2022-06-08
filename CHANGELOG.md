@@ -8,7 +8,7 @@
 
 #### Bug修复
 
-- (无)
+- 修正 `ExampleGeneratorProcessor` 中不正确的逻辑。
 
 #### 功能移除
 

@@ -42,22 +42,28 @@ class ExampleGeneratorProcessor implements GroovyGeneratorRegistry.Processor {
         Integer index = generateInfo.getLastIndex()
         int deviceId = generateInfo.getDeviceId()
 
-        Integer neoIndex = Objects.isNull(index) ? 0 : index + 1
+        Integer neoIndex
         Date currentDate = new Date()
-        String serialCode = String.format(
-                "%1\$s%2\$tY%2\$tm%2\$td%3\$0" + NUMBER_OF_DIGITS_DEVICE_ID + "d%4\$0" + NUMBER_OF_DIGITS_INDEX + "d",
-                PREFIX, currentDate, deviceId, neoIndex
-        )
         if (Objects.nonNull(lastGeneratedDate)) {
             TimeZone defaultTimeZone = TimeZone.getDefault()
             long lastGeneratedTimestamp = lastGeneratedDate.getTime()
             long currentTimestamp = currentDate.getTime()
-            int lastGeneratedLocalDay = (int) ((lastGeneratedTimestamp - defaultTimeZone.getOffset(lastGeneratedTimestamp)) / MILLISECONDS_OF_DAY)
-            int currentLocalDay = (int) ((currentTimestamp - defaultTimeZone.getOffset(currentTimestamp)) / MILLISECONDS_OF_DAY)
+            int lastGeneratedLocalDay = (int) ((lastGeneratedTimestamp -
+                    defaultTimeZone.getOffset(lastGeneratedTimestamp)) / MILLISECONDS_OF_DAY)
+            int currentLocalDay = (int) ((currentTimestamp -
+                    defaultTimeZone.getOffset(currentTimestamp)) / MILLISECONDS_OF_DAY)
             if (currentLocalDay > lastGeneratedLocalDay) {
                 neoIndex = 0
+            } else {
+                neoIndex = index + 1
             }
+        } else {
+            neoIndex = 0
         }
+        String serialCode = String.format(
+                "%1\$s%2\$tY%2\$tm%2\$td%3\$0" + NUMBER_OF_DIGITS_DEVICE_ID + "d%4\$0" + NUMBER_OF_DIGITS_INDEX + "d",
+                PREFIX, currentDate, deviceId, neoIndex
+        )
         return new GenerateResult(serialCode, neoIndex)
     }
 }
