@@ -77,3 +77,8 @@ buildNumber.properties
 ## Optext Files
 #################
 /scg-node/optext/
+
+#################
+## Confext Files
+#################
+/scg-node/confext/
