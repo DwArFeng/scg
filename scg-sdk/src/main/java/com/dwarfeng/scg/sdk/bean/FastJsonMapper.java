@@ -1,14 +1,10 @@
 package com.dwarfeng.scg.sdk.bean;
 
-import com.dwarfeng.scg.sdk.bean.entity.FastJsonGeneratorSupport;
-import com.dwarfeng.scg.sdk.bean.entity.FastJsonNodeVariable;
-import com.dwarfeng.scg.sdk.bean.entity.FastJsonScgNodeInfo;
-import com.dwarfeng.scg.sdk.bean.entity.FastJsonScgSetting;
+import com.dwarfeng.scg.sdk.bean.entity.*;
+import com.dwarfeng.scg.sdk.bean.key.FastJsonCommonVariableKey;
 import com.dwarfeng.scg.sdk.bean.key.FastJsonNodeVariableKey;
-import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
-import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
-import com.dwarfeng.scg.stack.bean.entity.ScgNodeInfo;
-import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
+import com.dwarfeng.scg.stack.bean.entity.*;
+import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
 import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonLongIdKey;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonStringIdKey;
@@ -41,6 +37,11 @@ public interface FastJsonMapper {
     @InheritInverseConfiguration
     NodeVariableKey nodeVariableKeyFromFastJson(FastJsonNodeVariableKey fastJsonNodeVariableKey);
 
+    FastJsonCommonVariableKey commonVariableKeyToFastJson(CommonVariableKey commonVariableKey);
+
+    @InheritInverseConfiguration
+    CommonVariableKey commonVariableKeyFromFastJson(FastJsonCommonVariableKey fastJsonCommonVariableKey);
+
     FastJsonGeneratorSupport generatorSupportToFastJson(GeneratorSupport generatorSupport);
 
     @InheritInverseConfiguration
@@ -60,4 +61,9 @@ public interface FastJsonMapper {
 
     @InheritInverseConfiguration
     NodeVariable nodeVariableFromFastJson(FastJsonNodeVariable fastJsonNodeVariable);
+
+    FastJsonCommonVariable commonVariableToFastJson(CommonVariable commonVariable);
+
+    @InheritInverseConfiguration
+    CommonVariable commonVariableFromFastJson(FastJsonCommonVariable fastJsonCommonVariable);
 }

@@ -1,13 +1,17 @@
 package com.dwarfeng.scg.impl.configuration;
 
 import com.dwarfeng.scg.sdk.bean.FastJsonMapper;
+import com.dwarfeng.scg.sdk.bean.entity.FastJsonCommonVariable;
 import com.dwarfeng.scg.sdk.bean.entity.FastJsonGeneratorSupport;
 import com.dwarfeng.scg.sdk.bean.entity.FastJsonNodeVariable;
 import com.dwarfeng.scg.sdk.bean.entity.FastJsonScgSetting;
+import com.dwarfeng.scg.sdk.bean.key.formatter.CommonVariableStringKeyFormatter;
 import com.dwarfeng.scg.sdk.bean.key.formatter.NodeVariableStringKeyFormatter;
+import com.dwarfeng.scg.stack.bean.entity.CommonVariable;
 import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
 import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
 import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
+import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
 import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
 import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.impl.cache.RedisBatchBaseCache;
@@ -29,6 +33,8 @@ public class CacheConfiguration {
     private String scgSettingPrefix;
     @Value("${cache.prefix.entity.node_variable}")
     private String nodeVariablePrefix;
+    @Value("${cache.prefix.entity.common_variable}")
+    private String commonVariablePrefix;
 
     public CacheConfiguration(RedisTemplate<String, ?> template) {
         this.template = template;
@@ -66,6 +72,19 @@ public class CacheConfiguration {
                 new NodeVariableStringKeyFormatter(nodeVariablePrefix),
                 new MapStructBeanTransformer<>(
                         NodeVariable.class, FastJsonNodeVariable.class, FastJsonMapper.class
+                )
+        );
+    }
+
+    @Bean
+    @SuppressWarnings("unchecked")
+    public RedisBatchBaseCache<CommonVariableKey, CommonVariable, FastJsonCommonVariable>
+    commonVariableRedisBatchBaseCache() {
+        return new RedisBatchBaseCache<>(
+                (RedisTemplate<String, FastJsonCommonVariable>) template,
+                new CommonVariableStringKeyFormatter(commonVariablePrefix),
+                new MapStructBeanTransformer<>(
+                        CommonVariable.class, FastJsonCommonVariable.class, FastJsonMapper.class
                 )
         );
     }

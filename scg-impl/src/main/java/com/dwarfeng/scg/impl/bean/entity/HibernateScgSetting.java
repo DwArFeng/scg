@@ -14,8 +14,8 @@ import java.util.Set;
 @Table(name = "tbl_scg_setting")
 public class HibernateScgSetting implements Bean {
 
-    private static final long serialVersionUID = 8946210130400838602L;
-
+    private static final long serialVersionUID = 2758600261549358706L;
+    
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
     @Column(name = "id", length = Constraints.LENGTH_ID, nullable = false, unique = true)
@@ -43,6 +43,9 @@ public class HibernateScgSetting implements Bean {
     // -----------------------------------------------------------一对多-----------------------------------------------------------
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateNodeVariable.class, mappedBy = "scgSetting")
     private Set<HibernateNodeVariable> nodeVariables = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateCommonVariable.class, mappedBy = "scgSetting")
+    private Set<HibernateCommonVariable> commonVariables = new HashSet<>();
 
     public HibernateScgSetting() {
     }
@@ -119,6 +122,14 @@ public class HibernateScgSetting implements Bean {
 
     public void setNodeVariables(Set<HibernateNodeVariable> nodeVariables) {
         this.nodeVariables = nodeVariables;
+    }
+
+    public Set<HibernateCommonVariable> getCommonVariables() {
+        return commonVariables;
+    }
+
+    public void setCommonVariables(Set<HibernateCommonVariable> commonVariables) {
+        this.commonVariables = commonVariables;
     }
 
     @Override

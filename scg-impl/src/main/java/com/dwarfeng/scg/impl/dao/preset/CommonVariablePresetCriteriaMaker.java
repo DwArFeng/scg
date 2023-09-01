@@ -1,6 +1,6 @@
 package com.dwarfeng.scg.impl.dao.preset;
 
-import com.dwarfeng.scg.stack.service.NodeVariableMaintainService;
+import com.dwarfeng.scg.stack.service.CommonVariableMaintainService;
 import com.dwarfeng.subgrade.sdk.hibernate.criteria.PresetCriteriaMaker;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import org.hibernate.criterion.DetachedCriteria;
@@ -13,15 +13,15 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @Component
-public class NodeVariablePresetCriteriaMaker implements PresetCriteriaMaker {
+public class CommonVariablePresetCriteriaMaker implements PresetCriteriaMaker {
 
     @Override
     public void makeCriteria(DetachedCriteria criteria, String preset, Object[] objs) {
         switch (preset) {
-            case NodeVariableMaintainService.CHILD_FOR_SCG_SETTING:
+            case CommonVariableMaintainService.CHILD_FOR_SCG_SETTING:
                 childForScgSetting(criteria, objs);
                 break;
-            case NodeVariableMaintainService.SCG_SETTING_ID_LIKE:
+            case CommonVariableMaintainService.SCG_SETTING_ID_LIKE:
                 scgSettingIdLike(criteria, objs);
                 break;
             default:

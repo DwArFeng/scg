@@ -1,12 +1,16 @@
 package com.dwarfeng.scg.impl.bean;
 
+import com.dwarfeng.scg.impl.bean.entity.HibernateCommonVariable;
 import com.dwarfeng.scg.impl.bean.entity.HibernateGeneratorSupport;
 import com.dwarfeng.scg.impl.bean.entity.HibernateNodeVariable;
 import com.dwarfeng.scg.impl.bean.entity.HibernateScgSetting;
+import com.dwarfeng.scg.impl.bean.key.HibernateCommonVariableKey;
 import com.dwarfeng.scg.impl.bean.key.HibernateNodeVariableKey;
+import com.dwarfeng.scg.stack.bean.entity.CommonVariable;
 import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
 import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
 import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
+import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
 import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateLongIdKey;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateStringIdKey;
@@ -40,6 +44,11 @@ public interface HibernateMapper {
     @InheritInverseConfiguration
     NodeVariableKey nodeVariableKeyFromHibernate(HibernateNodeVariableKey hibernateNodeVariableKey);
 
+    HibernateCommonVariableKey commonVariableKeyToHibernate(CommonVariableKey commonVariableKey);
+
+    @InheritInverseConfiguration
+    CommonVariableKey commonVariableKeyFromHibernate(HibernateCommonVariableKey hibernateCommonVariableKey);
+
     @Mapping(target = "stringId", ignore = true)
     HibernateGeneratorSupport generatorSupportToHibernate(GeneratorSupport generatorSupport);
 
@@ -48,6 +57,7 @@ public interface HibernateMapper {
 
     @Mapping(target = "stringId", ignore = true)
     @Mapping(target = "nodeVariables", ignore = true)
+    @Mapping(target = "commonVariables", ignore = true)
     HibernateScgSetting scgSettingToHibernate(ScgSetting scgSetting);
 
     @InheritInverseConfiguration
@@ -61,4 +71,12 @@ public interface HibernateMapper {
 
     @InheritInverseConfiguration
     NodeVariable nodeVariableFromHibernate(HibernateNodeVariable hibernateNodeVariable);
+
+    @Mapping(target = "variableId", ignore = true)
+    @Mapping(target = "scgSettingId", ignore = true)
+    @Mapping(target = "scgSetting", ignore = true)
+    HibernateCommonVariable commonVariableToHibernate(CommonVariable commonVariable);
+
+    @InheritInverseConfiguration
+    CommonVariable commonVariableFromHibernate(HibernateCommonVariable hibernateCommonVariable);
 }

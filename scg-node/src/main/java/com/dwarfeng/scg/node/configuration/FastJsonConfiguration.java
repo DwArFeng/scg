@@ -1,10 +1,7 @@
 package com.dwarfeng.scg.node.configuration;
 
 import com.alibaba.fastjson.parser.ParserConfig;
-import com.dwarfeng.scg.sdk.bean.entity.FastJsonGeneratorSupport;
-import com.dwarfeng.scg.sdk.bean.entity.FastJsonNodeVariable;
-import com.dwarfeng.scg.sdk.bean.entity.FastJsonScgNodeInfo;
-import com.dwarfeng.scg.sdk.bean.entity.FastJsonScgSetting;
+import com.dwarfeng.scg.sdk.bean.entity.*;
 import com.dwarfeng.scg.sdk.bean.key.FastJsonScgNodeKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +19,7 @@ public class FastJsonConfiguration {
         ParserConfig.getGlobalInstance().addAccept(FastJsonScgNodeInfo.class.getCanonicalName());
         ParserConfig.getGlobalInstance().addAccept(FastJsonScgNodeKey.class.getCanonicalName());
         ParserConfig.getGlobalInstance().addAccept(FastJsonNodeVariable.class.getCanonicalName());
+        ParserConfig.getGlobalInstance().addAccept(FastJsonCommonVariable.class.getCanonicalName());
         LOGGER.debug("FastJson auto-type 白名单配置完毕");
     }
 }

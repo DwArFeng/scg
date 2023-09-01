@@ -1,18 +1,14 @@
 package com.dwarfeng.scg.node.configuration;
 
 import com.dwarfeng.scg.impl.service.operation.ScgSettingCrudOperation;
-import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
-import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
-import com.dwarfeng.scg.stack.bean.entity.ScgNodeInfo;
-import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
+import com.dwarfeng.scg.stack.bean.entity.*;
+import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
 import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
 import com.dwarfeng.scg.stack.bean.key.ScgNodeKey;
+import com.dwarfeng.scg.stack.cache.CommonVariableCache;
 import com.dwarfeng.scg.stack.cache.GeneratorSupportCache;
 import com.dwarfeng.scg.stack.cache.NodeVariableCache;
-import com.dwarfeng.scg.stack.dao.GeneratorSupportDao;
-import com.dwarfeng.scg.stack.dao.NodeVariableDao;
-import com.dwarfeng.scg.stack.dao.ScgNodeInfoDao;
-import com.dwarfeng.scg.stack.dao.ScgSettingDao;
+import com.dwarfeng.scg.stack.dao.*;
 import com.dwarfeng.subgrade.impl.bean.key.ExceptionKeyFetcher;
 import com.dwarfeng.subgrade.impl.service.*;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
@@ -33,18 +29,23 @@ public class ServiceConfiguration {
     private final ScgNodeInfoDao scgNodeInfoDao;
     private final NodeVariableDao nodeVariableDao;
     private final NodeVariableCache nodeVariableCache;
+    private final CommonVariableDao commonVariableDao;
+    private final CommonVariableCache commonVariableCache;
 
     @Value("${cache.timeout.entity.generator_support}")
     private long generatorSupportTimeout;
     @Value("${cache.timeout.entity.node_variable}")
     private long nodeVariableTimeout;
+    @Value("${cache.timeout.entity.common_variable}")
+    private long commonVariableTimeout;
 
     public ServiceConfiguration(
             ServiceExceptionMapperConfiguration serviceExceptionMapperConfiguration,
             GeneratorSupportDao generatorSupportDao, GeneratorSupportCache generatorSupportCache,
             ScgSettingCrudOperation scgSettingCrudOperation, ScgSettingDao scgSettingDao,
             ScgNodeInfoDao scgNodeInfoDao,
-            NodeVariableDao nodeVariableDao, NodeVariableCache nodeVariableCache
+            NodeVariableDao nodeVariableDao, NodeVariableCache nodeVariableCache,
+            CommonVariableDao commonVariableDao, CommonVariableCache commonVariableCache
     ) {
         this.serviceExceptionMapperConfiguration = serviceExceptionMapperConfiguration;
         this.generatorSupportDao = generatorSupportDao;
@@ -54,6 +55,8 @@ public class ServiceConfiguration {
         this.scgNodeInfoDao = scgNodeInfoDao;
         this.nodeVariableDao = nodeVariableDao;
         this.nodeVariableCache = nodeVariableCache;
+        this.commonVariableDao = commonVariableDao;
+        this.commonVariableCache = commonVariableCache;
     }
 
     @Bean
@@ -167,6 +170,36 @@ public class ServiceConfiguration {
     public DaoOnlyPresetLookupService<NodeVariable> nodeVariableDaoOnlyPresetLookupService() {
         return new DaoOnlyPresetLookupService<>(
                 nodeVariableDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public GeneralBatchCrudService<CommonVariableKey, CommonVariable> commonVariableGeneralBatchCrudService() {
+        return new GeneralBatchCrudService<>(
+                commonVariableDao,
+                commonVariableCache,
+                new ExceptionKeyFetcher<>(),
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN,
+                commonVariableTimeout
+        );
+    }
+
+    @Bean
+    public DaoOnlyEntireLookupService<CommonVariable> commonVariableDaoOnlyEntireLookupService() {
+        return new DaoOnlyEntireLookupService<>(
+                commonVariableDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public DaoOnlyPresetLookupService<CommonVariable> commonVariableDaoOnlyPresetLookupService() {
+        return new DaoOnlyPresetLookupService<>(
+                commonVariableDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
         );

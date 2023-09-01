@@ -6,6 +6,7 @@
 
 - 定义实体及其维护服务，并通过单元测试。
   - com.dwarfeng.scg.stack.bean.entity.NodeVariable。
+  - com.dwarfeng.scg.stack.bean.entity.CommonVariable。
 
 - 使用 `subgrade` 工具库替代本地缓存实现。
 
