@@ -6,19 +6,22 @@ import com.dwarfeng.scg.stack.handler.Generator;
 import com.dwarfeng.scg.stack.handler.GeneratorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class GeneratorHandlerImpl implements GeneratorHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GeneratorHandlerImpl.class);
 
-    @Autowired(required = false)
-    private List<GeneratorMaker> generatorMakers = new ArrayList<>();
+    private final List<GeneratorMaker> generatorMakers;
+
+    public GeneratorHandlerImpl(List<GeneratorMaker> generatorMakers) {
+        this.generatorMakers = Optional.ofNullable(generatorMakers).orElse(Collections.emptyList());
+    }
 
     @Override
     public Generator make(String type, String param) throws GeneratorException {

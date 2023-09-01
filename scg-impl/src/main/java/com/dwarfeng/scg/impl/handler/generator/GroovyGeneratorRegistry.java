@@ -10,7 +10,6 @@ import com.dwarfeng.scg.stack.handler.Generator;
 import groovy.lang.GroovyClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -33,11 +32,11 @@ public class GroovyGeneratorRegistry extends AbstractGeneratorRegistry {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GroovyGeneratorRegistry.class);
 
-    @Autowired
-    private ApplicationContext ctx;
+    private final ApplicationContext ctx;
 
-    public GroovyGeneratorRegistry() {
+    public GroovyGeneratorRegistry(ApplicationContext ctx) {
         super(GENERATOR_TYPE);
+        this.ctx = ctx;
     }
 
     @Override
