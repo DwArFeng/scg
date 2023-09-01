@@ -72,7 +72,7 @@ public class GenerateHandlerImpl implements GenerateHandler {
     }
 
     private String generateWithIndependent(StringIdKey scgSettingKey) throws Exception {
-        Lock lock = lockLocalCacheHandler.getLocalLock(scgSettingKey);
+        Lock lock = lockLocalCacheHandler.get(scgSettingKey);
         lock.lock();
         try {
             ScgNodeInfo scgNodeInfo = scgNodeInfoMaintainService.getIfExists(
@@ -84,7 +84,7 @@ public class GenerateHandlerImpl implements GenerateHandler {
                     deviceId,
                     false
             );
-            Generator generator = generateLocalCacheHandler.getGenerator(scgSettingKey);
+            Generator generator = generateLocalCacheHandler.get(scgSettingKey);
             GenerateResult generateResult = generator.generate(generateInfo);
             scgNodeInfo = new ScgNodeInfo(
                     new ScgNodeKey(scgSettingKey.getStringId(), deviceId), new Date(), generateResult.getNeoIndex()
@@ -118,7 +118,7 @@ public class GenerateHandlerImpl implements GenerateHandler {
     }
 
     private List<String> batchGenerateWithIndependent(StringIdKey scgSettingKey, int size) throws Exception {
-        Lock lock = lockLocalCacheHandler.getLocalLock(scgSettingKey);
+        Lock lock = lockLocalCacheHandler.get(scgSettingKey);
         lock.lock();
         try {
             ScgNodeInfo scgNodeInfo = scgNodeInfoMaintainService.getIfExists(
@@ -130,7 +130,7 @@ public class GenerateHandlerImpl implements GenerateHandler {
                     deviceId,
                     false
             );
-            Generator generator = generateLocalCacheHandler.getGenerator(scgSettingKey);
+            Generator generator = generateLocalCacheHandler.get(scgSettingKey);
             List<String> result = new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 GenerateResult generateResult = generator.generate(generateInfo);
@@ -150,7 +150,7 @@ public class GenerateHandlerImpl implements GenerateHandler {
 
     @Override
     public Generator getGenerator(StringIdKey scgSettingKey) throws HandlerException {
-        return generateLocalCacheHandler.getGenerator(scgSettingKey);
+        return generateLocalCacheHandler.get(scgSettingKey);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class GenerateHandlerImpl implements GenerateHandler {
 
     @Override
     public Lock getLocalLock(StringIdKey scgSettingKey) throws HandlerException {
-        return lockLocalCacheHandler.getLocalLock(scgSettingKey);
+        return lockLocalCacheHandler.get(scgSettingKey);
     }
 
     @Override

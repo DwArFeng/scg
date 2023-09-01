@@ -2,81 +2,52 @@ package com.dwarfeng.scg.impl.handler;
 
 import com.dwarfeng.scg.stack.handler.LockLocalCacheHandler;
 import com.dwarfeng.scg.stack.service.ScgSettingMaintainService;
+import com.dwarfeng.subgrade.impl.handler.Fetcher;
+import com.dwarfeng.subgrade.impl.handler.GeneralLocalCacheHandler;
+import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Component
 public class LockLocalCacheHandlerImpl implements LockLocalCacheHandler {
 
-    private final LockFetcher lockFetcher;
-
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
-    private final Map<StringIdKey, Lock> lockMap = new HashMap<>();
-    private final Set<StringIdKey> notExistSettings = new HashSet<>();
+    private final GeneralLocalCacheHandler<StringIdKey, Lock> handler;
 
     public LockLocalCacheHandlerImpl(LockFetcher lockFetcher) {
-        this.lockFetcher = lockFetcher;
+        this.handler = new GeneralLocalCacheHandler<>(lockFetcher);
     }
 
-    @SuppressWarnings("DuplicatedCode")
+    @BehaviorAnalyse
     @Override
-    public Lock getLocalLock(StringIdKey scgSettingKey) throws HandlerException {
-        try {
-            lock.readLock().lock();
-            try {
-                if (lockMap.containsKey(scgSettingKey)) {
-                    return lockMap.get(scgSettingKey);
-                }
-                if (notExistSettings.contains(scgSettingKey)) {
-                    return null;
-                }
-            } finally {
-                lock.readLock().unlock();
-            }
-            lock.writeLock().lock();
-            try {
-                if (lockMap.containsKey(scgSettingKey)) {
-                    return lockMap.get(scgSettingKey);
-                }
-                if (notExistSettings.contains(scgSettingKey)) {
-                    return null;
-                }
-                Lock lock = lockFetcher.fetchLock(scgSettingKey);
-                if (Objects.nonNull(lock)) {
-                    lockMap.put(scgSettingKey, lock);
-                    return lock;
-                }
-                notExistSettings.add(scgSettingKey);
-                return null;
-            } finally {
-                lock.writeLock().unlock();
-            }
-        } catch (Exception e) {
-            throw new HandlerException(e);
-        }
+    public boolean exists(StringIdKey key) throws HandlerException {
+        return handler.exists(key);
     }
 
+    @BehaviorAnalyse
     @Override
-    public void clear() {
-        lock.writeLock().lock();
-        try {
-            lockMap.clear();
-            notExistSettings.clear();
-        } finally {
-            lock.writeLock().unlock();
-        }
+    public Lock get(StringIdKey key) throws HandlerException {
+        return handler.get(key);
+    }
+
+    @BehaviorAnalyse
+    @Override
+    public boolean remove(StringIdKey key) {
+        return handler.remove(key);
+    }
+
+    @BehaviorAnalyse
+    @Override
+    public void clear() throws HandlerException {
+        handler.clear();
     }
 
     @Component
-    public static class LockFetcher {
+    public static class LockFetcher implements Fetcher<StringIdKey, Lock> {
 
         private final ScgSettingMaintainService scgSettingMaintainService;
 
@@ -84,13 +55,21 @@ public class LockLocalCacheHandlerImpl implements LockLocalCacheHandler {
             this.scgSettingMaintainService = scgSettingMaintainService;
         }
 
+        @Override
+        @BehaviorAnalyse
         @Transactional(
                 transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class
         )
-        public Lock fetchLock(StringIdKey scgSettingKey) throws Exception {
-            if (!scgSettingMaintainService.exists(scgSettingKey)) {
-                return null;
-            }
+        public boolean exists(StringIdKey key) throws Exception {
+            return scgSettingMaintainService.exists(key);
+        }
+
+        @Override
+        @BehaviorAnalyse
+        @Transactional(
+                transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class
+        )
+        public Lock fetch(StringIdKey key) {
             return new ReentrantLock();
         }
     }
