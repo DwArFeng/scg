@@ -2,16 +2,21 @@ package com.dwarfeng.scg.impl.configuration;
 
 import com.dwarfeng.scg.impl.bean.HibernateMapper;
 import com.dwarfeng.scg.impl.bean.entity.HibernateGeneratorSupport;
+import com.dwarfeng.scg.impl.bean.entity.HibernateNodeVariable;
 import com.dwarfeng.scg.impl.bean.entity.HibernateScgSetting;
+import com.dwarfeng.scg.impl.bean.key.HibernateNodeVariableKey;
 import com.dwarfeng.scg.impl.dao.preset.GeneratorSupportPresetCriteriaMaker;
+import com.dwarfeng.scg.impl.dao.preset.NodeVariablePresetCriteriaMaker;
 import com.dwarfeng.scg.impl.dao.preset.ScgNodeInfoPresetEntityFilter;
 import com.dwarfeng.scg.impl.dao.preset.ScgSettingPresetCriteriaMaker;
 import com.dwarfeng.scg.sdk.bean.FastJsonMapper;
 import com.dwarfeng.scg.sdk.bean.entity.FastJsonScgNodeInfo;
 import com.dwarfeng.scg.sdk.bean.key.formatter.ScgNodeStringKeyFormatter;
 import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
+import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
 import com.dwarfeng.scg.stack.bean.entity.ScgNodeInfo;
 import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
+import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
 import com.dwarfeng.scg.stack.bean.key.ScgNodeKey;
 import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.impl.dao.*;
@@ -33,6 +38,7 @@ public class DaoConfiguration {
     private final GeneratorSupportPresetCriteriaMaker generatorSupportPresetCriteriaMaker;
     private final ScgSettingPresetCriteriaMaker scgSettingPresetCriteriaMaker;
     private final ScgNodeInfoPresetEntityFilter scgNodeInfoPresetEntityFilter;
+    private final NodeVariablePresetCriteriaMaker nodeVariablePresetCriteriaMaker;
 
     @Value("${hibernate.jdbc.batch_size}")
     private int batchSize;
@@ -44,13 +50,15 @@ public class DaoConfiguration {
             HibernateTemplate hibernateTemplate, RedisTemplate<String, ?> redisTemplate,
             GeneratorSupportPresetCriteriaMaker generatorSupportPresetCriteriaMaker,
             ScgSettingPresetCriteriaMaker scgSettingPresetCriteriaMaker,
-            ScgNodeInfoPresetEntityFilter scgNodeInfoPresetEntityFilter
+            ScgNodeInfoPresetEntityFilter scgNodeInfoPresetEntityFilter,
+            NodeVariablePresetCriteriaMaker nodeVariablePresetCriteriaMaker
     ) {
         this.hibernateTemplate = hibernateTemplate;
         this.redisTemplate = redisTemplate;
         this.generatorSupportPresetCriteriaMaker = generatorSupportPresetCriteriaMaker;
         this.scgSettingPresetCriteriaMaker = scgSettingPresetCriteriaMaker;
         this.scgNodeInfoPresetEntityFilter = scgNodeInfoPresetEntityFilter;
+        this.nodeVariablePresetCriteriaMaker = nodeVariablePresetCriteriaMaker;
     }
 
     @Bean
@@ -156,6 +164,42 @@ public class DaoConfiguration {
                 new MapStructBeanTransformer<>(ScgNodeInfo.class, FastJsonScgNodeInfo.class, FastJsonMapper.class),
                 scgNodeInfoPresetEntityFilter,
                 scgNodeInfoDbKey
+        );
+    }
+
+    @Bean
+    public HibernateBatchBaseDao<NodeVariableKey, HibernateNodeVariableKey, NodeVariable, HibernateNodeVariable>
+    nodeVariableHibernateBatchBaseDao() {
+        return new HibernateBatchBaseDao<>(
+                hibernateTemplate,
+                new MapStructBeanTransformer<>(
+                        NodeVariableKey.class, HibernateNodeVariableKey.class, HibernateMapper.class
+                ),
+                new MapStructBeanTransformer<>(NodeVariable.class, HibernateNodeVariable.class, HibernateMapper.class),
+                HibernateNodeVariable.class,
+                new DefaultDeletionMod<>(),
+                batchSize
+        );
+    }
+
+    @Bean
+    public HibernateEntireLookupDao<NodeVariable, HibernateNodeVariable>
+    nodeVariableHibernateEntireLookupDao() {
+        return new HibernateEntireLookupDao<>(
+                hibernateTemplate,
+                new MapStructBeanTransformer<>(NodeVariable.class, HibernateNodeVariable.class, HibernateMapper.class),
+                HibernateNodeVariable.class
+        );
+    }
+
+    @Bean
+    public HibernatePresetLookupDao<NodeVariable, HibernateNodeVariable>
+    nodeVariableHibernatePresetLookupDao() {
+        return new HibernatePresetLookupDao<>(
+                hibernateTemplate,
+                new MapStructBeanTransformer<>(NodeVariable.class, HibernateNodeVariable.class, HibernateMapper.class),
+                HibernateNodeVariable.class,
+                nodeVariablePresetCriteriaMaker
         );
     }
 }

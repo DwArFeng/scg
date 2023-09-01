@@ -5,14 +5,16 @@ import com.dwarfeng.subgrade.sdk.bean.key.HibernateStringIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Entity
 @IdClass(HibernateStringIdKey.class)
 @Table(name = "tbl_scg_setting")
 public class HibernateScgSetting implements Bean {
 
-    private static final long serialVersionUID = 3752960038887623441L;
+    private static final long serialVersionUID = 8946210130400838602L;
 
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
@@ -37,6 +39,10 @@ public class HibernateScgSetting implements Bean {
 
     @Column(name = "distributed")
     private boolean distributed;
+
+    // -----------------------------------------------------------一对多-----------------------------------------------------------
+    @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateNodeVariable.class, mappedBy = "scgSetting")
+    private Set<HibernateNodeVariable> nodeVariables = new HashSet<>();
 
     public HibernateScgSetting() {
     }
@@ -105,6 +111,14 @@ public class HibernateScgSetting implements Bean {
 
     public void setDistributed(boolean distributed) {
         this.distributed = distributed;
+    }
+
+    public Set<HibernateNodeVariable> getNodeVariables() {
+        return nodeVariables;
+    }
+
+    public void setNodeVariables(Set<HibernateNodeVariable> nodeVariables) {
+        this.nodeVariables = nodeVariables;
     }
 
     @Override

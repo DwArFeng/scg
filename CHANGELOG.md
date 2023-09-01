@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 定义实体及其维护服务，并通过单元测试。
+  - com.dwarfeng.scg.stack.bean.entity.NodeVariable。
+
 - 使用 `subgrade` 工具库替代本地缓存实现。
 
 - 将 Bean 的注入形式由注解注入改为构造器注入。

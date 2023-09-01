@@ -2,11 +2,15 @@ package com.dwarfeng.scg.impl.configuration;
 
 import com.dwarfeng.scg.impl.service.operation.ScgSettingCrudOperation;
 import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
+import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
 import com.dwarfeng.scg.stack.bean.entity.ScgNodeInfo;
 import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
+import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
 import com.dwarfeng.scg.stack.bean.key.ScgNodeKey;
 import com.dwarfeng.scg.stack.cache.GeneratorSupportCache;
+import com.dwarfeng.scg.stack.cache.NodeVariableCache;
 import com.dwarfeng.scg.stack.dao.GeneratorSupportDao;
+import com.dwarfeng.scg.stack.dao.NodeVariableDao;
 import com.dwarfeng.scg.stack.dao.ScgNodeInfoDao;
 import com.dwarfeng.scg.stack.dao.ScgSettingDao;
 import com.dwarfeng.subgrade.impl.bean.key.ExceptionKeyFetcher;
@@ -27,15 +31,20 @@ public class ServiceConfiguration {
     private final ScgSettingCrudOperation scgSettingCrudOperation;
     private final ScgSettingDao scgSettingDao;
     private final ScgNodeInfoDao scgNodeInfoDao;
+    private final NodeVariableDao nodeVariableDao;
+    private final NodeVariableCache nodeVariableCache;
 
     @Value("${cache.timeout.entity.generator_support}")
     private long generatorSupportTimeout;
+    @Value("${cache.timeout.entity.node_variable}")
+    private long nodeVariableTimeout;
 
     public ServiceConfiguration(
             ServiceExceptionMapperConfiguration serviceExceptionMapperConfiguration,
             GeneratorSupportDao generatorSupportDao, GeneratorSupportCache generatorSupportCache,
             ScgSettingCrudOperation scgSettingCrudOperation, ScgSettingDao scgSettingDao,
-            ScgNodeInfoDao scgNodeInfoDao
+            ScgNodeInfoDao scgNodeInfoDao,
+            NodeVariableDao nodeVariableDao, NodeVariableCache nodeVariableCache
     ) {
         this.serviceExceptionMapperConfiguration = serviceExceptionMapperConfiguration;
         this.generatorSupportDao = generatorSupportDao;
@@ -43,6 +52,8 @@ public class ServiceConfiguration {
         this.scgSettingCrudOperation = scgSettingCrudOperation;
         this.scgSettingDao = scgSettingDao;
         this.scgNodeInfoDao = scgNodeInfoDao;
+        this.nodeVariableDao = nodeVariableDao;
+        this.nodeVariableCache = nodeVariableCache;
     }
 
     @Bean
@@ -126,6 +137,36 @@ public class ServiceConfiguration {
     public DaoOnlyPresetLookupService<ScgNodeInfo> scgNodeInfoDaoOnlyPresetLookupService() {
         return new DaoOnlyPresetLookupService<>(
                 scgNodeInfoDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public GeneralBatchCrudService<NodeVariableKey, NodeVariable> nodeVariableGeneralBatchCrudService() {
+        return new GeneralBatchCrudService<>(
+                nodeVariableDao,
+                nodeVariableCache,
+                new ExceptionKeyFetcher<>(),
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN,
+                nodeVariableTimeout
+        );
+    }
+
+    @Bean
+    public DaoOnlyEntireLookupService<NodeVariable> nodeVariableDaoOnlyEntireLookupService() {
+        return new DaoOnlyEntireLookupService<>(
+                nodeVariableDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public DaoOnlyPresetLookupService<NodeVariable> nodeVariableDaoOnlyPresetLookupService() {
+        return new DaoOnlyPresetLookupService<>(
+                nodeVariableDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
         );

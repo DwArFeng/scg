@@ -1,11 +1,16 @@
 package com.dwarfeng.scg.impl.service.operation;
 
+import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
 import com.dwarfeng.scg.stack.bean.entity.ScgNodeInfo;
 import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
+import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
 import com.dwarfeng.scg.stack.bean.key.ScgNodeKey;
+import com.dwarfeng.scg.stack.cache.NodeVariableCache;
 import com.dwarfeng.scg.stack.cache.ScgSettingCache;
+import com.dwarfeng.scg.stack.dao.NodeVariableDao;
 import com.dwarfeng.scg.stack.dao.ScgNodeInfoDao;
 import com.dwarfeng.scg.stack.dao.ScgSettingDao;
+import com.dwarfeng.scg.stack.service.NodeVariableMaintainService;
 import com.dwarfeng.scg.stack.service.ScgNodeInfoMaintainService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes;
 import com.dwarfeng.subgrade.sdk.service.custom.operation.BatchCrudOperation;
@@ -25,16 +30,22 @@ public class ScgSettingCrudOperation implements BatchCrudOperation<StringIdKey, 
 
     private final ScgNodeInfoDao scgNodeInfoDao;
 
+    private final NodeVariableDao nodeVariableDao;
+    private final NodeVariableCache nodeVariableCache;
+
     @Value("${cache.timeout.entity.scg_setting}")
     private long scgSettingTimeout;
 
     public ScgSettingCrudOperation(
             ScgSettingDao scgSettingDao, ScgSettingCache scgSettingCache,
-            ScgNodeInfoDao scgNodeInfoDao
+            ScgNodeInfoDao scgNodeInfoDao,
+            NodeVariableDao nodeVariableDao, NodeVariableCache nodeVariableCache
     ) {
         this.scgSettingDao = scgSettingDao;
         this.scgSettingCache = scgSettingCache;
         this.scgNodeInfoDao = scgNodeInfoDao;
+        this.nodeVariableDao = nodeVariableDao;
+        this.nodeVariableCache = nodeVariableCache;
     }
 
     @Override
@@ -70,15 +81,22 @@ public class ScgSettingCrudOperation implements BatchCrudOperation<StringIdKey, 
 
     @Override
     public void delete(StringIdKey key) throws Exception {
-        // 删除与通知设置相关的路由器信息。
+        // 删除与流水码生成设置相关的路由器信息。
         List<ScgNodeKey> scgNodeInfoKeys = scgNodeInfoDao.lookup(
                 ScgNodeInfoMaintainService.SCG_SETTING_ID_EQUALS, new Object[]{key.getStringId()}
         ).stream().map(ScgNodeInfo::getKey).collect(Collectors.toList());
         scgNodeInfoDao.batchDelete(scgNodeInfoKeys);
 
-        // 删除通知设置实体本身。
-        scgSettingDao.delete(key);
+        // 删除与流水码生成设置相关的节点变量。
+        List<NodeVariableKey> nodeVariableKeys = nodeVariableDao.lookup(
+                NodeVariableMaintainService.CHILD_FOR_SCG_SETTING, new Object[]{key}
+        ).stream().map(NodeVariable::getKey).collect(Collectors.toList());
+        nodeVariableCache.batchDelete(nodeVariableKeys);
+        nodeVariableDao.batchDelete(nodeVariableKeys);
+
+        // 删除流水码生成设置实体本身。
         scgSettingCache.delete(key);
+        scgSettingDao.delete(key);
     }
 
     @Override

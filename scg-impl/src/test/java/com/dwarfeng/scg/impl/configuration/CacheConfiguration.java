@@ -2,9 +2,13 @@ package com.dwarfeng.scg.impl.configuration;
 
 import com.dwarfeng.scg.sdk.bean.FastJsonMapper;
 import com.dwarfeng.scg.sdk.bean.entity.FastJsonGeneratorSupport;
+import com.dwarfeng.scg.sdk.bean.entity.FastJsonNodeVariable;
 import com.dwarfeng.scg.sdk.bean.entity.FastJsonScgSetting;
+import com.dwarfeng.scg.sdk.bean.key.formatter.NodeVariableStringKeyFormatter;
 import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
+import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
 import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
+import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
 import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.impl.cache.RedisBatchBaseCache;
 import com.dwarfeng.subgrade.sdk.redis.formatter.StringIdStringKeyFormatter;
@@ -23,6 +27,8 @@ public class CacheConfiguration {
     private String generatorSupportPrefix;
     @Value("${cache.prefix.entity.scg_setting}")
     private String scgSettingPrefix;
+    @Value("${cache.prefix.entity.node_variable}")
+    private String nodeVariablePrefix;
 
     public CacheConfiguration(RedisTemplate<String, ?> template) {
         this.template = template;
@@ -48,6 +54,19 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonScgSetting>) template,
                 new StringIdStringKeyFormatter(scgSettingPrefix),
                 new MapStructBeanTransformer<>(ScgSetting.class, FastJsonScgSetting.class, FastJsonMapper.class)
+        );
+    }
+
+    @Bean
+    @SuppressWarnings("unchecked")
+    public RedisBatchBaseCache<NodeVariableKey, NodeVariable, FastJsonNodeVariable>
+    nodeVariableRedisBatchBaseCache() {
+        return new RedisBatchBaseCache<>(
+                (RedisTemplate<String, FastJsonNodeVariable>) template,
+                new NodeVariableStringKeyFormatter(nodeVariablePrefix),
+                new MapStructBeanTransformer<>(
+                        NodeVariable.class, FastJsonNodeVariable.class, FastJsonMapper.class
+                )
         );
     }
 }

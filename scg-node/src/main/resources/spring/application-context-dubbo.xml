@@ -31,4 +31,6 @@
     <dubbo:service interface="com.dwarfeng.scg.stack.service.ScgNodeInfoMaintainService"
                    ref="scgNodeInfoMaintainServiceImpl"/>
     <dubbo:service interface="com.dwarfeng.scg.stack.service.GenerateService" ref="generateServiceImpl"/>
+    <dubbo:service interface="com.dwarfeng.scg.stack.service.NodeVariableMaintainService"
+                   ref="nodeVariableMaintainServiceImpl"/>
 </beans>
