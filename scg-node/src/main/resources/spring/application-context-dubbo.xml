@@ -35,4 +35,6 @@
                    ref="nodeVariableMaintainServiceImpl"/>
     <dubbo:service interface="com.dwarfeng.scg.stack.service.NodeVariableOperateService"
                    ref="nodeVariableOperateServiceImpl"/>
+    <dubbo:service interface="com.dwarfeng.scg.stack.service.CommonVariableOperateService"
+                   ref="commonVariableOperateServiceImpl"/>
 </beans>

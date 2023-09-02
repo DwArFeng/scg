@@ -1,12 +1,12 @@
 package com.dwarfeng.scg.impl.handler;
 
-import com.dwarfeng.scg.stack.bean.dto.NodeVariableInspectInfo;
-import com.dwarfeng.scg.stack.bean.dto.NodeVariableRemoveInfo;
-import com.dwarfeng.scg.stack.bean.dto.NodeVariableUpsertInfo;
-import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
-import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
-import com.dwarfeng.scg.stack.handler.NodeVariableOperateHandler;
-import com.dwarfeng.scg.stack.service.NodeVariableMaintainService;
+import com.dwarfeng.scg.stack.bean.dto.CommonVariableInspectInfo;
+import com.dwarfeng.scg.stack.bean.dto.CommonVariableRemoveInfo;
+import com.dwarfeng.scg.stack.bean.dto.CommonVariableUpsertInfo;
+import com.dwarfeng.scg.stack.bean.entity.CommonVariable;
+import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
+import com.dwarfeng.scg.stack.handler.CommonVariableOperateHandler;
+import com.dwarfeng.scg.stack.service.CommonVariableMaintainService;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
 import org.springframework.stereotype.Component;
@@ -15,39 +15,37 @@ import javax.annotation.Nullable;
 import java.util.Date;
 
 @Component
-public class NodeVariableOperateHandlerImpl implements NodeVariableOperateHandler {
+public class CommonVariableOperateHandlerImpl implements CommonVariableOperateHandler {
 
-    private final NodeVariableMaintainService nodeVariableMaintainService;
+    private final CommonVariableMaintainService commonVariableMaintainService;
 
     private final HandlerValidator handlerValidator;
 
-    public NodeVariableOperateHandlerImpl(
-            NodeVariableMaintainService nodeVariableMaintainService,
+    public CommonVariableOperateHandlerImpl(
+            CommonVariableMaintainService commonVariableMaintainService,
             HandlerValidator handlerValidator
     ) {
-        this.nodeVariableMaintainService = nodeVariableMaintainService;
+        this.commonVariableMaintainService = commonVariableMaintainService;
         this.handlerValidator = handlerValidator;
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Nullable
     @Override
-    public NodeVariable inspect(NodeVariableInspectInfo inspectInfo) throws HandlerException {
+    public CommonVariable inspect(CommonVariableInspectInfo inspectInfo) throws HandlerException {
         try {
             // 展开参数。
             String scgSettingId = inspectInfo.getScgSettingId();
             StringIdKey scgSettingKey = new StringIdKey(scgSettingId);
-            Integer deviceId = inspectInfo.getDeviceId();
             String variableId = inspectInfo.getVariableId();
 
             // 确认流水码生成设置存在。
             handlerValidator.makeSureScgSettingExists(scgSettingKey);
 
-            // 构造 NodeVariableKey。
-            NodeVariableKey nodeVariableKey = new NodeVariableKey(scgSettingId, deviceId, variableId);
+            // 构造 CommonVariableKey。
+            CommonVariableKey commonVariableKey = new CommonVariableKey(scgSettingId, variableId);
 
-            // 查询并返回节点变量。
-            return nodeVariableMaintainService.getIfExists(nodeVariableKey);
+            // 查询并返回公共变量。
+            return commonVariableMaintainService.getIfExists(commonVariableKey);
         } catch (HandlerException e) {
             throw e;
         } catch (Exception e) {
@@ -57,12 +55,11 @@ public class NodeVariableOperateHandlerImpl implements NodeVariableOperateHandle
 
     @SuppressWarnings("DuplicatedCode")
     @Override
-    public void upsert(NodeVariableUpsertInfo upsertInfo) throws HandlerException {
+    public void upsert(CommonVariableUpsertInfo upsertInfo) throws HandlerException {
         try {
             // 展开参数。
             String scgSettingId = upsertInfo.getScgSettingId();
             StringIdKey scgSettingKey = new StringIdKey(scgSettingId);
-            Integer deviceId = upsertInfo.getDeviceId();
             String variableId = upsertInfo.getVariableId();
             String stringValue = upsertInfo.getStringValue();
             Boolean booleanValue = upsertInfo.getBooleanValue();
@@ -74,15 +71,15 @@ public class NodeVariableOperateHandlerImpl implements NodeVariableOperateHandle
             // 确认流水码生成设置存在。
             handlerValidator.makeSureScgSettingExists(scgSettingKey);
 
-            // 构造 NodeVariable。
-            NodeVariableKey nodeVariableKey = new NodeVariableKey(scgSettingId, deviceId, variableId);
-            NodeVariable nodeVariable = new NodeVariable(
-                    nodeVariableKey, stringValue, booleanValue, integerValue, longValue, doubleValue, dateValue,
+            // 构造 CommonVariable。
+            CommonVariableKey commonVariableKey = new CommonVariableKey(scgSettingId, variableId);
+            CommonVariable commonVariable = new CommonVariable(
+                    commonVariableKey, stringValue, booleanValue, integerValue, longValue, doubleValue, dateValue,
                     new Date()
             );
 
-            // 插入或更新节点变量。
-            nodeVariableMaintainService.insertOrUpdate(nodeVariable);
+            // 插入或更新公共变量。
+            commonVariableMaintainService.insertOrUpdate(commonVariable);
         } catch (HandlerException e) {
             throw e;
         } catch (Exception e) {
@@ -90,24 +87,22 @@ public class NodeVariableOperateHandlerImpl implements NodeVariableOperateHandle
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
-    public void remove(NodeVariableRemoveInfo removeInfo) throws HandlerException {
+    public void remove(CommonVariableRemoveInfo removeInfo) throws HandlerException {
         try {
             // 展开参数。
             String scgSettingId = removeInfo.getScgSettingId();
             StringIdKey scgSettingKey = new StringIdKey(scgSettingId);
-            Integer deviceId = removeInfo.getDeviceId();
             String variableId = removeInfo.getVariableId();
 
             // 确认流水码生成设置存在。
             handlerValidator.makeSureScgSettingExists(scgSettingKey);
 
-            // 构造 NodeVariableKey。
-            NodeVariableKey nodeVariableKey = new NodeVariableKey(scgSettingId, deviceId, variableId);
+            // 构造 CommonVariableKey。
+            CommonVariableKey commonVariableKey = new CommonVariableKey(scgSettingId, variableId);
 
-            // 删除节点变量。
-            nodeVariableMaintainService.deleteIfExists(nodeVariableKey);
+            // 删除公共变量。
+            commonVariableMaintainService.deleteIfExists(commonVariableKey);
         } catch (HandlerException e) {
             throw e;
         } catch (Exception e) {
