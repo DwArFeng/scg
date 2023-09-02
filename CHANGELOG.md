@@ -4,6 +4,10 @@
 
 #### 功能构建
 
+- 优化 `spring-telqos` 结构。
+  - 优化指令注解。
+  - 使用 `package-scan` 扫描 `telqos` 包内所有指令。
+
 - 定义实体的操作服务。
   - com.dwarfeng.scg.stack.service.NodeVariableOperateService。
   - com.dwarfeng.scg.stack.service.CommonVariableOperateService。

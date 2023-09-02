@@ -2,6 +2,7 @@ package com.dwarfeng.scg.impl.service.telqos;
 
 import com.dwarfeng.scg.stack.handler.Generator;
 import com.dwarfeng.scg.stack.service.GenerateQosService;
+import com.dwarfeng.springtelqos.node.config.TelqosCommand;
 import com.dwarfeng.springtelqos.sdk.command.CliCommand;
 import com.dwarfeng.springtelqos.stack.command.Context;
 import com.dwarfeng.springtelqos.stack.exception.TelqosException;
@@ -9,13 +10,12 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Component
+@TelqosCommand
 public class GenerateLocalCacheCommand extends CliCommand {
 
     private static final String COMMAND_OPTION_LOOKUP = "l";
@@ -27,10 +27,12 @@ public class GenerateLocalCacheCommand extends CliCommand {
     };
 
     private static final String IDENTITY = "glc";
-    private static final String DESCRIPTION = "数据记录本地缓存操作";
+    private static final String DESCRIPTION = "生成器本地缓存操作";
 
-    private static final String CMD_LINE_SYNTAX_LOOKUP = "glc -" + COMMAND_OPTION_LOOKUP + " [id]";
-    private static final String CMD_LINE_SYNTAX_CLEAR = "glc -" + COMMAND_OPTION_CLEAR;
+    private static final String CMD_LINE_SYNTAX_LOOKUP = IDENTITY + " " +
+            CommandUtil.concatOptionPrefix(COMMAND_OPTION_LOOKUP) + " scg-setting-id";
+    private static final String CMD_LINE_SYNTAX_CLEAR = IDENTITY + " " +
+            CommandUtil.concatOptionPrefix(COMMAND_OPTION_CLEAR);
 
     private static final String[] CMD_LINE_ARRAY = new String[]{
             CMD_LINE_SYNTAX_LOOKUP,
@@ -57,7 +59,7 @@ public class GenerateLocalCacheCommand extends CliCommand {
     @Override
     protected void executeWithCmd(Context context, CommandLine cmd) throws TelqosException {
         try {
-            Pair<String, Integer> pair = analyseCommand(cmd);
+            Pair<String, Integer> pair = CommandUtil.analyseCommand(cmd, COMMAND_OPTION_ARRAY);
             if (pair.getRight() != 1) {
                 context.sendMessage(CommandUtil.optionMismatchMessage(COMMAND_OPTION_ARRAY));
                 context.sendMessage(CMD_LINE_SYNTAX);
@@ -85,20 +87,5 @@ public class GenerateLocalCacheCommand extends CliCommand {
         } else {
             context.sendMessage(generator.toString());
         }
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    private Pair<String, Integer> analyseCommand(CommandLine cmd) {
-        int i = 0;
-        String subCmd = null;
-        if (cmd.hasOption(COMMAND_OPTION_LOOKUP)) {
-            i++;
-            subCmd = COMMAND_OPTION_LOOKUP;
-        }
-        if (cmd.hasOption(COMMAND_OPTION_CLEAR)) {
-            i++;
-            subCmd = COMMAND_OPTION_CLEAR;
-        }
-        return Pair.of(subCmd, i);
     }
 }
