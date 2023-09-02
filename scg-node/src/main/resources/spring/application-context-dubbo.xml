@@ -33,4 +33,6 @@
     <dubbo:service interface="com.dwarfeng.scg.stack.service.GenerateService" ref="generateServiceImpl"/>
     <dubbo:service interface="com.dwarfeng.scg.stack.service.NodeVariableMaintainService"
                    ref="nodeVariableMaintainServiceImpl"/>
+    <dubbo:service interface="com.dwarfeng.scg.stack.service.NodeVariableOperateService"
+                   ref="nodeVariableOperateServiceImpl"/>
 </beans>
