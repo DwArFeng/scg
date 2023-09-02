@@ -33,11 +33,11 @@ public class GenerateServiceImpl implements GenerateService {
     }
 
     @Override
-    public List<String> batchGenerate(StringIdKey scgSettingKey, int size) throws ServiceException {
+    public List<String> generate(StringIdKey scgSettingKey, int size) throws ServiceException {
         try {
-            return generateHandler.batchGenerate(scgSettingKey, size);
+            return generateHandler.generate(scgSettingKey, size);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("基于指定的设置批量生成序列码时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logAndThrow("基于指定的设置生成序列码时发生异常", LogLevel.WARN, sem, e);
         }
     }
 }

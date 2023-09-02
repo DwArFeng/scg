@@ -1,7 +1,8 @@
 package com.dwarfeng.scg.impl.handler;
 
-import com.dwarfeng.scg.stack.handler.LockLocalCacheHandler;
+import com.dwarfeng.scg.stack.handler.DeviceGeneratorLockLocalCacheHandler;
 import com.dwarfeng.scg.stack.service.ScgSettingMaintainService;
+import com.dwarfeng.scg.stack.struct.GeneratorLock;
 import com.dwarfeng.subgrade.impl.handler.Fetcher;
 import com.dwarfeng.subgrade.impl.handler.GeneralLocalCacheHandler;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
@@ -14,11 +15,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Component
-public class LockLocalCacheHandlerImpl implements LockLocalCacheHandler {
+public class DeviceGeneratorLockLocalCacheHandlerImpl implements DeviceGeneratorLockLocalCacheHandler {
 
-    private final GeneralLocalCacheHandler<StringIdKey, Lock> handler;
+    private final GeneralLocalCacheHandler<StringIdKey, GeneratorLock> handler;
 
-    public LockLocalCacheHandlerImpl(LockFetcher lockFetcher) {
+    public DeviceGeneratorLockLocalCacheHandlerImpl(LockFetcher lockFetcher) {
         this.handler = new GeneralLocalCacheHandler<>(lockFetcher);
     }
 
@@ -30,7 +31,7 @@ public class LockLocalCacheHandlerImpl implements LockLocalCacheHandler {
 
     @BehaviorAnalyse
     @Override
-    public Lock get(StringIdKey key) throws HandlerException {
+    public GeneratorLock get(StringIdKey key) throws HandlerException {
         return handler.get(key);
     }
 
@@ -47,7 +48,7 @@ public class LockLocalCacheHandlerImpl implements LockLocalCacheHandler {
     }
 
     @Component
-    public static class LockFetcher implements Fetcher<StringIdKey, Lock> {
+    public static class LockFetcher implements Fetcher<StringIdKey, GeneratorLock> {
 
         private final ScgSettingMaintainService scgSettingMaintainService;
 
@@ -69,8 +70,34 @@ public class LockLocalCacheHandlerImpl implements LockLocalCacheHandler {
         @Transactional(
                 transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class
         )
-        public Lock fetch(StringIdKey key) {
-            return new ReentrantLock();
+        public GeneratorLock fetch(StringIdKey key) {
+            return new DeviceGeneratorLock(new ReentrantLock());
+        }
+    }
+
+    private static class DeviceGeneratorLock implements GeneratorLock {
+
+        private final Lock lock;
+
+        public DeviceGeneratorLock(Lock lock) {
+            this.lock = lock;
+        }
+
+        @Override
+        public void lock() {
+            lock.lock();
+        }
+
+        @Override
+        public void unlock() {
+            lock.unlock();
+        }
+
+        @Override
+        public String toString() {
+            return "DeviceGeneratorLock{" +
+                    "lock=" + lock +
+                    '}';
         }
     }
 }

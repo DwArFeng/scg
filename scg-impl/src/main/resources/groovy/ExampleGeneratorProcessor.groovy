@@ -1,18 +1,16 @@
 package groovy
 
-
 import com.dwarfeng.scg.impl.handler.generator.GroovyGeneratorRegistry
-import com.dwarfeng.scg.stack.bean.dto.GenerateInfo
-import com.dwarfeng.scg.stack.bean.dto.GenerateResult
-import com.dwarfeng.scg.stack.exception.GeneratorException
 import org.springframework.stereotype.Component
+
+import static com.dwarfeng.scg.stack.handler.Generator.*
 
 /**
  * 示例生成器。
  *
  * <p>
  * 该生成器获取当前日期，并将序列号自增。<br>
- * 前缀 + 当前日期 + 设备ID + 添加前导0的序列号组成流水码。<br>
+ * 前缀 + 当前日期 + 设备ID + 添加前导 0 的序列号组成流水码。<br>
  * 流水码一天一清。
  */
 @SuppressWarnings("GrPackage")
@@ -34,36 +32,64 @@ class ExampleGeneratorProcessor implements GroovyGeneratorRegistry.Processor {
      */
     public static final int NUMBER_OF_DIGITS_INDEX = 4
 
+    private static final String VARIABLE_ID_LAST_GENERATED_DATE = "last_generated_date"
+    private static final String VARIABLE_ID_LAST_INDEX = "last_index"
     private static final long MILLISECONDS_OF_DAY = 3600 * 24 * 1000L
 
-    @Override
-    GenerateResult generate(GenerateInfo generateInfo) throws GeneratorException {
-        Date lastGeneratedDate = generateInfo.getLastGeneratedDate()
-        Integer index = generateInfo.getLastIndex()
-        int deviceId = generateInfo.getDeviceId()
-
-        Integer neoIndex
-        Date currentDate = new Date()
-        if (Objects.nonNull(lastGeneratedDate)) {
+    private static int analyseCurrentIndex(Context context, Date lastDate, Date currentDate) throws Exception {
+        Integer referenceIndex = context.inspectNodeVariable(VARIABLE_ID_LAST_INDEX, VariableType.INTEGER) as Integer
+        if (Objects.nonNull(lastDate)) {
             TimeZone defaultTimeZone = TimeZone.getDefault()
-            long lastGeneratedTimestamp = lastGeneratedDate.getTime()
+            long lastTimestamp = lastDate.getTime()
             long currentTimestamp = currentDate.getTime()
-            int lastGeneratedLocalDay = (int) ((lastGeneratedTimestamp -
-                    defaultTimeZone.getOffset(lastGeneratedTimestamp)) / MILLISECONDS_OF_DAY)
-            int currentLocalDay = (int) ((currentTimestamp -
-                    defaultTimeZone.getOffset(currentTimestamp)) / MILLISECONDS_OF_DAY)
-            if (currentLocalDay > lastGeneratedLocalDay) {
-                neoIndex = 0
+            int lastLocalDay = (int) ((lastTimestamp - defaultTimeZone.getOffset(lastTimestamp)) / MILLISECONDS_OF_DAY)
+            int currentLocalDay = (int) ((currentTimestamp - defaultTimeZone.getOffset(currentTimestamp)) / MILLISECONDS_OF_DAY)
+            if (currentLocalDay > lastLocalDay) {
+                return 0
             } else {
-                neoIndex = index + 1
+                return referenceIndex
             }
         } else {
-            neoIndex = 0
+            return 0
         }
-        String serialCode = String.format(
+    }
+
+    @Override
+    SerialCodeGranularity getSerialCodeGranularity() {
+        return SerialCodeGranularity.DEVICE
+    }
+
+    @Override
+    String generate(Context context) throws Exception {
+        int deviceId = context.getDeviceId()
+        Date currentDate = new Date()
+        Date lastDate = context.inspectNodeVariable(VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE) as Date
+        int currentIndex = analyseCurrentIndex(context, lastDate, currentDate)
+        String result = String.format(
                 "%1\$s%2\$tY%2\$tm%2\$td%3\$0" + NUMBER_OF_DIGITS_DEVICE_ID + "d%4\$0" + NUMBER_OF_DIGITS_INDEX + "d",
-                PREFIX, currentDate, deviceId, neoIndex
+                PREFIX, currentDate, deviceId, currentIndex++
         )
-        return new GenerateResult(serialCode, neoIndex)
+        context.upsertNodeVariable(VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE, currentDate)
+        context.upsertNodeVariable(VARIABLE_ID_LAST_INDEX, VariableType.INTEGER, currentIndex)
+        return result
+    }
+
+    @Override
+    List<String> generate(Context context, int size) throws Exception {
+        int deviceId = context.getDeviceId()
+        Date currentDate = new Date()
+        Date lastDate = context.inspectNodeVariable(VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE) as Date
+        int currentIndex = analyseCurrentIndex(context, lastDate, currentDate)
+        List<String> result = new ArrayList<>(size)
+        for (int i = 0; i < size; i++) {
+            String serialCode = String.format(
+                    "%1\$s%2\$tY%2\$tm%2\$td%3\$0" + NUMBER_OF_DIGITS_DEVICE_ID + "d%4\$0" + NUMBER_OF_DIGITS_INDEX + "d",
+                    PREFIX, currentDate, deviceId, currentIndex++
+            )
+            result.add(serialCode)
+        }
+        context.upsertNodeVariable(VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE, currentDate)
+        context.upsertNodeVariable(VARIABLE_ID_LAST_INDEX, VariableType.INTEGER, currentIndex)
+        return result
     }
 }

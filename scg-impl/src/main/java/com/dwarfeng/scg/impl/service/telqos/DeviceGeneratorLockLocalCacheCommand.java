@@ -1,6 +1,7 @@
 package com.dwarfeng.scg.impl.service.telqos;
 
 import com.dwarfeng.scg.stack.service.GenerateQosService;
+import com.dwarfeng.scg.stack.struct.GeneratorLock;
 import com.dwarfeng.springtelqos.node.config.TelqosCommand;
 import com.dwarfeng.springtelqos.sdk.command.CliCommand;
 import com.dwarfeng.springtelqos.stack.command.Context;
@@ -13,10 +14,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.locks.Lock;
 
 @TelqosCommand
-public class LockLocalCacheCommand extends CliCommand {
+public class DeviceGeneratorLockLocalCacheCommand extends CliCommand {
 
     private static final String COMMAND_OPTION_LOOKUP = "l";
     private static final String COMMAND_OPTION_CLEAR = "c";
@@ -26,8 +26,9 @@ public class LockLocalCacheCommand extends CliCommand {
             COMMAND_OPTION_CLEAR
     };
 
-    private static final String IDENTITY = "llc";
-    private static final String DESCRIPTION = "生成器本地缓存操作";
+    @SuppressWarnings("SpellCheckingInspection")
+    private static final String IDENTITY = "dglc";
+    private static final String DESCRIPTION = "设备生成器锁缓存操作";
 
     private static final String CMD_LINE_SYNTAX_LOOKUP = IDENTITY + " " +
             CommandUtil.concatOptionPrefix(COMMAND_OPTION_LOOKUP) + " scg-setting-id";
@@ -41,7 +42,7 @@ public class LockLocalCacheCommand extends CliCommand {
 
     private static final String CMD_LINE_SYNTAX = CommandUtil.syntax(CMD_LINE_ARRAY);
 
-    public LockLocalCacheCommand(GenerateQosService generateQosService) {
+    public DeviceGeneratorLockLocalCacheCommand(GenerateQosService generateQosService) {
         super(IDENTITY, DESCRIPTION, CMD_LINE_SYNTAX);
         this.generateQosService = generateQosService;
     }
@@ -70,7 +71,7 @@ public class LockLocalCacheCommand extends CliCommand {
                     handleLookup(context, cmd);
                     break;
                 case COMMAND_OPTION_CLEAR:
-                    generateQosService.clearLockLocalCache();
+                    generateQosService.clearDeviceGeneratorLockLocalCache();
                     context.sendMessage("本地缓存已清除");
                     break;
             }
@@ -81,11 +82,11 @@ public class LockLocalCacheCommand extends CliCommand {
 
     private void handleLookup(Context context, CommandLine cmd) throws Exception {
         StringIdKey scgSettingKey = new StringIdKey(cmd.getOptionValue(COMMAND_OPTION_LOOKUP));
-        Lock localLock = generateQosService.getLocalLock(scgSettingKey);
-        if (Objects.isNull(localLock)) {
+        GeneratorLock generatorLock = generateQosService.getDeviceGeneratorLock(scgSettingKey);
+        if (Objects.isNull(generatorLock)) {
             context.sendMessage("not exists");
         } else {
-            context.sendMessage(localLock.toString());
+            context.sendMessage(generatorLock.toString());
         }
     }
 }

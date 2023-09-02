@@ -1,12 +1,11 @@
 package com.dwarfeng.scg.stack.handler;
 
+import com.dwarfeng.scg.stack.struct.GeneratorLock;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.handler.LocalCacheHandler;
 
-import java.util.concurrent.locks.Lock;
-
 /**
- * 本地锁缓存处理器。
+ * 设置生成器锁缓存处理器。
  *
  * <p>
  * 处理器在本地保存数据，缓存中的数据可以保证与数据源保持同步。
@@ -20,5 +19,5 @@ import java.util.concurrent.locks.Lock;
  * @author DwArFeng
  * @since 1.0.0
  */
-public interface LockLocalCacheHandler extends LocalCacheHandler<StringIdKey, Lock> {
+public interface SettingGeneratorLockLocalCacheHandler extends LocalCacheHandler<StringIdKey, GeneratorLock> {
 }

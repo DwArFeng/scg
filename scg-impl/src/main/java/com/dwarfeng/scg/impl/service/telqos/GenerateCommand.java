@@ -75,7 +75,7 @@ public class GenerateCommand extends CliCommand {
                 context.sendMessage("请输入需要生成的 ID 的数量:");
                 size = Integer.parseInt(context.receiveMessage());
             }
-            List<String> serialCodes = generateQosService.batchGenerate(new StringIdKey(scgSettingId), size);
+            List<String> serialCodes = generateQosService.generate(new StringIdKey(scgSettingId), size);
             if (cmd.hasOption(CMD_OPTION_FILE)) {
                 print2File(serialCodes, context, cmd);
             } else {

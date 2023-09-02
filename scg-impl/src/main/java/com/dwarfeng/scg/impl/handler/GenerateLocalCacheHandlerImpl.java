@@ -76,7 +76,7 @@ public class GenerateLocalCacheHandlerImpl implements GenerateLocalCacheHandler 
         )
         public Generator fetch(StringIdKey key) throws Exception {
             ScgSetting scgSetting = scgSettingMaintainService.get(key);
-            return generatorHandler.make(scgSetting.getType(), scgSetting.getParam());
+            return generatorHandler.make(key, scgSetting.getType(), scgSetting.getParam());
         }
     }
 }

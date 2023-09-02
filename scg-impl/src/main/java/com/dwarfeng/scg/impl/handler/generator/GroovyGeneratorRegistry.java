@@ -2,11 +2,12 @@ package com.dwarfeng.scg.impl.handler.generator;
 
 import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.dutil.basic.io.StringOutputStream;
-import com.dwarfeng.scg.stack.bean.dto.GenerateInfo;
-import com.dwarfeng.scg.stack.bean.dto.GenerateResult;
 import com.dwarfeng.scg.stack.exception.GeneratorException;
+import com.dwarfeng.scg.stack.exception.GeneratorExecutionException;
 import com.dwarfeng.scg.stack.exception.GeneratorMakeException;
 import com.dwarfeng.scg.stack.handler.Generator;
+import com.dwarfeng.scg.stack.handler.Generator.Context;
+import com.dwarfeng.scg.stack.handler.Generator.SerialCodeGranularity;
 import groovy.lang.GroovyClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * Groovy生成器注册。
@@ -91,29 +93,49 @@ public class GroovyGeneratorRegistry extends AbstractGeneratorRegistry {
 
     @Component
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public static class GroovyGenerator implements Generator {
+    public static class GroovyGenerator extends AbstractGenerator {
 
         private final Processor processor;
 
         public GroovyGenerator(Processor processor) {
+            super(processor.getSerialCodeGranularity());
             this.processor = processor;
         }
 
         @Override
-        public GenerateResult generate(GenerateInfo generateInfo) throws GeneratorException {
-            return processor.generate(generateInfo);
+        public String generate() throws GeneratorException {
+            try {
+                return processor.generate(context);
+            } catch (GeneratorExecutionException e) {
+                throw e;
+            } catch (Exception e) {
+                throw new GeneratorExecutionException(e);
+            }
+        }
+
+        @Override
+        public List<String> generate(int size) throws GeneratorException {
+            try {
+                return processor.generate(context, size);
+            } catch (GeneratorExecutionException e) {
+                throw e;
+            } catch (Exception e) {
+                throw new GeneratorExecutionException(e);
+            }
         }
 
         @Override
         public String toString() {
             return "GroovyGenerator{" +
                     "processor=" + processor +
+                    ", serialCodeGranularity=" + serialCodeGranularity +
+                    ", context=" + context +
                     '}';
         }
     }
 
     /**
-     * Groovy处理器。
+     * Groovy 处理器。
      *
      * @author DwArFeng
      * @since 1.0.0
@@ -121,12 +143,29 @@ public class GroovyGeneratorRegistry extends AbstractGeneratorRegistry {
     public interface Processor {
 
         /**
-         * 生成串码及关联信息。
+         * 获取 Groovy 处理器的序列码粒度。
          *
-         * @param generateInfo 与生成串码相关的信息。
-         * @return 生成结果，包含串码本身和其它相关信息。
-         * @throws GeneratorException 生成器异常。
+         * @return Groovy 处理器的序列码粒度。
          */
-        GenerateResult generate(GenerateInfo generateInfo) throws GeneratorException;
+        SerialCodeGranularity getSerialCodeGranularity();
+
+        /**
+         * 生成序列码。
+         *
+         * @param context 生成器上下文。
+         * @return 生成的序列码。
+         * @throws GeneratorException 生成过程中发生的任何异常。
+         */
+        String generate(Context context) throws Exception;
+
+        /**
+         * 生成序列码。
+         *
+         * @param context 生成器上下文。
+         * @param size    生成数量。
+         * @return 生成的序列码组成的列表。
+         * @throws Exception 生成过程中发生的任何异常。
+         */
+        List<String> generate(Context context, int size) throws Exception;
     }
 }

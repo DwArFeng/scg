@@ -3,6 +3,7 @@ package com.dwarfeng.scg.impl.service;
 import com.dwarfeng.scg.stack.handler.GenerateHandler;
 import com.dwarfeng.scg.stack.handler.Generator;
 import com.dwarfeng.scg.stack.service.GenerateQosService;
+import com.dwarfeng.scg.stack.struct.GeneratorLock;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
@@ -11,7 +12,6 @@ import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.locks.Lock;
 
 @Service
 public class GenerateQosServiceImpl implements GenerateQosService {
@@ -35,11 +35,11 @@ public class GenerateQosServiceImpl implements GenerateQosService {
     }
 
     @Override
-    public List<String> batchGenerate(StringIdKey scgSettingKey, int size) throws ServiceException {
+    public List<String> generate(StringIdKey scgSettingKey, int size) throws ServiceException {
         try {
-            return generateHandler.batchGenerate(scgSettingKey, size);
+            return generateHandler.generate(scgSettingKey, size);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("基于指定的设置批量生成序列码时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logAndThrow("基于指定的设置生成序列码时发生异常", LogLevel.WARN, sem, e);
         }
     }
 
@@ -48,7 +48,7 @@ public class GenerateQosServiceImpl implements GenerateQosService {
         try {
             return generateHandler.getGenerator(scgSettingKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("获取指定主键对应的本地锁时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logAndThrow("获取指定主键对应的生成器时发生异常", LogLevel.WARN, sem, e);
         }
     }
 
@@ -62,20 +62,42 @@ public class GenerateQosServiceImpl implements GenerateQosService {
     }
 
     @Override
-    public Lock getLocalLock(StringIdKey scgSettingKey) throws ServiceException {
+    public GeneratorLock getSettingGeneratorLock(StringIdKey scgSettingKey) throws ServiceException {
         try {
-            return generateHandler.getLocalLock(scgSettingKey);
+            return generateHandler.getSettingGeneratorLock(scgSettingKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("获取指定主键对应的本地锁时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logAndThrow(
+                    "获取指定流水码生成设置主键对应的设置生成器锁时发生异常", LogLevel.WARN, sem, e
+            );
         }
     }
 
     @Override
-    public void clearLockLocalCache() throws ServiceException {
+    public void clearSettingGeneratorLockLocalCache() throws ServiceException {
         try {
-            generateHandler.clearLockLocalCache();
+            generateHandler.clearSettingGeneratorLockLocalCache();
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("清除锁本地缓存时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logAndThrow("清除设置生成器锁本地缓存时发生异常", LogLevel.WARN, sem, e);
+        }
+    }
+
+    @Override
+    public GeneratorLock getDeviceGeneratorLock(StringIdKey scgDeviceKey) throws ServiceException {
+        try {
+            return generateHandler.getDeviceGeneratorLock(scgDeviceKey);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logAndThrow(
+                    "获取指定流水码生成设备主键对应的设备生成器锁时发生异常", LogLevel.WARN, sem, e
+            );
+        }
+    }
+
+    @Override
+    public void clearDeviceGeneratorLockLocalCache() throws ServiceException {
+        try {
+            generateHandler.clearDeviceGeneratorLockLocalCache();
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logAndThrow("清除设备生成器锁本地缓存时发生异常", LogLevel.WARN, sem, e);
         }
     }
 }
