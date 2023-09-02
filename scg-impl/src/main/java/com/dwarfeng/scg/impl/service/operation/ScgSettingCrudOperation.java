@@ -2,21 +2,17 @@ package com.dwarfeng.scg.impl.service.operation;
 
 import com.dwarfeng.scg.stack.bean.entity.CommonVariable;
 import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
-import com.dwarfeng.scg.stack.bean.entity.ScgNodeInfo;
 import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
 import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
 import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
-import com.dwarfeng.scg.stack.bean.key.ScgNodeKey;
 import com.dwarfeng.scg.stack.cache.CommonVariableCache;
 import com.dwarfeng.scg.stack.cache.NodeVariableCache;
 import com.dwarfeng.scg.stack.cache.ScgSettingCache;
 import com.dwarfeng.scg.stack.dao.CommonVariableDao;
 import com.dwarfeng.scg.stack.dao.NodeVariableDao;
-import com.dwarfeng.scg.stack.dao.ScgNodeInfoDao;
 import com.dwarfeng.scg.stack.dao.ScgSettingDao;
 import com.dwarfeng.scg.stack.service.CommonVariableMaintainService;
 import com.dwarfeng.scg.stack.service.NodeVariableMaintainService;
-import com.dwarfeng.scg.stack.service.ScgNodeInfoMaintainService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes;
 import com.dwarfeng.subgrade.sdk.service.custom.operation.BatchCrudOperation;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
@@ -33,8 +29,6 @@ public class ScgSettingCrudOperation implements BatchCrudOperation<StringIdKey, 
     private final ScgSettingDao scgSettingDao;
     private final ScgSettingCache scgSettingCache;
 
-    private final ScgNodeInfoDao scgNodeInfoDao;
-
     private final NodeVariableDao nodeVariableDao;
     private final NodeVariableCache nodeVariableCache;
 
@@ -46,13 +40,11 @@ public class ScgSettingCrudOperation implements BatchCrudOperation<StringIdKey, 
 
     public ScgSettingCrudOperation(
             ScgSettingDao scgSettingDao, ScgSettingCache scgSettingCache,
-            ScgNodeInfoDao scgNodeInfoDao,
             NodeVariableDao nodeVariableDao, NodeVariableCache nodeVariableCache,
             CommonVariableDao commonVariableDao, CommonVariableCache commonVariableCache
     ) {
         this.scgSettingDao = scgSettingDao;
         this.scgSettingCache = scgSettingCache;
-        this.scgNodeInfoDao = scgNodeInfoDao;
         this.nodeVariableDao = nodeVariableDao;
         this.nodeVariableCache = nodeVariableCache;
         this.commonVariableDao = commonVariableDao;
@@ -92,12 +84,6 @@ public class ScgSettingCrudOperation implements BatchCrudOperation<StringIdKey, 
 
     @Override
     public void delete(StringIdKey key) throws Exception {
-        // 删除与流水码生成设置相关的路由器信息。
-        List<ScgNodeKey> scgNodeInfoKeys = scgNodeInfoDao.lookup(
-                ScgNodeInfoMaintainService.SCG_SETTING_ID_EQUALS, new Object[]{key.getStringId()}
-        ).stream().map(ScgNodeInfo::getKey).collect(Collectors.toList());
-        scgNodeInfoDao.batchDelete(scgNodeInfoKeys);
-
         // 删除与流水码生成设置相关的节点变量。
         List<NodeVariableKey> nodeVariableKeys = nodeVariableDao.lookup(
                 NodeVariableMaintainService.CHILD_FOR_SCG_SETTING, new Object[]{key}

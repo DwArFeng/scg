@@ -7,56 +7,51 @@ import com.dwarfeng.scg.impl.bean.entity.HibernateNodeVariable;
 import com.dwarfeng.scg.impl.bean.entity.HibernateScgSetting;
 import com.dwarfeng.scg.impl.bean.key.HibernateCommonVariableKey;
 import com.dwarfeng.scg.impl.bean.key.HibernateNodeVariableKey;
-import com.dwarfeng.scg.impl.dao.preset.*;
-import com.dwarfeng.scg.sdk.bean.FastJsonMapper;
-import com.dwarfeng.scg.sdk.bean.entity.FastJsonScgNodeInfo;
-import com.dwarfeng.scg.sdk.bean.key.formatter.ScgNodeStringKeyFormatter;
-import com.dwarfeng.scg.stack.bean.entity.*;
+import com.dwarfeng.scg.impl.dao.preset.CommonVariablePresetCriteriaMaker;
+import com.dwarfeng.scg.impl.dao.preset.GeneratorSupportPresetCriteriaMaker;
+import com.dwarfeng.scg.impl.dao.preset.NodeVariablePresetCriteriaMaker;
+import com.dwarfeng.scg.impl.dao.preset.ScgSettingPresetCriteriaMaker;
+import com.dwarfeng.scg.stack.bean.entity.CommonVariable;
+import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
+import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
+import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
 import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
 import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
-import com.dwarfeng.scg.stack.bean.key.ScgNodeKey;
 import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
-import com.dwarfeng.subgrade.impl.dao.*;
+import com.dwarfeng.subgrade.impl.dao.HibernateBatchBaseDao;
+import com.dwarfeng.subgrade.impl.dao.HibernateEntireLookupDao;
+import com.dwarfeng.subgrade.impl.dao.HibernatePresetLookupDao;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateStringIdKey;
 import com.dwarfeng.subgrade.sdk.hibernate.modification.DefaultDeletionMod;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
 @Configuration
 public class DaoConfiguration {
 
     private final HibernateTemplate hibernateTemplate;
-    private final RedisTemplate<String, ?> redisTemplate;
 
     private final GeneratorSupportPresetCriteriaMaker generatorSupportPresetCriteriaMaker;
     private final ScgSettingPresetCriteriaMaker scgSettingPresetCriteriaMaker;
-    private final ScgNodeInfoPresetEntityFilter scgNodeInfoPresetEntityFilter;
     private final NodeVariablePresetCriteriaMaker nodeVariablePresetCriteriaMaker;
     private final CommonVariablePresetCriteriaMaker commonVariablePresetCriteriaMaker;
 
     @Value("${hibernate.jdbc.batch_size}")
     private int batchSize;
 
-    @Value("${redis.dbkey.scg_node_info}")
-    private String scgNodeInfoDbKey;
-
     public DaoConfiguration(
-            HibernateTemplate hibernateTemplate, RedisTemplate<String, ?> redisTemplate,
+            HibernateTemplate hibernateTemplate,
             GeneratorSupportPresetCriteriaMaker generatorSupportPresetCriteriaMaker,
             ScgSettingPresetCriteriaMaker scgSettingPresetCriteriaMaker,
-            ScgNodeInfoPresetEntityFilter scgNodeInfoPresetEntityFilter,
             NodeVariablePresetCriteriaMaker nodeVariablePresetCriteriaMaker,
             CommonVariablePresetCriteriaMaker commonVariablePresetCriteriaMaker
     ) {
         this.hibernateTemplate = hibernateTemplate;
-        this.redisTemplate = redisTemplate;
         this.generatorSupportPresetCriteriaMaker = generatorSupportPresetCriteriaMaker;
         this.scgSettingPresetCriteriaMaker = scgSettingPresetCriteriaMaker;
-        this.scgNodeInfoPresetEntityFilter = scgNodeInfoPresetEntityFilter;
         this.nodeVariablePresetCriteriaMaker = nodeVariablePresetCriteriaMaker;
         this.commonVariablePresetCriteriaMaker = commonVariablePresetCriteriaMaker;
     }
@@ -130,40 +125,6 @@ public class DaoConfiguration {
                 new MapStructBeanTransformer<>(ScgSetting.class, HibernateScgSetting.class, HibernateMapper.class),
                 HibernateScgSetting.class,
                 scgSettingPresetCriteriaMaker
-        );
-    }
-
-    @Bean
-    @SuppressWarnings("unchecked")
-    public RedisBatchBaseDao<ScgNodeKey, ScgNodeInfo, FastJsonScgNodeInfo> scgNodeInfoRedisBatchBaseDao() {
-        return new RedisBatchBaseDao<>(
-                (RedisTemplate<String, FastJsonScgNodeInfo>) redisTemplate,
-                new ScgNodeStringKeyFormatter("key."),
-                new MapStructBeanTransformer<>(ScgNodeInfo.class, FastJsonScgNodeInfo.class, FastJsonMapper.class),
-                scgNodeInfoDbKey
-        );
-    }
-
-    @Bean
-    @SuppressWarnings("unchecked")
-    public RedisEntireLookupDao<ScgNodeKey, ScgNodeInfo, FastJsonScgNodeInfo> scgNodeInfoRedisEntireLookupDao() {
-        return new RedisEntireLookupDao<>(
-                (RedisTemplate<String, FastJsonScgNodeInfo>) redisTemplate,
-                new ScgNodeStringKeyFormatter("key."),
-                new MapStructBeanTransformer<>(ScgNodeInfo.class, FastJsonScgNodeInfo.class, FastJsonMapper.class),
-                scgNodeInfoDbKey
-        );
-    }
-
-    @Bean
-    @SuppressWarnings("unchecked")
-    public RedisPresetLookupDao<ScgNodeKey, ScgNodeInfo, FastJsonScgNodeInfo> scgNodeInfoRedisPresetLookupDao() {
-        return new RedisPresetLookupDao<>(
-                (RedisTemplate<String, FastJsonScgNodeInfo>) redisTemplate,
-                new ScgNodeStringKeyFormatter("key."),
-                new MapStructBeanTransformer<>(ScgNodeInfo.class, FastJsonScgNodeInfo.class, FastJsonMapper.class),
-                scgNodeInfoPresetEntityFilter,
-                scgNodeInfoDbKey
         );
     }
 

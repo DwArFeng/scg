@@ -1,16 +1,24 @@
 package com.dwarfeng.scg.node.configuration;
 
 import com.dwarfeng.scg.impl.service.operation.ScgSettingCrudOperation;
-import com.dwarfeng.scg.stack.bean.entity.*;
+import com.dwarfeng.scg.stack.bean.entity.CommonVariable;
+import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
+import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
+import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
 import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
 import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
-import com.dwarfeng.scg.stack.bean.key.ScgNodeKey;
 import com.dwarfeng.scg.stack.cache.CommonVariableCache;
 import com.dwarfeng.scg.stack.cache.GeneratorSupportCache;
 import com.dwarfeng.scg.stack.cache.NodeVariableCache;
-import com.dwarfeng.scg.stack.dao.*;
+import com.dwarfeng.scg.stack.dao.CommonVariableDao;
+import com.dwarfeng.scg.stack.dao.GeneratorSupportDao;
+import com.dwarfeng.scg.stack.dao.NodeVariableDao;
+import com.dwarfeng.scg.stack.dao.ScgSettingDao;
 import com.dwarfeng.subgrade.impl.bean.key.ExceptionKeyFetcher;
-import com.dwarfeng.subgrade.impl.service.*;
+import com.dwarfeng.subgrade.impl.service.CustomBatchCrudService;
+import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
+import com.dwarfeng.subgrade.impl.service.DaoOnlyPresetLookupService;
+import com.dwarfeng.subgrade.impl.service.GeneralBatchCrudService;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +34,6 @@ public class ServiceConfiguration {
     private final GeneratorSupportCache generatorSupportCache;
     private final ScgSettingCrudOperation scgSettingCrudOperation;
     private final ScgSettingDao scgSettingDao;
-    private final ScgNodeInfoDao scgNodeInfoDao;
     private final NodeVariableDao nodeVariableDao;
     private final NodeVariableCache nodeVariableCache;
     private final CommonVariableDao commonVariableDao;
@@ -43,7 +50,6 @@ public class ServiceConfiguration {
             ServiceExceptionMapperConfiguration serviceExceptionMapperConfiguration,
             GeneratorSupportDao generatorSupportDao, GeneratorSupportCache generatorSupportCache,
             ScgSettingCrudOperation scgSettingCrudOperation, ScgSettingDao scgSettingDao,
-            ScgNodeInfoDao scgNodeInfoDao,
             NodeVariableDao nodeVariableDao, NodeVariableCache nodeVariableCache,
             CommonVariableDao commonVariableDao, CommonVariableCache commonVariableCache
     ) {
@@ -52,7 +58,6 @@ public class ServiceConfiguration {
         this.generatorSupportCache = generatorSupportCache;
         this.scgSettingCrudOperation = scgSettingCrudOperation;
         this.scgSettingDao = scgSettingDao;
-        this.scgNodeInfoDao = scgNodeInfoDao;
         this.nodeVariableDao = nodeVariableDao;
         this.nodeVariableCache = nodeVariableCache;
         this.commonVariableDao = commonVariableDao;
@@ -112,34 +117,6 @@ public class ServiceConfiguration {
     public DaoOnlyPresetLookupService<ScgSetting> scgSettingDaoOnlyPresetLookupService() {
         return new DaoOnlyPresetLookupService<>(
                 scgSettingDao,
-                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
-        );
-    }
-
-    @Bean
-    public DaoOnlyBatchCrudService<ScgNodeKey, ScgNodeInfo> scgNodeInfoCustomCrudService() {
-        return new DaoOnlyBatchCrudService<>(
-                scgNodeInfoDao,
-                new ExceptionKeyFetcher<>(),
-                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
-        );
-    }
-
-    @Bean
-    public DaoOnlyEntireLookupService<ScgNodeInfo> scgNodeInfoDaoOnlyEntireLookupService() {
-        return new DaoOnlyEntireLookupService<>(
-                scgNodeInfoDao,
-                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
-        );
-    }
-
-    @Bean
-    public DaoOnlyPresetLookupService<ScgNodeInfo> scgNodeInfoDaoOnlyPresetLookupService() {
-        return new DaoOnlyPresetLookupService<>(
-                scgNodeInfoDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
         );

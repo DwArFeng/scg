@@ -61,6 +61,9 @@
 
 #### 功能移除
 
+- 删除不需要的实体及其维护服务。
+  - com.dwarfeng.scg.stack.bean.entity.ScgNodeInfo。
+
 - 删除不需要的依赖。
   - 删除 `dozer` 依赖。
   - 删除 `el` 依赖。
