@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 public class WebInputScgSetting implements Bean {
 
-    private static final long serialVersionUID = 8155988937871052791L;
+    private static final long serialVersionUID = 6985196252665913153L;
 
     public static ScgSetting toStackBean(WebInputScgSetting webInputScgSetting) {
         if (Objects.isNull(webInputScgSetting)) {
@@ -29,7 +29,7 @@ public class WebInputScgSetting implements Bean {
             return new ScgSetting(
                     WebInputStringIdKey.toStackBean(webInputScgSetting.getKey()),
                     webInputScgSetting.getLabel(), webInputScgSetting.getRemark(), webInputScgSetting.getType(),
-                    webInputScgSetting.getParam(), webInputScgSetting.isEnabled(), webInputScgSetting.isDistributed()
+                    webInputScgSetting.getParam(), webInputScgSetting.isEnabled()
             );
         }
     }
@@ -60,9 +60,6 @@ public class WebInputScgSetting implements Bean {
 
     @JSONField(name = "enabled")
     private boolean enabled;
-
-    @JSONField(name = "distributed")
-    private boolean distributed;
 
     public WebInputScgSetting() {
     }
@@ -115,14 +112,6 @@ public class WebInputScgSetting implements Bean {
         this.enabled = enabled;
     }
 
-    public boolean isDistributed() {
-        return distributed;
-    }
-
-    public void setDistributed(boolean distributed) {
-        this.distributed = distributed;
-    }
-
     @Override
     public String toString() {
         return "WebInputScgSetting{" +
@@ -132,7 +121,6 @@ public class WebInputScgSetting implements Bean {
                 ", type='" + type + '\'' +
                 ", param='" + param + '\'' +
                 ", enabled=" + enabled +
-                ", distributed=" + distributed +
                 '}';
     }
 }

@@ -11,7 +11,7 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
  */
 public class ScgSetting implements Entity<StringIdKey> {
 
-    private static final long serialVersionUID = 3576635527992797420L;
+    private static final long serialVersionUID = -2451090701766091733L;
 
     private StringIdKey key;
     private String label;
@@ -19,14 +19,12 @@ public class ScgSetting implements Entity<StringIdKey> {
     private String type;
     private String param;
     private boolean enabled;
-    private boolean distributed;
 
     public ScgSetting() {
     }
 
     public ScgSetting(
-            StringIdKey key, String label, String remark, String type, String param, boolean enabled,
-            boolean distributed
+            StringIdKey key, String label, String remark, String type, String param, boolean enabled
     ) {
         this.key = key;
         this.label = label;
@@ -34,7 +32,6 @@ public class ScgSetting implements Entity<StringIdKey> {
         this.type = type;
         this.param = param;
         this.enabled = enabled;
-        this.distributed = distributed;
     }
 
     @Override
@@ -87,14 +84,6 @@ public class ScgSetting implements Entity<StringIdKey> {
         this.enabled = enabled;
     }
 
-    public boolean isDistributed() {
-        return distributed;
-    }
-
-    public void setDistributed(boolean distributed) {
-        this.distributed = distributed;
-    }
-
     @Override
     public String toString() {
         return "ScgSetting{" +
@@ -104,7 +93,6 @@ public class ScgSetting implements Entity<StringIdKey> {
                 ", type='" + type + '\'' +
                 ", param='" + param + '\'' +
                 ", enabled=" + enabled +
-                ", distributed=" + distributed +
                 '}';
     }
 }

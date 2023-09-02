@@ -14,8 +14,8 @@ import java.util.Set;
 @Table(name = "tbl_scg_setting")
 public class HibernateScgSetting implements Bean {
 
-    private static final long serialVersionUID = 2758600261549358706L;
-    
+    private static final long serialVersionUID = 2204197466767787401L;
+
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
     @Column(name = "id", length = Constraints.LENGTH_ID, nullable = false, unique = true)
@@ -36,9 +36,6 @@ public class HibernateScgSetting implements Bean {
 
     @Column(name = "enabled")
     private boolean enabled;
-
-    @Column(name = "distributed")
-    private boolean distributed;
 
     // -----------------------------------------------------------一对多-----------------------------------------------------------
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateNodeVariable.class, mappedBy = "scgSetting")
@@ -108,14 +105,6 @@ public class HibernateScgSetting implements Bean {
         this.enabled = enabled;
     }
 
-    public boolean isDistributed() {
-        return distributed;
-    }
-
-    public void setDistributed(boolean distributed) {
-        this.distributed = distributed;
-    }
-
     public Set<HibernateNodeVariable> getNodeVariables() {
         return nodeVariables;
     }
@@ -140,7 +129,6 @@ public class HibernateScgSetting implements Bean {
                 "remark = " + remark + ", " +
                 "type = " + type + ", " +
                 "param = " + param + ", " +
-                "enabled = " + enabled + ", " +
-                "distributed = " + distributed + ")";
+                "enabled = " + enabled + ")";
     }
 }

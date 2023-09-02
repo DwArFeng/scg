@@ -67,6 +67,9 @@
 
 #### 功能移除
 
+- 删除实体中不需要的字段。
+  - com.dwarfeng.scg.stack.bean.entity.ScgSetting.distributed。
+
 - 删除不需要的实体及其维护服务。
   - com.dwarfeng.scg.stack.bean.entity.ScgNodeInfo。
 

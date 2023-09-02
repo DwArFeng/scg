@@ -31,7 +31,7 @@ public class ScgSettingMaintainServiceImplTest {
         scgSettings = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             ScgSetting scgSetting = new ScgSetting(
-                    new StringIdKey("test.scg_setting." + i), "label", "remark", "type", "param", true, true
+                    new StringIdKey("test.scg_setting." + i), "label", "remark", "type", "param", true
             );
             scgSettings.add(scgSetting);
         }

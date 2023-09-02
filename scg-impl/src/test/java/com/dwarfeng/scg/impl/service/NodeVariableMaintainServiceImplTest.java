@@ -40,7 +40,7 @@ public class NodeVariableMaintainServiceImplTest {
     @Before
     public void setUp() {
         scgSetting = new ScgSetting(
-                new StringIdKey(TEST_SCG_SETTING_ID), "label", "remark", "type", "param", true, true
+                new StringIdKey(TEST_SCG_SETTING_ID), "label", "remark", "type", "param", true
         );
         nodeVariables = new ArrayList<>();
         for (int i = 0; i < 5; i++) {

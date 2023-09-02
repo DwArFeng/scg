@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class FastJsonScgSetting implements Bean {
 
-    private static final long serialVersionUID = -3559303545058235968L;
+    private static final long serialVersionUID = -9102822118125327319L;
 
     public static FastJsonScgSetting of(ScgSetting scgSetting) {
         if (Objects.isNull(scgSetting)) {
@@ -24,7 +24,7 @@ public class FastJsonScgSetting implements Bean {
             return new FastJsonScgSetting(
                     FastJsonStringIdKey.of(scgSetting.getKey()),
                     scgSetting.getLabel(), scgSetting.getRemark(), scgSetting.getType(), scgSetting.getParam(),
-                    scgSetting.isEnabled(), scgSetting.isDistributed()
+                    scgSetting.isEnabled()
             );
         }
     }
@@ -47,15 +47,11 @@ public class FastJsonScgSetting implements Bean {
     @JSONField(name = "enabled", ordinal = 6)
     private boolean enabled;
 
-    @JSONField(name = "distributed", ordinal = 7)
-    private boolean distributed;
-
     public FastJsonScgSetting() {
     }
 
     public FastJsonScgSetting(
-            FastJsonStringIdKey key, String label, String remark, String type, String param, boolean enabled,
-            boolean distributed
+            FastJsonStringIdKey key, String label, String remark, String type, String param, boolean enabled
     ) {
         this.key = key;
         this.label = label;
@@ -63,7 +59,6 @@ public class FastJsonScgSetting implements Bean {
         this.type = type;
         this.param = param;
         this.enabled = enabled;
-        this.distributed = distributed;
     }
 
     public FastJsonStringIdKey getKey() {
@@ -114,14 +109,6 @@ public class FastJsonScgSetting implements Bean {
         this.enabled = enabled;
     }
 
-    public boolean isDistributed() {
-        return distributed;
-    }
-
-    public void setDistributed(boolean distributed) {
-        this.distributed = distributed;
-    }
-
     @Override
     public String toString() {
         return "FastJsonScgSetting{" +
@@ -131,7 +118,6 @@ public class FastJsonScgSetting implements Bean {
                 ", type='" + type + '\'' +
                 ", param='" + param + '\'' +
                 ", enabled=" + enabled +
-                ", distributed=" + distributed +
                 '}';
     }
 }
