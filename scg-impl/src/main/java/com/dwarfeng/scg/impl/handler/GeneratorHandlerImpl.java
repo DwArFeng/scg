@@ -81,7 +81,6 @@ public class GeneratorHandlerImpl implements GeneratorHandler {
         public Object inspectNodeVariable(
                 @Nonnull StringIdKey scgSettingKey, @Nonnull String variableId, @Nonnull VariableType variableType
         ) throws Exception {
-            // 执行动作。
             String scgSettingId = scgSettingKey.getStringId();
             NodeVariableInspectInfo inspectInfo = new NodeVariableInspectInfo(scgSettingId, deviceId, variableId);
             NodeVariable nodeVariable = nodeVariableOperateHandler.inspect(inspectInfo);
@@ -111,7 +110,6 @@ public class GeneratorHandlerImpl implements GeneratorHandler {
                 @Nonnull StringIdKey scgSettingKey, @Nonnull String variableId, @Nonnull VariableType variableType,
                 Object value
         ) throws Exception {
-            // 执行动作。
             NodeVariableUpsertInfo upsertInfo;
             String scgSettingId = scgSettingKey.getStringId();
             switch (variableType) {
@@ -142,7 +140,6 @@ public class GeneratorHandlerImpl implements GeneratorHandler {
         @Override
         public void removeNodeVariable(@Nonnull StringIdKey scgSettingKey, @Nonnull String variableId)
                 throws Exception {
-            // 执行动作。
             String scgSettingId = scgSettingKey.getStringId();
             NodeVariableRemoveInfo removeInfo = new NodeVariableRemoveInfo(scgSettingId, deviceId, variableId);
             nodeVariableOperateHandler.remove(removeInfo);
@@ -153,7 +150,6 @@ public class GeneratorHandlerImpl implements GeneratorHandler {
         public Object inspectCommonVariable(
                 @Nonnull StringIdKey scgSettingKey, @Nonnull String variableId, @Nonnull VariableType variableType
         ) throws Exception {
-            // 执行动作。
             String scgSettingId = scgSettingKey.getStringId();
             CommonVariableInspectInfo inspectInfo = new CommonVariableInspectInfo(scgSettingId, variableId);
             CommonVariable commonVariable = commonVariableOperateHandler.inspect(inspectInfo);
@@ -183,7 +179,6 @@ public class GeneratorHandlerImpl implements GeneratorHandler {
                 @Nonnull StringIdKey scgSettingKey, @Nonnull String variableId, @Nonnull VariableType variableType,
                 Object value
         ) throws Exception {
-            // 执行动作。
             String scgSettingId = scgSettingKey.getStringId();
             CommonVariableUpsertInfo upsertInfo;
             switch (variableType) {
@@ -214,7 +209,6 @@ public class GeneratorHandlerImpl implements GeneratorHandler {
         @Override
         public void removeCommonVariable(@Nonnull @NotNull StringIdKey scgSettingKey, @Nonnull String variableId)
                 throws Exception {
-            // 执行动作。
             String scgSettingId = scgSettingKey.getStringId();
             CommonVariableRemoveInfo removeInfo = new CommonVariableRemoveInfo(scgSettingId, variableId);
             commonVariableOperateHandler.remove(removeInfo);
