@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 public class GenerateLocalCacheHandlerImpl implements GenerateLocalCacheHandler {
 
-    private final GeneralLocalCacheHandler<StringIdKey, Generator> handler;
+    private final GeneralLocalCacheHandler<StringIdKey, GenerateContext> handler;
 
     public GenerateLocalCacheHandlerImpl(GeneratorFetcher generatorFetcher) {
         this.handler = new GeneralLocalCacheHandler<>(generatorFetcher);
@@ -30,7 +30,7 @@ public class GenerateLocalCacheHandlerImpl implements GenerateLocalCacheHandler 
 
     @BehaviorAnalyse
     @Override
-    public Generator get(StringIdKey key) throws HandlerException {
+    public GenerateContext get(StringIdKey key) throws HandlerException {
         return handler.get(key);
     }
 
@@ -47,7 +47,7 @@ public class GenerateLocalCacheHandlerImpl implements GenerateLocalCacheHandler 
     }
 
     @Component
-    public static class GeneratorFetcher implements Fetcher<StringIdKey, Generator> {
+    public static class GeneratorFetcher implements Fetcher<StringIdKey, GenerateContext> {
 
         private final ScgSettingMaintainService scgSettingMaintainService;
 
@@ -74,9 +74,10 @@ public class GenerateLocalCacheHandlerImpl implements GenerateLocalCacheHandler 
         @Transactional(
                 transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class
         )
-        public Generator fetch(StringIdKey key) throws Exception {
+        public GenerateContext fetch(StringIdKey key) throws Exception {
             ScgSetting scgSetting = scgSettingMaintainService.get(key);
-            return generatorHandler.make(key, scgSetting.getType(), scgSetting.getParam());
+            Generator generator = generatorHandler.make(scgSetting.getType(), scgSetting.getParam());
+            return new GenerateContext(scgSetting, generator);
         }
     }
 }

@@ -1,7 +1,10 @@
 package com.dwarfeng.scg.impl.handler;
 
+import com.dwarfeng.scg.sdk.util.Constants;
+import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
 import com.dwarfeng.scg.stack.handler.*;
-import com.dwarfeng.scg.stack.handler.Generator.SerialCodeGranularity;
+import com.dwarfeng.scg.stack.handler.GenerateLocalCacheHandler.GenerateContext;
+import com.dwarfeng.scg.stack.handler.Generator.ContextInfo;
 import com.dwarfeng.scg.stack.struct.GeneratorLock;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
@@ -30,6 +33,7 @@ public class GenerateHandlerImpl implements GenerateHandler {
         this.handlerValidator = handlerValidator;
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public String generate(StringIdKey scgSettingKey) throws HandlerException {
         try {
@@ -39,16 +43,17 @@ public class GenerateHandlerImpl implements GenerateHandler {
             // 确认 scgSettingKey 对应的流水码生成设置启用。
             handlerValidator.makeSureScgSettingEnabled(scgSettingKey);
 
-            // 获取 scgSettingKey 对应的生成器。
-            Generator generator = generateLocalCacheHandler.get(scgSettingKey);
-
-            // 获取生成器需要的锁。
-            GeneratorLock lock = getGeneratorLock(scgSettingKey, generator);
+            // 获取生成过程所需的参数。
+            GenerateContext generateContext = generateLocalCacheHandler.get(scgSettingKey);
+            ScgSetting scgSetting = generateContext.getScgSetting();
+            Generator generator = generateContext.getGenerator();
+            GeneratorLock lock = getGeneratorLock(scgSetting);
+            ContextInfo contextInfo = new ContextInfo(scgSettingKey);
 
             // 调用生成器生成序列码，并返回结果。
             lock.lock();
             try {
-                return generator.generate();
+                return generator.generate(contextInfo);
             } finally {
                 lock.unlock();
             }
@@ -59,6 +64,7 @@ public class GenerateHandlerImpl implements GenerateHandler {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public List<String> generate(StringIdKey scgSettingKey, int size) throws HandlerException {
         try {
@@ -68,16 +74,17 @@ public class GenerateHandlerImpl implements GenerateHandler {
             // 确认 scgSettingKey 对应的流水码生成设置启用。
             handlerValidator.makeSureScgSettingEnabled(scgSettingKey);
 
-            // 获取 scgSettingKey 对应的生成器。
-            Generator generator = generateLocalCacheHandler.get(scgSettingKey);
-
-            // 获取生成器需要的锁。
-            GeneratorLock lock = getGeneratorLock(scgSettingKey, generator);
+            // 获取生成过程所需的参数。
+            GenerateContext generateContext = generateLocalCacheHandler.get(scgSettingKey);
+            ScgSetting scgSetting = generateContext.getScgSetting();
+            Generator generator = generateContext.getGenerator();
+            GeneratorLock lock = getGeneratorLock(scgSetting);
+            ContextInfo contextInfo = new ContextInfo(scgSettingKey);
 
             // 调用生成器生成序列码，并返回结果。
             lock.lock();
             try {
-                return generator.generate(size);
+                return generator.generate(contextInfo, size);
             } finally {
                 lock.unlock();
             }
@@ -88,21 +95,22 @@ public class GenerateHandlerImpl implements GenerateHandler {
         }
     }
 
-    private GeneratorLock getGeneratorLock(StringIdKey scgSettingKey, Generator generator) throws HandlerException {
-        SerialCodeGranularity serialCodeGranularity = generator.getSerialCodeGranularity();
-        switch (serialCodeGranularity) {
-            case SETTING:
+    private GeneratorLock getGeneratorLock(ScgSetting scgSetting) throws HandlerException {
+        StringIdKey scgSettingKey = scgSetting.getKey();
+        int granularity = scgSetting.getGranularity();
+        switch (granularity) {
+            case Constants.SCG_SETTING_GRANULARITY_SETTING:
                 return settingGeneratorLockLocalCacheHandler.get(scgSettingKey);
-            case DEVICE:
+            case Constants.SCG_SETTING_GRANULARITY_DEVICE:
                 return deviceGeneratorLockLocalCacheHandler.get(scgSettingKey);
             default:
-                throw new IllegalStateException("未知的流水码粒度: " + serialCodeGranularity);
+                throw new IllegalStateException("未知的流水码粒度: " + granularity);
         }
     }
 
     @Override
     public Generator getGenerator(StringIdKey scgSettingKey) throws HandlerException {
-        return generateLocalCacheHandler.get(scgSettingKey);
+        return generateLocalCacheHandler.get(scgSettingKey).getGenerator();
     }
 
     @Override

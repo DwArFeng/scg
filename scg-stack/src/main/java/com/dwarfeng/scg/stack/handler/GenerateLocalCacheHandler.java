@@ -1,5 +1,7 @@
 package com.dwarfeng.scg.stack.handler;
 
+import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
+import com.dwarfeng.scg.stack.handler.GenerateLocalCacheHandler.GenerateContext;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.handler.LocalCacheHandler;
 
@@ -18,5 +20,37 @@ import com.dwarfeng.subgrade.stack.handler.LocalCacheHandler;
  * @author DwArFeng
  * @since 1.0.0
  */
-public interface GenerateLocalCacheHandler extends LocalCacheHandler<StringIdKey, Generator> {
+public interface GenerateLocalCacheHandler extends LocalCacheHandler<StringIdKey, GenerateContext> {
+
+    /**
+     * 生成器上下文。
+     *
+     * @since 1.2.0
+     */
+    final class GenerateContext {
+
+        private final ScgSetting scgSetting;
+        private final Generator generator;
+
+        public GenerateContext(ScgSetting scgSetting, Generator generator) {
+            this.scgSetting = scgSetting;
+            this.generator = generator;
+        }
+
+        public ScgSetting getScgSetting() {
+            return scgSetting;
+        }
+
+        public Generator getGenerator() {
+            return generator;
+        }
+
+        @Override
+        public String toString() {
+            return "GenerateContext{" +
+                    "scgSetting=" + scgSetting +
+                    ", generator=" + generator +
+                    '}';
+        }
+    }
 }

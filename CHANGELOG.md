@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 重构流水码的生成逻辑。
+  - **这将导致新版本的生成器插件与旧版本不兼容。**
+
 - 增加实体字段。
   - com.dwarfeng.scg.stack.bean.entity.ScgSetting.granularity。
 

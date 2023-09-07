@@ -1,6 +1,7 @@
 package groovy
 
 import com.dwarfeng.scg.impl.handler.generator.GroovyGeneratorRegistry
+import com.dwarfeng.subgrade.stack.bean.key.StringIdKey
 import org.springframework.stereotype.Component
 
 import static com.dwarfeng.scg.stack.handler.Generator.*
@@ -36,60 +37,62 @@ class ExampleGeneratorProcessor implements GroovyGeneratorRegistry.Processor {
     private static final String VARIABLE_ID_LAST_INDEX = "last_index"
     private static final long MILLISECONDS_OF_DAY = 3600 * 24 * 1000L
 
-    private static int analyseCurrentIndex(Context context, Date lastDate, Date currentDate) throws Exception {
-        Integer referenceIndex = context.inspectNodeVariable(VARIABLE_ID_LAST_INDEX, VariableType.INTEGER) as Integer
+    private static int analyseCurrentIndex(Context context, StringIdKey scgSettingKey, Date lastDate, Date currentDate)
+            throws Exception {
+        Integer referenceIndex = context.inspectNodeVariable(
+                scgSettingKey, VARIABLE_ID_LAST_INDEX, VariableType.INTEGER
+        ) as Integer
         if (Objects.nonNull(lastDate)) {
             TimeZone defaultTimeZone = TimeZone.getDefault()
             long lastTimestamp = lastDate.getTime()
             long currentTimestamp = currentDate.getTime()
-            int lastLocalDay = (int) ((lastTimestamp - defaultTimeZone.getOffset(lastTimestamp)) / MILLISECONDS_OF_DAY)
-            int currentLocalDay = (int) ((currentTimestamp - defaultTimeZone.getOffset(currentTimestamp)) / MILLISECONDS_OF_DAY)
-            if (currentLocalDay > lastLocalDay) {
-                return 0
-            } else {
-                return referenceIndex
-            }
+            int lastLocalDay = (int) (
+                    (lastTimestamp - defaultTimeZone.getOffset(lastTimestamp)) / MILLISECONDS_OF_DAY
+            )
+            int currentLocalDay = (int) (
+                    (currentTimestamp - defaultTimeZone.getOffset(currentTimestamp)) / MILLISECONDS_OF_DAY
+            )
+            return currentLocalDay > lastLocalDay ? 0 : referenceIndex
         } else {
             return 0
         }
     }
 
     @Override
-    SerialCodeGranularity getSerialCodeGranularity() {
-        return SerialCodeGranularity.DEVICE
-    }
-
-    @Override
-    String generate(Context context) throws Exception {
+    String generate(Context context, ContextInfo contextInfo) throws Exception {
         int deviceId = context.getDeviceId()
+        StringIdKey scgSettingKey = contextInfo.getScgSettingKey()
         Date currentDate = new Date()
-        Date lastDate = context.inspectNodeVariable(VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE) as Date
-        int currentIndex = analyseCurrentIndex(context, lastDate, currentDate)
-        String result = String.format(
-                "%1\$s%2\$tY%2\$tm%2\$td%3\$0" + NUMBER_OF_DIGITS_DEVICE_ID + "d%4\$0" + NUMBER_OF_DIGITS_INDEX + "d",
-                PREFIX, currentDate, deviceId, currentIndex++
-        )
-        context.upsertNodeVariable(VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE, currentDate)
-        context.upsertNodeVariable(VARIABLE_ID_LAST_INDEX, VariableType.INTEGER, currentIndex)
+        Date lastDate = context.inspectNodeVariable(
+                scgSettingKey, VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE
+        ) as Date
+        int currentIndex = analyseCurrentIndex(context, scgSettingKey, lastDate, currentDate)
+        String format = "%1\$s%2\$tY%2\$tm%2\$td%3\$0" + NUMBER_OF_DIGITS_DEVICE_ID + "d%4\$0" +
+                NUMBER_OF_DIGITS_INDEX + "d"
+        String result = String.format(format, PREFIX, currentDate, deviceId, currentIndex++)
+        context.upsertNodeVariable(scgSettingKey, VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE, currentDate)
+        context.upsertNodeVariable(scgSettingKey, VARIABLE_ID_LAST_INDEX, VariableType.INTEGER, currentIndex)
         return result
     }
 
     @Override
-    List<String> generate(Context context, int size) throws Exception {
+    List<String> generate(Context context, ContextInfo contextInfo, int size) throws Exception {
         int deviceId = context.getDeviceId()
+        StringIdKey scgSettingKey = contextInfo.getScgSettingKey()
         Date currentDate = new Date()
-        Date lastDate = context.inspectNodeVariable(VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE) as Date
-        int currentIndex = analyseCurrentIndex(context, lastDate, currentDate)
+        Date lastDate = context.inspectNodeVariable(
+                scgSettingKey, VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE
+        ) as Date
+        int currentIndex = analyseCurrentIndex(context, scgSettingKey, lastDate, currentDate)
         List<String> result = new ArrayList<>(size)
         for (int i = 0; i < size; i++) {
-            String serialCode = String.format(
-                    "%1\$s%2\$tY%2\$tm%2\$td%3\$0" + NUMBER_OF_DIGITS_DEVICE_ID + "d%4\$0" + NUMBER_OF_DIGITS_INDEX + "d",
-                    PREFIX, currentDate, deviceId, currentIndex++
-            )
+            String format = "%1\$s%2\$tY%2\$tm%2\$td%3\$0" + NUMBER_OF_DIGITS_DEVICE_ID + "d%4\$0" +
+                    NUMBER_OF_DIGITS_INDEX + "d"
+            String serialCode = String.format(format, PREFIX, currentDate, deviceId, currentIndex++)
             result.add(serialCode)
         }
-        context.upsertNodeVariable(VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE, currentDate)
-        context.upsertNodeVariable(VARIABLE_ID_LAST_INDEX, VariableType.INTEGER, currentIndex)
+        context.upsertNodeVariable(scgSettingKey, VARIABLE_ID_LAST_GENERATED_DATE, VariableType.DATE, currentDate)
+        context.upsertNodeVariable(scgSettingKey, VARIABLE_ID_LAST_INDEX, VariableType.INTEGER, currentIndex)
         return result
     }
 }

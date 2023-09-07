@@ -1,7 +1,6 @@
 package com.dwarfeng.scg.stack.handler;
 
 import com.dwarfeng.scg.stack.exception.GeneratorException;
-import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 
 /**
  * 生成器处理器。
@@ -14,11 +13,10 @@ public interface GeneratorHandler {
     /**
      * 根据指定的生成器信息构造一个生成器。
      *
-     * @param scgSettingKey 生成器所属的流水码生成设置的主键。
-     * @param type          生成器类型。
-     * @param param         生成器参数。
+     * @param type  生成器类型。
+     * @param param 生成器参数。
      * @return 构造的生成器。
      * @throws GeneratorException 生成器异常。
      */
-    Generator make(StringIdKey scgSettingKey, String type, String param) throws GeneratorException;
+    Generator make(String type, String param) throws GeneratorException;
 }

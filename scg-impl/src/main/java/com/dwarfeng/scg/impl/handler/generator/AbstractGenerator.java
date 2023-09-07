@@ -10,17 +10,9 @@ import com.dwarfeng.scg.stack.handler.Generator;
  */
 public abstract class AbstractGenerator implements Generator {
 
-    protected final SerialCodeGranularity serialCodeGranularity;
-
     protected Context context;
 
-    public AbstractGenerator(SerialCodeGranularity serialCodeGranularity) {
-        this.serialCodeGranularity = serialCodeGranularity;
-    }
-
-    @Override
-    public SerialCodeGranularity getSerialCodeGranularity() {
-        return serialCodeGranularity;
+    public AbstractGenerator() {
     }
 
     @Override
@@ -31,8 +23,7 @@ public abstract class AbstractGenerator implements Generator {
     @Override
     public String toString() {
         return "AbstractGenerator{" +
-                "serialCodeGranularity=" + serialCodeGranularity +
-                ", context=" + context +
+                "context=" + context +
                 '}';
     }
 }

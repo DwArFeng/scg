@@ -12,7 +12,7 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 public class ScgSetting implements Entity<StringIdKey> {
 
     private static final long serialVersionUID = 2372182637830385290L;
-    
+
     private StringIdKey key;
     private String label;
     private String remark;

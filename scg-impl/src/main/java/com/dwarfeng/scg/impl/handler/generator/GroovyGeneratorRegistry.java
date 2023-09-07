@@ -7,7 +7,7 @@ import com.dwarfeng.scg.stack.exception.GeneratorExecutionException;
 import com.dwarfeng.scg.stack.exception.GeneratorMakeException;
 import com.dwarfeng.scg.stack.handler.Generator;
 import com.dwarfeng.scg.stack.handler.Generator.Context;
-import com.dwarfeng.scg.stack.handler.Generator.SerialCodeGranularity;
+import com.dwarfeng.scg.stack.handler.Generator.ContextInfo;
 import groovy.lang.GroovyClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,14 +98,13 @@ public class GroovyGeneratorRegistry extends AbstractGeneratorRegistry {
         private final Processor processor;
 
         public GroovyGenerator(Processor processor) {
-            super(processor.getSerialCodeGranularity());
             this.processor = processor;
         }
 
         @Override
-        public String generate() throws GeneratorException {
+        public String generate(ContextInfo contextInfo) throws GeneratorException {
             try {
-                return processor.generate(context);
+                return processor.generate(context, contextInfo);
             } catch (GeneratorExecutionException e) {
                 throw e;
             } catch (Exception e) {
@@ -114,9 +113,9 @@ public class GroovyGeneratorRegistry extends AbstractGeneratorRegistry {
         }
 
         @Override
-        public List<String> generate(int size) throws GeneratorException {
+        public List<String> generate(ContextInfo contextInfo, int size) throws GeneratorException {
             try {
-                return processor.generate(context, size);
+                return processor.generate(context, contextInfo, size);
             } catch (GeneratorExecutionException e) {
                 throw e;
             } catch (Exception e) {
@@ -128,7 +127,6 @@ public class GroovyGeneratorRegistry extends AbstractGeneratorRegistry {
         public String toString() {
             return "GroovyGenerator{" +
                     "processor=" + processor +
-                    ", serialCodeGranularity=" + serialCodeGranularity +
                     ", context=" + context +
                     '}';
         }
@@ -143,29 +141,24 @@ public class GroovyGeneratorRegistry extends AbstractGeneratorRegistry {
     public interface Processor {
 
         /**
-         * 获取 Groovy 处理器的序列码粒度。
-         *
-         * @return Groovy 处理器的序列码粒度。
-         */
-        SerialCodeGranularity getSerialCodeGranularity();
-
-        /**
          * 生成序列码。
          *
-         * @param context 生成器上下文。
+         * @param context     生成器上下文。
+         * @param contextInfo 上下文信息。
          * @return 生成的序列码。
          * @throws GeneratorException 生成过程中发生的任何异常。
          */
-        String generate(Context context) throws Exception;
+        String generate(Context context, ContextInfo contextInfo) throws Exception;
 
         /**
          * 生成序列码。
          *
-         * @param context 生成器上下文。
-         * @param size    生成数量。
+         * @param context     生成器上下文。
+         * @param contextInfo 上下文信息。
+         * @param size        生成数量。
          * @return 生成的序列码组成的列表。
          * @throws Exception 生成过程中发生的任何异常。
          */
-        List<String> generate(Context context, int size) throws Exception;
+        List<String> generate(Context context, ContextInfo contextInfo, int size) throws Exception;
     }
 }
