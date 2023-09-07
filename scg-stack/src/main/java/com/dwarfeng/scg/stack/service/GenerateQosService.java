@@ -1,6 +1,6 @@
 package com.dwarfeng.scg.stack.service;
 
-import com.dwarfeng.scg.stack.handler.Generator;
+import com.dwarfeng.scg.stack.handler.GenerateLocalCacheHandler.GenerateContext;
 import com.dwarfeng.scg.stack.struct.GeneratorLock;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
@@ -36,13 +36,13 @@ public interface GenerateQosService extends Service {
     List<String> generate(StringIdKey scgSettingKey, int size) throws ServiceException;
 
     /**
-     * 获取指定主键对应的生成器。
+     * 获取指定主键对应的生成上下文。
      *
      * @param scgSettingKey 指定的主键。
-     * @return 指定部件的评估上下文，如果主键对应的生成器信息不存在，则返回 null。
+     * @return 指定主键对应的生成上下文，如果主键对应的生成器信息不存在，则返回 null。
      * @throws ServiceException 服务异常。
      */
-    Generator getGenerator(StringIdKey scgSettingKey) throws ServiceException;
+    GenerateContext getGenerateContext(StringIdKey scgSettingKey) throws ServiceException;
 
     /**
      * 清除生成器本地缓存。

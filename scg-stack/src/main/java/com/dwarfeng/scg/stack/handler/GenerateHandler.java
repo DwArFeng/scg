@@ -1,5 +1,6 @@
 package com.dwarfeng.scg.stack.handler;
 
+import com.dwarfeng.scg.stack.handler.GenerateLocalCacheHandler.GenerateContext;
 import com.dwarfeng.scg.stack.struct.GeneratorLock;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
@@ -35,13 +36,13 @@ public interface GenerateHandler extends Handler {
     List<String> generate(StringIdKey scgSettingKey, int size) throws HandlerException;
 
     /**
-     * 获取指定主键对应的生成器。
+     * 获取指定主键对应的生成上下文。
      *
      * @param scgSettingKey 指定的主键。
-     * @return 指定部件的评估上下文，如果主键对应的生成器信息不存在，则返回 null。
+     * @return 指定主键对应的生成上下文，如果主键对应的生成器信息不存在，则返回 null。
      * @throws HandlerException 处理器异常。
      */
-    Generator getGenerator(StringIdKey scgSettingKey) throws HandlerException;
+    GenerateContext getGenerateContext(StringIdKey scgSettingKey) throws HandlerException;
 
     /**
      * 清除生成器本地缓存。

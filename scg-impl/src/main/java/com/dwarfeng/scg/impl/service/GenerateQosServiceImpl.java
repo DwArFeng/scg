@@ -1,7 +1,7 @@
 package com.dwarfeng.scg.impl.service;
 
 import com.dwarfeng.scg.stack.handler.GenerateHandler;
-import com.dwarfeng.scg.stack.handler.Generator;
+import com.dwarfeng.scg.stack.handler.GenerateLocalCacheHandler.GenerateContext;
 import com.dwarfeng.scg.stack.service.GenerateQosService;
 import com.dwarfeng.scg.stack.struct.GeneratorLock;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
@@ -44,9 +44,9 @@ public class GenerateQosServiceImpl implements GenerateQosService {
     }
 
     @Override
-    public Generator getGenerator(StringIdKey scgSettingKey) throws ServiceException {
+    public GenerateContext getGenerateContext(StringIdKey scgSettingKey) throws ServiceException {
         try {
-            return generateHandler.getGenerator(scgSettingKey);
+            return generateHandler.getGenerateContext(scgSettingKey);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("获取指定主键对应的生成器时发生异常", LogLevel.WARN, sem, e);
         }

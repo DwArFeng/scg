@@ -109,8 +109,8 @@ public class GenerateHandlerImpl implements GenerateHandler {
     }
 
     @Override
-    public Generator getGenerator(StringIdKey scgSettingKey) throws HandlerException {
-        return generateLocalCacheHandler.get(scgSettingKey).getGenerator();
+    public GenerateContext getGenerateContext(StringIdKey scgSettingKey) throws HandlerException {
+        return generateLocalCacheHandler.get(scgSettingKey);
     }
 
     @Override

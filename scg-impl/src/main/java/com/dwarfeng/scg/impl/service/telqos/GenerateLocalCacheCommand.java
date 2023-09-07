@@ -1,6 +1,6 @@
 package com.dwarfeng.scg.impl.service.telqos;
 
-import com.dwarfeng.scg.stack.handler.Generator;
+import com.dwarfeng.scg.stack.handler.GenerateLocalCacheHandler.GenerateContext;
 import com.dwarfeng.scg.stack.service.GenerateQosService;
 import com.dwarfeng.springtelqos.node.config.TelqosCommand;
 import com.dwarfeng.springtelqos.sdk.command.CliCommand;
@@ -51,7 +51,7 @@ public class GenerateLocalCacheCommand extends CliCommand {
     @Override
     protected List<Option> buildOptions() {
         List<Option> list = new ArrayList<>();
-        list.add(Option.builder(COMMAND_OPTION_LOOKUP).hasArg().desc("查询生成器").type(String.class).build());
+        list.add(Option.builder(COMMAND_OPTION_LOOKUP).hasArg().desc("查询生成上下文").type(String.class).build());
         list.add(Option.builder(COMMAND_OPTION_CLEAR).desc("清除生成器").build());
         return list;
     }
@@ -81,11 +81,11 @@ public class GenerateLocalCacheCommand extends CliCommand {
 
     private void handleLookup(Context context, CommandLine cmd) throws Exception {
         StringIdKey scgSettingKey = new StringIdKey(cmd.getOptionValue(COMMAND_OPTION_LOOKUP));
-        Generator generator = generateQosService.getGenerator(scgSettingKey);
-        if (Objects.isNull(generator)) {
+        GenerateContext generateContext = generateQosService.getGenerateContext(scgSettingKey);
+        if (Objects.isNull(generateContext)) {
             context.sendMessage("not exists");
         } else {
-            context.sendMessage(generator.toString());
+            context.sendMessage(generateContext.toString());
         }
     }
 }
