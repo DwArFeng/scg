@@ -11,20 +11,21 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
  */
 public class ScgSetting implements Entity<StringIdKey> {
 
-    private static final long serialVersionUID = -2451090701766091733L;
-
+    private static final long serialVersionUID = 2372182637830385290L;
+    
     private StringIdKey key;
     private String label;
     private String remark;
     private String type;
     private String param;
     private boolean enabled;
+    private int granularity;
 
     public ScgSetting() {
     }
 
     public ScgSetting(
-            StringIdKey key, String label, String remark, String type, String param, boolean enabled
+            StringIdKey key, String label, String remark, String type, String param, boolean enabled, int granularity
     ) {
         this.key = key;
         this.label = label;
@@ -32,6 +33,7 @@ public class ScgSetting implements Entity<StringIdKey> {
         this.type = type;
         this.param = param;
         this.enabled = enabled;
+        this.granularity = granularity;
     }
 
     @Override
@@ -84,6 +86,14 @@ public class ScgSetting implements Entity<StringIdKey> {
         this.enabled = enabled;
     }
 
+    public int getGranularity() {
+        return granularity;
+    }
+
+    public void setGranularity(int granularity) {
+        this.granularity = granularity;
+    }
+
     @Override
     public String toString() {
         return "ScgSetting{" +
@@ -93,6 +103,7 @@ public class ScgSetting implements Entity<StringIdKey> {
                 ", type='" + type + '\'' +
                 ", param='" + param + '\'' +
                 ", enabled=" + enabled +
+                ", granularity=" + granularity +
                 '}';
     }
 }

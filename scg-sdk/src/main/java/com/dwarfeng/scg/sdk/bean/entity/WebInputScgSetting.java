@@ -2,6 +2,7 @@ package com.dwarfeng.scg.sdk.bean.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.scg.sdk.util.Constraints;
+import com.dwarfeng.scg.sdk.util.ValidScgSettingGranularity;
 import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputStringIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
@@ -20,16 +21,16 @@ import java.util.Objects;
  */
 public class WebInputScgSetting implements Bean {
 
-    private static final long serialVersionUID = 6985196252665913153L;
+    private static final long serialVersionUID = 3814717522927546904L;
 
-    public static ScgSetting toStackBean(WebInputScgSetting webInputScgSetting) {
-        if (Objects.isNull(webInputScgSetting)) {
+    public static ScgSetting toStackBean(WebInputScgSetting webInput) {
+        if (Objects.isNull(webInput)) {
             return null;
         } else {
             return new ScgSetting(
-                    WebInputStringIdKey.toStackBean(webInputScgSetting.getKey()),
-                    webInputScgSetting.getLabel(), webInputScgSetting.getRemark(), webInputScgSetting.getType(),
-                    webInputScgSetting.getParam(), webInputScgSetting.isEnabled()
+                    WebInputStringIdKey.toStackBean(webInput.getKey()),
+                    webInput.getLabel(), webInput.getRemark(), webInput.getType(), webInput.getParam(),
+                    webInput.isEnabled(), webInput.getGranularity()
             );
         }
     }
@@ -60,6 +61,10 @@ public class WebInputScgSetting implements Bean {
 
     @JSONField(name = "enabled")
     private boolean enabled;
+
+    @JSONField(name = "granularity")
+    @ValidScgSettingGranularity
+    private int granularity;
 
     public WebInputScgSetting() {
     }
@@ -112,6 +117,14 @@ public class WebInputScgSetting implements Bean {
         this.enabled = enabled;
     }
 
+    public int getGranularity() {
+        return granularity;
+    }
+
+    public void setGranularity(int granularity) {
+        this.granularity = granularity;
+    }
+
     @Override
     public String toString() {
         return "WebInputScgSetting{" +
@@ -121,6 +134,7 @@ public class WebInputScgSetting implements Bean {
                 ", type='" + type + '\'' +
                 ", param='" + param + '\'' +
                 ", enabled=" + enabled +
+                ", granularity=" + granularity +
                 '}';
     }
 }

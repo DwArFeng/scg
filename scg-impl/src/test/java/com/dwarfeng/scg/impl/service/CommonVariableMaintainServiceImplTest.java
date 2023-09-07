@@ -40,7 +40,7 @@ public class CommonVariableMaintainServiceImplTest {
     @Before
     public void setUp() {
         scgSetting = new ScgSetting(
-                new StringIdKey(TEST_SCG_SETTING_ID), "label", "remark", "type", "param", true
+                new StringIdKey(TEST_SCG_SETTING_ID), "label", "remark", "type", "param", true, 12450
         );
         commonVariables = new ArrayList<>();
         for (int i = 0; i < 5; i++) {

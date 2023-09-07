@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public class FastJsonScgSetting implements Bean {
 
-    private static final long serialVersionUID = -9102822118125327319L;
+    private static final long serialVersionUID = 9136992175234162516L;
 
     public static FastJsonScgSetting of(ScgSetting scgSetting) {
         if (Objects.isNull(scgSetting)) {
@@ -24,7 +24,7 @@ public class FastJsonScgSetting implements Bean {
             return new FastJsonScgSetting(
                     FastJsonStringIdKey.of(scgSetting.getKey()),
                     scgSetting.getLabel(), scgSetting.getRemark(), scgSetting.getType(), scgSetting.getParam(),
-                    scgSetting.isEnabled()
+                    scgSetting.isEnabled(), scgSetting.getGranularity()
             );
         }
     }
@@ -47,11 +47,15 @@ public class FastJsonScgSetting implements Bean {
     @JSONField(name = "enabled", ordinal = 6)
     private boolean enabled;
 
+    @JSONField(name = "granularity", ordinal = 7)
+    private int granularity;
+
     public FastJsonScgSetting() {
     }
 
     public FastJsonScgSetting(
-            FastJsonStringIdKey key, String label, String remark, String type, String param, boolean enabled
+            FastJsonStringIdKey key, String label, String remark, String type, String param, boolean enabled,
+            int granularity
     ) {
         this.key = key;
         this.label = label;
@@ -59,6 +63,7 @@ public class FastJsonScgSetting implements Bean {
         this.type = type;
         this.param = param;
         this.enabled = enabled;
+        this.granularity = granularity;
     }
 
     public FastJsonStringIdKey getKey() {
@@ -109,6 +114,14 @@ public class FastJsonScgSetting implements Bean {
         this.enabled = enabled;
     }
 
+    public int getGranularity() {
+        return granularity;
+    }
+
+    public void setGranularity(int granularity) {
+        this.granularity = granularity;
+    }
+
     @Override
     public String toString() {
         return "FastJsonScgSetting{" +
@@ -118,6 +131,7 @@ public class FastJsonScgSetting implements Bean {
                 ", type='" + type + '\'' +
                 ", param='" + param + '\'' +
                 ", enabled=" + enabled +
+                ", granularity=" + granularity +
                 '}';
     }
 }

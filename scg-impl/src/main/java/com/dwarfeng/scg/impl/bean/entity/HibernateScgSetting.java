@@ -1,5 +1,6 @@
 package com.dwarfeng.scg.impl.bean.entity;
 
+import com.dwarfeng.scg.sdk.util.Constants;
 import com.dwarfeng.scg.sdk.util.Constraints;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateStringIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Table(name = "tbl_scg_setting")
 public class HibernateScgSetting implements Bean {
 
-    private static final long serialVersionUID = 2204197466767787401L;
+    private static final long serialVersionUID = 587749630722259936L;
 
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
@@ -36,6 +37,9 @@ public class HibernateScgSetting implements Bean {
 
     @Column(name = "enabled")
     private boolean enabled;
+
+    @Column(name = "granularity")
+    private int granularity = Constants.SCG_SETTING_GRANULARITY_SETTING;
 
     // -----------------------------------------------------------一对多-----------------------------------------------------------
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateNodeVariable.class, mappedBy = "scgSetting")
@@ -121,6 +125,14 @@ public class HibernateScgSetting implements Bean {
         this.commonVariables = commonVariables;
     }
 
+    public int getGranularity() {
+        return granularity;
+    }
+
+    public void setGranularity(int granularity) {
+        this.granularity = granularity;
+    }
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
@@ -129,6 +141,7 @@ public class HibernateScgSetting implements Bean {
                 "remark = " + remark + ", " +
                 "type = " + type + ", " +
                 "param = " + param + ", " +
-                "enabled = " + enabled + ")";
+                "enabled = " + enabled + ", " +
+                "granularity = " + granularity + ")";
     }
 }
