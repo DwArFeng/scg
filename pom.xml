@@ -10,7 +10,7 @@
 
     <groupId>com.dwarfeng</groupId>
     <artifactId>scg</artifactId>
-    <version>1.2.0.a</version>
+    <version>1.2.1.a-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -462,22 +462,22 @@
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>scg-stack</artifactId>
-                <version>1.2.0.a</version>
+                <version>1.2.1.a-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>scg-sdk</artifactId>
-                <version>1.2.0.a</version>
+                <version>1.2.1.a-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>scg-impl</artifactId>
-                <version>1.2.0.a</version>
+                <version>1.2.1.a-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>scg-node</artifactId>
-                <version>1.2.0.a</version>
+                <version>1.2.1.a-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
