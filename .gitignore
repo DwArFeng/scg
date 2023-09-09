@@ -55,6 +55,7 @@ buildNumber.properties
 /scg-sdk/logs/
 /scg-impl/logs/
 /scg-node/logs/
+/scg-api/logs/
 
 #################
 ## Configuration Files
@@ -62,6 +63,7 @@ buildNumber.properties
 /scg-impl/conf/
 /scg-sdk/conf/
 /scg-node/conf/
+/scg-api/conf/
 
 #################
 ## Libext Files

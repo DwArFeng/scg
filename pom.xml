@@ -518,5 +518,6 @@
         <module>scg-sdk</module>
         <module>scg-impl</module>
         <module>scg-node</module>
+        <module>scg-api</module>
     </modules>
 </project>
