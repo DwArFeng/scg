@@ -4,6 +4,10 @@
 
 #### 功能构建
 
+- 新增 `subgrade` 项目的集成组件。
+  - com.dwarfeng.scg.api.integration.subgrade.ScgStringGenerator。
+  - com.dwarfeng.scg.api.integration.subgrade.ScgStringIdKeyGenerator。
+
 - 新增 api 模块。
 
 - 依赖升级。
