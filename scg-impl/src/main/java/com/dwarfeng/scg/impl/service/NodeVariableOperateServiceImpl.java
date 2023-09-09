@@ -35,7 +35,7 @@ public class NodeVariableOperateServiceImpl implements NodeVariableOperateServic
         try {
             return nodeVariableOperateHandler.inspect(inspectInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("查看指定的节点变量时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("查看指定的节点变量时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -44,8 +44,8 @@ public class NodeVariableOperateServiceImpl implements NodeVariableOperateServic
         try {
             nodeVariableOperateHandler.upsert(upsertInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow(
-                    "向指定的节点变量中插入或更新指定的值时发生异常", LogLevel.WARN, sem, e
+            throw ServiceExceptionHelper.logParse(
+                    "向指定的节点变量中插入或更新指定的值时发生异常", LogLevel.WARN, e, sem
             );
         }
     }
@@ -55,7 +55,7 @@ public class NodeVariableOperateServiceImpl implements NodeVariableOperateServic
         try {
             nodeVariableOperateHandler.remove(removeInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("从指定的节点变量中移除指定的值时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("从指定的节点变量中移除指定的值时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }

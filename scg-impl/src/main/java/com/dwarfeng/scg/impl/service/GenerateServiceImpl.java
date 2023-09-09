@@ -28,7 +28,7 @@ public class GenerateServiceImpl implements GenerateService {
         try {
             return generateHandler.generate(scgSettingKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("基于指定的设置生成序列码时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("基于指定的设置生成序列码时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -37,7 +37,7 @@ public class GenerateServiceImpl implements GenerateService {
         try {
             return generateHandler.generate(scgSettingKey, size);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("基于指定的设置生成序列码时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("基于指定的设置生成序列码时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }

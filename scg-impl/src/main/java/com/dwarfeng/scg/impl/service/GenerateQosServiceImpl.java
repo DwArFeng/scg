@@ -30,7 +30,7 @@ public class GenerateQosServiceImpl implements GenerateQosService {
         try {
             return generateHandler.generate(scgSettingKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("基于指定的设置生成序列码时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("基于指定的设置生成序列码时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -39,7 +39,7 @@ public class GenerateQosServiceImpl implements GenerateQosService {
         try {
             return generateHandler.generate(scgSettingKey, size);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("基于指定的设置生成序列码时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("基于指定的设置生成序列码时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -48,7 +48,7 @@ public class GenerateQosServiceImpl implements GenerateQosService {
         try {
             return generateHandler.getGenerateContext(scgSettingKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("获取指定主键对应的生成器时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("获取指定主键对应的生成器时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -57,7 +57,7 @@ public class GenerateQosServiceImpl implements GenerateQosService {
         try {
             generateHandler.clearGenerateLocalCache();
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("清除生成器本地缓存时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("清除生成器本地缓存时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -66,8 +66,8 @@ public class GenerateQosServiceImpl implements GenerateQosService {
         try {
             return generateHandler.getSettingGeneratorLock(scgSettingKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow(
-                    "获取指定流水码生成设置主键对应的设置生成器锁时发生异常", LogLevel.WARN, sem, e
+            throw ServiceExceptionHelper.logParse(
+                    "获取指定流水码生成设置主键对应的设置生成器锁时发生异常", LogLevel.WARN, e, sem
             );
         }
     }
@@ -77,7 +77,7 @@ public class GenerateQosServiceImpl implements GenerateQosService {
         try {
             generateHandler.clearSettingGeneratorLockLocalCache();
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("清除设置生成器锁本地缓存时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("清除设置生成器锁本地缓存时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -86,8 +86,8 @@ public class GenerateQosServiceImpl implements GenerateQosService {
         try {
             return generateHandler.getDeviceGeneratorLock(scgDeviceKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow(
-                    "获取指定流水码生成设备主键对应的设备生成器锁时发生异常", LogLevel.WARN, sem, e
+            throw ServiceExceptionHelper.logParse(
+                    "获取指定流水码生成设备主键对应的设备生成器锁时发生异常", LogLevel.WARN, e, sem
             );
         }
     }
@@ -97,7 +97,7 @@ public class GenerateQosServiceImpl implements GenerateQosService {
         try {
             generateHandler.clearDeviceGeneratorLockLocalCache();
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("清除设备生成器锁本地缓存时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("清除设备生成器锁本地缓存时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }

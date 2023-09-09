@@ -14,7 +14,7 @@ import com.dwarfeng.scg.stack.dao.CommonVariableDao;
 import com.dwarfeng.scg.stack.dao.GeneratorSupportDao;
 import com.dwarfeng.scg.stack.dao.NodeVariableDao;
 import com.dwarfeng.scg.stack.dao.ScgSettingDao;
-import com.dwarfeng.subgrade.impl.bean.key.ExceptionKeyFetcher;
+import com.dwarfeng.subgrade.impl.generation.ExceptionKeyGenerator;
 import com.dwarfeng.subgrade.impl.service.CustomBatchCrudService;
 import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
 import com.dwarfeng.subgrade.impl.service.DaoOnlyPresetLookupService;
@@ -69,7 +69,7 @@ public class ServiceConfiguration {
         return new GeneralBatchCrudService<>(
                 generatorSupportDao,
                 generatorSupportCache,
-                new ExceptionKeyFetcher<>(),
+                new ExceptionKeyGenerator<>(),
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN,
                 generatorSupportTimeout
@@ -98,7 +98,7 @@ public class ServiceConfiguration {
     public CustomBatchCrudService<StringIdKey, ScgSetting> scgSettingCustomBatchCrudService() {
         return new CustomBatchCrudService<>(
                 scgSettingCrudOperation,
-                new ExceptionKeyFetcher<>(),
+                new ExceptionKeyGenerator<>(),
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
         );
@@ -127,7 +127,7 @@ public class ServiceConfiguration {
         return new GeneralBatchCrudService<>(
                 nodeVariableDao,
                 nodeVariableCache,
-                new ExceptionKeyFetcher<>(),
+                new ExceptionKeyGenerator<>(),
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN,
                 nodeVariableTimeout
@@ -157,7 +157,7 @@ public class ServiceConfiguration {
         return new GeneralBatchCrudService<>(
                 commonVariableDao,
                 commonVariableCache,
-                new ExceptionKeyFetcher<>(),
+                new ExceptionKeyGenerator<>(),
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN,
                 commonVariableTimeout
