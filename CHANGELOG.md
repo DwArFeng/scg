@@ -4,7 +4,8 @@
 
 #### 功能构建
 
-- (无)
+- 新增服务。
+  - com.dwarfeng.scg.stack.service.PostStyleGenerateService。
 
 #### Bug修复
 

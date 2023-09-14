@@ -61,4 +61,9 @@
             ref="commonVariableOperateServiceImpl"
             group="${dubbo.provider.group}"
     />
+    <dubbo:service
+            interface="com.dwarfeng.scg.stack.service.PostStyleGenerateService"
+            ref="postStyleGenerateServiceImpl"
+            group="${dubbo.provider.group}"
+    />
 </beans>
