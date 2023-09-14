@@ -29,7 +29,7 @@ public class HibernateNodeVariable implements Bean {
     private String variableId;
 
     // -----------------------------------------------------------主属性字段-----------------------------------------------------------
-    @Column(name = "string_id", columnDefinition = "TEXT")
+    @Column(name = "string_value", columnDefinition = "TEXT")
     private String stringValue;
 
     @Column(name = "boolean_value")

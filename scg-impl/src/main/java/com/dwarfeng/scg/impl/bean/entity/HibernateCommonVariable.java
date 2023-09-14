@@ -14,7 +14,7 @@ import java.util.Objects;
 public class HibernateCommonVariable implements Bean {
 
     private static final long serialVersionUID = -4774890677541047944L;
-    
+
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
     @Column(name = "scg_setting_id", length = Constraints.LENGTH_ID, nullable = false)
@@ -25,7 +25,7 @@ public class HibernateCommonVariable implements Bean {
     private String variableId;
 
     // -----------------------------------------------------------主属性字段-----------------------------------------------------------
-    @Column(name = "string_id", columnDefinition = "TEXT")
+    @Column(name = "string_value", columnDefinition = "TEXT")
     private String stringValue;
 
     @Column(name = "boolean_value")
