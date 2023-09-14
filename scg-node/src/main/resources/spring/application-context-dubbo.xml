@@ -52,6 +52,11 @@
             group="${dubbo.provider.group}"
     />
     <dubbo:service
+            interface="com.dwarfeng.scg.stack.service.CommonVariableMaintainService"
+            ref="commonVariableMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
             interface="com.dwarfeng.scg.stack.service.CommonVariableOperateService"
             ref="commonVariableOperateServiceImpl"
             group="${dubbo.provider.group}"

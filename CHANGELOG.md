@@ -8,6 +8,8 @@
 
 #### Bug修复
 
+- 补充 node 模块 `spring/application-context-dubbo.xml` 中缺失的配置。
+
 - 修正 Hibernate 实体字段列注解中错误的列名。
   - com.dwarfeng.scg.impl.bean.entity.HibernateNodeVariable.stringValue。
   - com.dwarfeng.scg.impl.bean.entity.HibernateCommonVariable.stringValue。
