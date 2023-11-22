@@ -9,7 +9,8 @@
 
 #### Bug修复
 
-- (无)
+- 修改预置的 groovy 脚本中的 bug。
+  - scg-impl/src/main/resources/groovy/ExampleGeneratorProcessor.groovy。
 
 #### 功能移除
 

@@ -47,10 +47,10 @@ class ExampleGeneratorProcessor implements GroovyGeneratorRegistry.Processor {
             long lastTimestamp = lastDate.getTime()
             long currentTimestamp = currentDate.getTime()
             int lastLocalDay = (int) (
-                    (lastTimestamp - defaultTimeZone.getOffset(lastTimestamp)) / MILLISECONDS_OF_DAY
+                    (lastTimestamp + defaultTimeZone.getOffset(lastTimestamp)) / MILLISECONDS_OF_DAY
             )
             int currentLocalDay = (int) (
-                    (currentTimestamp - defaultTimeZone.getOffset(currentTimestamp)) / MILLISECONDS_OF_DAY
+                    (currentTimestamp + defaultTimeZone.getOffset(currentTimestamp)) / MILLISECONDS_OF_DAY
             )
             return currentLocalDay > lastLocalDay ? 0 : referenceIndex
         } else {
