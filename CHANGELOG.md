@@ -4,6 +4,8 @@
 
 #### 功能构建
 
+- 优化 `telqos/connection.properties` 配置文件的默认值。
+
 - 添加 sdk Bean。
   - com.dwarfeng.scg.sdk.bean.entity.JSFixedFastJsonCommonVariable。
 
