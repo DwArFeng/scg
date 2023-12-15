@@ -4,7 +4,8 @@
 
 #### 功能构建
 
-- (无)
+- 添加 sdk Bean。
+  - com.dwarfeng.scg.sdk.bean.entity.JSFixedFastJsonCommonVariable。
 
 #### Bug修复
 
