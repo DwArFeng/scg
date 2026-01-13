@@ -115,7 +115,8 @@
 
 ### Bug 修复
 
-- (无)
+- 修复部分 CrudOperation 中部分存在性判断方法行为异常的 bug。
+  - com.dwarfeng.scg.impl.service.operation.ScgSettingCrudOperation。
 
 ### 功能移除
 

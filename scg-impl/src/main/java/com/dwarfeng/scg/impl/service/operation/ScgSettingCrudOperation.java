@@ -110,7 +110,7 @@ public class ScgSettingCrudOperation implements BatchCrudOperation<StringIdKey, 
 
     @Override
     public boolean nonExists(List<StringIdKey> keys) throws Exception {
-        return scgSettingCache.nonExists(keys) && scgSettingCache.nonExists(keys);
+        return scgSettingCache.nonExists(keys) && scgSettingDao.nonExists(keys);
     }
 
     @Override
