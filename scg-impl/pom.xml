@@ -172,6 +172,11 @@
             <groupId>com.dwarfeng</groupId>
             <artifactId>spring-telqos-core</artifactId>
         </dependency>
+        <!-- Dwarfeng-datamark 组件 -->
+        <dependency>
+            <groupId>com.dwarfeng</groupId>
+            <artifactId>dwarfeng-datamark</artifactId>
+        </dependency>
         <!-- Jackson 组件 -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

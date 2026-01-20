@@ -74,6 +74,8 @@ public interface BeanMapper {
     @Mapping(target = "stringId", ignore = true)
     @Mapping(target = "nodeVariables", ignore = true)
     @Mapping(target = "commonVariables", ignore = true)
+    @Mapping(target = "createdDatamark", ignore = true)
+    @Mapping(target = "modifiedDatamark", ignore = true)
     HibernateScgSetting scgSettingToHibernate(ScgSetting scgSetting);
 
     @InheritInverseConfiguration

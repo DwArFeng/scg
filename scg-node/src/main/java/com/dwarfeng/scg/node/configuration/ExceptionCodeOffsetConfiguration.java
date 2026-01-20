@@ -13,10 +13,13 @@ public class ExceptionCodeOffsetConfiguration {
     private int exceptionCodeOffset;
     @Value("${scg.exception_code_offset.subgrade}")
     private int subgradeExceptionCodeOffset;
+    @Value("${scg.exception_code_offset.dwarfeng_datamark}")
+    private int dwarfengDatamarkExceptionCodeOffset;
 
     @PostConstruct
     public void init() {
         ServiceExceptionCodes.setExceptionCodeOffset(exceptionCodeOffset);
         com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.setExceptionCodeOffset(subgradeExceptionCodeOffset);
+        com.dwarfeng.datamark.util.ServiceExceptionCodes.setExceptionCodeOffset(dwarfengDatamarkExceptionCodeOffset);
     }
 }

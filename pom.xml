@@ -53,6 +53,7 @@
         <subgrade.version>1.6.2.a</subgrade.version>
         <spring-terminator.version>1.0.15.a</spring-terminator.version>
         <spring-telqos.version>1.1.16.a</spring-telqos.version>
+        <dwarfeng-datamark.version>1.0.5.a</dwarfeng-datamark.version>
         <jackson.version>2.18.3</jackson.version>
         <groovy.version>4.0.26</groovy.version>
         <!-- Maven 插件版本声明 -->
@@ -451,6 +452,12 @@
                         <groupId>org.apache.groovy</groupId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <!-- Dwarfeng-datamark 组件 -->
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>dwarfeng-datamark</artifactId>
+                <version>${dwarfeng-datamark.version}</version>
             </dependency>
             <!-- 程序自身组件 -->
             <dependency>

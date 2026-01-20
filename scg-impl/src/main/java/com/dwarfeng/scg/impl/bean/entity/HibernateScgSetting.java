@@ -1,5 +1,7 @@
 package com.dwarfeng.scg.impl.bean.entity;
 
+import com.dwarfeng.datamark.bean.jpa.DatamarkEntityListener;
+import com.dwarfeng.datamark.bean.jpa.DatamarkField;
 import com.dwarfeng.scg.sdk.util.Constants;
 import com.dwarfeng.scg.sdk.util.Constraints;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateStringIdKey;
@@ -13,9 +15,10 @@ import java.util.Set;
 @Entity
 @IdClass(HibernateStringIdKey.class)
 @Table(name = "tbl_scg_setting")
+@EntityListeners(DatamarkEntityListener.class)
 public class HibernateScgSetting implements Bean {
 
-    private static final long serialVersionUID = 587749630722259936L;
+    private static final long serialVersionUID = -172859853778754625L;
 
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
@@ -47,6 +50,22 @@ public class HibernateScgSetting implements Bean {
 
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateCommonVariable.class, mappedBy = "scgSetting")
     private Set<HibernateCommonVariable> commonVariables = new HashSet<>();
+
+    // -----------------------------------------------------------审计-----------------------------------------------------------
+    @DatamarkField(handlerName = "scgSettingDatamarkHandler")
+    @Column(
+            name = "created_datamark",
+            length = com.dwarfeng.datamark.util.Constraints.LENGTH_DATAMARK_VALUE,
+            updatable = false
+    )
+    private String createdDatamark;
+
+    @DatamarkField(handlerName = "scgSettingDatamarkHandler")
+    @Column(
+            name = "modified_datamark",
+            length = com.dwarfeng.datamark.util.Constraints.LENGTH_DATAMARK_VALUE
+    )
+    private String modifiedDatamark;
 
     public HibernateScgSetting() {
     }
@@ -133,6 +152,22 @@ public class HibernateScgSetting implements Bean {
         this.granularity = granularity;
     }
 
+    public String getCreatedDatamark() {
+        return createdDatamark;
+    }
+
+    public void setCreatedDatamark(String createdDatamark) {
+        this.createdDatamark = createdDatamark;
+    }
+
+    public String getModifiedDatamark() {
+        return modifiedDatamark;
+    }
+
+    public void setModifiedDatamark(String modifiedDatamark) {
+        this.modifiedDatamark = modifiedDatamark;
+    }
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
@@ -142,6 +177,8 @@ public class HibernateScgSetting implements Bean {
                 "type = " + type + ", " +
                 "param = " + param + ", " +
                 "enabled = " + enabled + ", " +
-                "granularity = " + granularity + ")";
+                "granularity = " + granularity + ", " +
+                "createdDatamark = " + createdDatamark + ", " +
+                "modifiedDatamark = " + modifiedDatamark + ")";
     }
 }

@@ -4,6 +4,15 @@
 
 ### 功能构建
 
+- 导入运维指令。
+  - com.dwarfeng.datamark.service.telqos.*。
+
+- 增加 Hibernate 实体数据标记字段，并应用相关实体侦听器。
+  - com.dwarfeng.scg.impl.bean.entity.HibernateScgSetting。
+
+- 增加依赖。
+  - 增加依赖 `dwarfeng-datamark` 以应用其新功能，版本为 `1.0.5.a`。
+
 - 优化实体映射器机制。
 
 - 实现运维指令。
