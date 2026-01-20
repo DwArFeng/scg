@@ -1,66 +1,66 @@
 # ChangeLog
 
-### Release_1.3.0_20260112_build_A
+## Release_1.3.0_20260112_build_A
 
-#### 功能构建
-
-- (无)
-
-#### Bug修复
+### 功能构建
 
 - (无)
 
-#### 功能移除
+### Bug 修复
+
+- (无)
+
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.2.4_20231215_build_A
+## Release_1.2.4_20231215_build_A
 
-#### 功能构建
+### 功能构建
 
 - 优化 `telqos/connection.properties` 配置文件的默认值。
 
 - 添加 sdk Bean。
   - com.dwarfeng.scg.sdk.bean.entity.JSFixedFastJsonCommonVariable。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.2.3_20231122_build_A
+## Release_1.2.3_20231122_build_A
 
-#### 功能构建
+### 功能构建
 
 - 依赖升级。
   - 升级 `zookeeper` 依赖版本为 `3.7.2` 以规避漏洞。
 
-#### Bug修复
+### Bug 修复
 
 - 修改预置的 groovy 脚本中的 bug。
   - scg-impl/src/main/resources/groovy/ExampleGeneratorProcessor.groovy。
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.2.2_20230914_build_A
+## Release_1.2.2_20230914_build_A
 
-#### 功能构建
+### 功能构建
 
 - 新增服务。
   - com.dwarfeng.scg.stack.service.PostStyleGenerateService。
 
-#### Bug修复
+### Bug 修复
 
 - 补充 node 模块 `spring/application-context-dubbo.xml` 中缺失的配置。
 
@@ -68,15 +68,15 @@
   - com.dwarfeng.scg.impl.bean.entity.HibernateNodeVariable.stringValue。
   - com.dwarfeng.scg.impl.bean.entity.HibernateCommonVariable.stringValue。
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.2.1_20230909_build_A
+## Release_1.2.1_20230909_build_A
 
-#### 功能构建
+### 功能构建
 
 - 新增 `subgrade` 项目的集成组件。
   - com.dwarfeng.scg.api.integration.subgrade.ScgStringGenerator。
@@ -87,19 +87,19 @@
 - 依赖升级。
   - 升级 `subgrade` 依赖版本为 `1.4.5.a` 并解决兼容性问题，以应用其新功能。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.2.0_20230907_build_A
+## Release_1.2.0_20230907_build_A
 
-#### 功能构建
+### 功能构建
 
 - 优化 `GenerateQosService` 的方法。
 
@@ -109,19 +109,19 @@
 - 增加实体字段。
   - com.dwarfeng.scg.stack.bean.entity.ScgSetting.granularity。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.1.0_20230902_build_A
+## Release_1.1.0_20230902_build_A
 
-#### 功能构建
+### 功能构建
 
 - 启停脚本优化。
   - 优化 Windows 系统的启动脚本。
@@ -184,11 +184,11 @@
   - 优化 `pom.xml` 文件的格式。
   - 优化 `opt-*.xml` 文件的格式。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - 删除实体中不需要的字段。
   - com.dwarfeng.scg.stack.bean.entity.ScgSetting.distributed。
@@ -204,9 +204,9 @@
 
 ---
 
-### Release_1.0.2_20220928_build_A
+## Release_1.0.2_20220928_build_A
 
-#### 功能构建
+### 功能构建
 
 - 优化项目结构。
   - 增加 `confext` 文件夹，用于加载外部的配置文件。
@@ -220,37 +220,37 @@
   - 升级 `spring-terminator` 依赖版本为 `1.0.9.a` 以规避漏洞。
   - 升级 `spring-telqos` 依赖版本为 `1.1.4.a` 以规避漏洞。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.0.1_20220608_build_A
+## Release_1.0.1_20220608_build_A
 
-#### 功能构建
+### 功能构建
 
 - 增加 DTO 实体字段。
   - com.dwarfeng.scg.stack.bean.dto.GenerateInfo.distributed。
     - 用于告知生成器当前流水码生成设置是否使用分布式生成。
 
-#### Bug修复
+### Bug 修复
 
 - 修正 `ExampleGeneratorProcessor` 中不正确的逻辑。
 
-#### 功能移除
+### 功能移除
 
 - (无)
 
 ---
 
-### Release_1.0.0_20220607_build_A
+## Release_1.0.0_20220607_build_A
 
-#### 功能构建
+### 功能构建
 
 - 项目建立，清除测试通过。
 
@@ -273,10 +273,10 @@
   - com.dwarfeng.scg.impl.service.telqos.GenerateLocalCacheCommand。
   - com.dwarfeng.scg.impl.service.telqos.LockLocalCacheCommand。
 
-#### Bug修复
+### Bug 修复
 
 - (无)
 
-#### 功能移除
+### 功能移除
 
 - (无)
