@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 优化部分类构造器方法中的参数名。
+  - com.dwarfeng.scg.impl.handler.pusher.AbstractPusher。
+
 - 优化部分维护服务实现中的部分方法的性能。
   - com.dwarfeng.scg.impl.service.CommonVariableMaintainServiceImpl。
   - com.dwarfeng.scg.impl.service.GeneratorSupportMaintainServiceImpl。
