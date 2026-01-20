@@ -4,6 +4,19 @@
 
 ### 功能构建
 
+- 优化 api 模块下的 `logging` 目录结构。
+  - 将 `logging/settings-windows.xml` 重命名为 `settings-ref-windows.xml`，以消除文件名的歧义。
+  - 更新 `logging/README.md` 中的相关说明。
+
+- 优化 impl 模块下的 `logging` 目录结构。
+  - 将 `logging/settings-windows.xml` 重命名为 `settings-ref-windows.xml`，以消除文件名的歧义。
+  - 更新 `logging/README.md` 中的相关说明。
+
+- 优化 node 模块下的 `logging` 目录结构。
+  - 将 `logging/settings-linux.xml` 重命名为 `settings-ref-linux.xml`，以消除文件名的歧义。
+  - 将 `logging/settings-windows.xml` 重命名为 `settings-ref-windows.xml`，以消除文件名的歧义。
+  - 更新 `logging/README.md` 中的相关说明。
+
 - 启停脚本优化。
   - 优化启停脚本注释，以规避潜在的字符集问题。
   - 优化项目启停脚本设置程序的根目录的方式。
