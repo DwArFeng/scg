@@ -1,7 +1,7 @@
 package com.dwarfeng.scg.node.launcher;
 
 import com.dwarfeng.scg.node.handler.LauncherSettingHandler;
-import com.dwarfeng.scg.stack.service.GeneratorSupportMaintainService;
+import com.dwarfeng.scg.stack.service.GeneratorSupportQosService;
 import com.dwarfeng.scg.stack.service.ResetQosService;
 import com.dwarfeng.springterminator.sdk.util.ApplicationUtil;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
@@ -47,9 +47,9 @@ public class Launcher {
 
         // 重置生成器支持。
         LOGGER.info("重置生成器支持...");
-        GeneratorSupportMaintainService maintainService = ctx.getBean(GeneratorSupportMaintainService.class);
+        GeneratorSupportQosService supportQosService = ctx.getBean(GeneratorSupportQosService.class);
         try {
-            maintainService.reset();
+            supportQosService.reset();
         } catch (ServiceException e) {
             LOGGER.warn("生成器支持重置失败，异常信息如下", e);
         }

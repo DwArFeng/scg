@@ -4,6 +4,11 @@
 
 ### 功能构建
 
+- 优化支持实体机制。
+  - 新建支持 QoS 服务 com.dwarfeng.scg.stack.service.GeneratorSupportQosService。
+  - 新建支持处理器 com.dwarfeng.scg.stack.handler.GeneratorSupportHandler。
+  - 将支持实体维护服务的重置功能迁移至 QoS 服务。
+
 - 启动器优化。
   - 将入口方法中完整独立的功能封装在子方法中，使入口方法代码结构更加清晰。
 
