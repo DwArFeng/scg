@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 实现运维指令。
+  - com.dwarfeng.scg.impl.service.telqos.SupportCommand。
+
 - 优化支持实体机制。
   - 新建支持 QoS 服务 com.dwarfeng.scg.stack.service.GeneratorSupportQosService。
   - 新建支持处理器 com.dwarfeng.scg.stack.handler.GeneratorSupportHandler。
