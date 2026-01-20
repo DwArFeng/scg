@@ -1,27 +1,20 @@
 package com.dwarfeng.scg.impl.service;
 
-import com.dwarfeng.scg.impl.handler.GeneratorSupporter;
 import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
 import com.dwarfeng.scg.stack.service.GeneratorSupportMaintainService;
 import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
 import com.dwarfeng.subgrade.impl.service.DaoOnlyPresetLookupService;
 import com.dwarfeng.subgrade.impl.service.GeneralBatchCrudService;
-import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
-import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
-import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class GeneratorSupportMaintainServiceImpl implements GeneratorSupportMaintainService {
@@ -30,26 +23,14 @@ public class GeneratorSupportMaintainServiceImpl implements GeneratorSupportMain
     private final DaoOnlyEntireLookupService<GeneratorSupport> entireLookupService;
     private final DaoOnlyPresetLookupService<GeneratorSupport> presetLookupService;
 
-    private final List<GeneratorSupporter> generatorSupporters;
-
-    private final ServiceExceptionMapper sem;
-
     public GeneratorSupportMaintainServiceImpl(
             GeneralBatchCrudService<StringIdKey, GeneratorSupport> crudService,
             DaoOnlyEntireLookupService<GeneratorSupport> entireLookupService,
-            DaoOnlyPresetLookupService<GeneratorSupport> presetLookupService,
-            List<GeneratorSupporter> generatorSupporters,
-            ServiceExceptionMapper sem
+            DaoOnlyPresetLookupService<GeneratorSupport> presetLookupService
     ) {
         this.crudService = crudService;
         this.entireLookupService = entireLookupService;
         this.presetLookupService = presetLookupService;
-        if (Objects.isNull(generatorSupporters)) {
-            this.generatorSupporters = new ArrayList<>();
-        } else {
-            this.generatorSupporters = generatorSupporters;
-        }
-        this.sem = sem;
     }
 
     @Override
@@ -279,24 +260,4 @@ public class GeneratorSupportMaintainServiceImpl implements GeneratorSupportMain
         return presetLookupService.lookupAsList(preset, objs, pagingInfo);
     }
 
-    @Override
-    @BehaviorAnalyse
-    public void reset() throws ServiceException {
-        try {
-            List<StringIdKey> generatorKeys = entireLookupService.lookup().getData().stream()
-                    .map(GeneratorSupport::getKey).collect(Collectors.toList());
-            crudService.batchDelete(generatorKeys);
-            List<GeneratorSupport> generatorSupports = generatorSupporters.stream().map(
-                    supporter -> new GeneratorSupport(
-                            new StringIdKey(supporter.provideType()),
-                            supporter.provideLabel(),
-                            supporter.provideDescription(),
-                            supporter.provideExampleParam()
-                    )
-            ).collect(Collectors.toList());
-            crudService.batchInsert(generatorSupports);
-        } catch (Exception e) {
-            throw ServiceExceptionHelper.logParse("重置路由器支持时发生异常", LogLevel.WARN, e, sem);
-        }
-    }
 }
