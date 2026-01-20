@@ -1,5 +1,6 @@
 package com.dwarfeng.scg.impl.handler;
 
+import com.dwarfeng.scg.sdk.handler.GeneratorSupporter;
 import com.dwarfeng.scg.stack.bean.entity.GeneratorSupport;
 import com.dwarfeng.scg.stack.handler.GeneratorSupportHandler;
 import com.dwarfeng.scg.stack.service.GeneratorSupportMaintainService;

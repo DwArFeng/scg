@@ -13,7 +13,7 @@ import java.util.Objects;
  * JSFixed FastJson 公共变量。
  *
  * @author DwArFeng
- * @since 1.2.4
+ * @since 1.3.0
  */
 public class JSFixedFastJsonCommonVariable implements Bean {
 

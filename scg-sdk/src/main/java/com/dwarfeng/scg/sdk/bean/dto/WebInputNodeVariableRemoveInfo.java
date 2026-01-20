@@ -14,7 +14,7 @@ import java.util.Objects;
  * WebInput 节点变量移除信息。
  *
  * @author DwArFeng
- * @since 1.1.0
+ * @since 1.3.0
  */
 public class WebInputNodeVariableRemoveInfo implements Dto {
 

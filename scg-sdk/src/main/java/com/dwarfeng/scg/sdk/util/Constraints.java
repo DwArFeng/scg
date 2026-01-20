@@ -4,7 +4,7 @@ package com.dwarfeng.scg.sdk.util;
  * 约束类。
  *
  * @author DwArFeng
- * @since 1.0.0
+ * @since 1.3.0
  */
 public final class Constraints {
 

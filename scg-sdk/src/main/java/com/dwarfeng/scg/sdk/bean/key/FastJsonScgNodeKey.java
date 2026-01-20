@@ -10,7 +10,7 @@ import java.util.Objects;
  * FastJson 流水码生成节点主键。
  *
  * @author DwArFeng
- * @since 1.0.0
+ * @since 1.3.0
  */
 public class FastJsonScgNodeKey implements Key {
 

@@ -8,7 +8,7 @@ import java.util.Date;
  * 公共变量工具类。
  *
  * @author DwArFeng
- * @since 1.1.0
+ * @since 1.3.0
  */
 public final class CommonVariableUtil {
 

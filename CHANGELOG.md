@@ -4,6 +4,11 @@
 
 ### 功能构建
 
+- SPI 目录结构优化。
+  - 将生成器机制的 SPI 接口与抽象类提相关代码文件提升至 `sdk` 模块中。
+  - 将推送机制的 SPI 接口与抽象类提相关代码文件提升至 `sdk` 模块中。
+  - 将重置机制的 SPI 抽象类提相关代码文件提升至 `sdk` 模块中。
+
 - 优化部分类构造器方法中的参数名。
   - com.dwarfeng.scg.impl.handler.pusher.AbstractPusher。
 

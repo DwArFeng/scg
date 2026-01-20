@@ -27,7 +27,7 @@ import org.mapstruct.Mapper;
  *
  * @author DwArFeng
  * @see BeanMapper
- * @since 1.1.0
+ * @since 1.3.0
  * @deprecated 使用 {@link BeanMapper} 代替。
  */
 // 基于 MapStruct Processor 生成的实现类还在使用该接口，故忽略相关警告。

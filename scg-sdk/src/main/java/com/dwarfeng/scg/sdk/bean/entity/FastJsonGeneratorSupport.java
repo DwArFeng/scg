@@ -11,7 +11,7 @@ import java.util.Objects;
  * FastJson 生成器支持。
  *
  * @author DwArFeng
- * @since 1.0.0
+ * @since 1.3.0
  */
 public class FastJsonGeneratorSupport implements Bean {
 

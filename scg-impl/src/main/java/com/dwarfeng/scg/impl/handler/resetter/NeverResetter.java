@@ -1,5 +1,6 @@
 package com.dwarfeng.scg.impl.handler.resetter;
 
+import com.dwarfeng.scg.sdk.handler.resetter.AbstractResetter;
 import org.springframework.stereotype.Component;
 
 /**

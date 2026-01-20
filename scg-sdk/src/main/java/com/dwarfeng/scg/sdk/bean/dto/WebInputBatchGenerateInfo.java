@@ -14,7 +14,7 @@ import java.util.Objects;
  * 批量生成信息。
  *
  * @author DwArFeng
- * @since 1.2.2
+ * @since 1.3.0
  */
 public class WebInputBatchGenerateInfo implements Dto {
 

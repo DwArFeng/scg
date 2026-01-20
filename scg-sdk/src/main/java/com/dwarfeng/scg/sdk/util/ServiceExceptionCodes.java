@@ -6,7 +6,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
  * 服务异常代码。
  *
  * @author DwArFeng
- * @since 1.0.0
+ * @since 1.3.0
  */
 public final class ServiceExceptionCodes {
 

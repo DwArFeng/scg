@@ -2,6 +2,8 @@ package com.dwarfeng.scg.impl.handler.generator;
 
 import com.dwarfeng.dutil.basic.io.IOUtil;
 import com.dwarfeng.dutil.basic.io.StringOutputStream;
+import com.dwarfeng.scg.sdk.handler.generator.AbstractGenerator;
+import com.dwarfeng.scg.sdk.handler.generator.AbstractGeneratorRegistry;
 import com.dwarfeng.scg.stack.exception.GeneratorException;
 import com.dwarfeng.scg.stack.exception.GeneratorExecutionException;
 import com.dwarfeng.scg.stack.exception.GeneratorMakeException;

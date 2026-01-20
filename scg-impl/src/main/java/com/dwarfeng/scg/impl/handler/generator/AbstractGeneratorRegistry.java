@@ -1,49 +1,21 @@
 package com.dwarfeng.scg.impl.handler.generator;
 
-import com.dwarfeng.scg.impl.handler.GeneratorMaker;
-import com.dwarfeng.scg.impl.handler.GeneratorSupporter;
-
-import java.util.Objects;
-
 /**
  * 抽象生成器注册。
  *
  * @author DwArFeng
+ * @see com.dwarfeng.scg.sdk.handler.generator.AbstractGeneratorRegistry
  * @since 1.0.0
+ * @deprecated 该对象已经被废弃，请使用 sdk 模块下的对应对象代替。
  */
-public abstract class AbstractGeneratorRegistry implements GeneratorMaker, GeneratorSupporter {
-
-    protected String generatorType;
+@Deprecated
+public abstract class AbstractGeneratorRegistry extends
+        com.dwarfeng.scg.sdk.handler.generator.AbstractGeneratorRegistry {
 
     public AbstractGeneratorRegistry() {
     }
 
     public AbstractGeneratorRegistry(String generatorType) {
-        this.generatorType = generatorType;
-    }
-
-    @Override
-    public boolean supportType(String type) {
-        return Objects.equals(generatorType, type);
-    }
-
-    @Override
-    public String provideType() {
-        return generatorType;
-    }
-
-    public String getGeneratorType() {
-        return generatorType;
-    }
-
-    public void setGeneratorType(String generatorType) {
-        this.generatorType = generatorType;
-    }
-
-    @Override
-    public String toString() {
-        return "AbstractGeneratorRegistry{" +
-                "generatorType='" + generatorType + '\'' +
-                '}';
+        super(generatorType);
     }
 }

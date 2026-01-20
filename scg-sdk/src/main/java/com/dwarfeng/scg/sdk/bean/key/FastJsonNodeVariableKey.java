@@ -10,7 +10,7 @@ import java.util.Objects;
  * FastJson 节点变量主键。
  *
  * @author DwArFeng
- * @since 1.1.0
+ * @since 1.3.0
  */
 public class FastJsonNodeVariableKey implements Key {
 

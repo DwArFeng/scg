@@ -13,14 +13,14 @@ import java.util.Optional;
 @Component
 public class PushHandlerImpl implements PushHandler {
 
-    private final List<Pusher> pushers;
+    private final List<com.dwarfeng.scg.sdk.handler.Pusher> pushers;
 
     @Value("${pusher.type}")
     private String pusherType;
 
-    private Pusher pusher;
+    private com.dwarfeng.scg.sdk.handler.Pusher pusher;
 
-    public PushHandlerImpl(List<Pusher> pushers) {
+    public PushHandlerImpl(List<com.dwarfeng.scg.sdk.handler.Pusher> pushers) {
         this.pushers = Optional.ofNullable(pushers).orElse(Collections.emptyList());
     }
 

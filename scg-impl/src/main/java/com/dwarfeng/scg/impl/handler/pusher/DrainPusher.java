@@ -1,5 +1,6 @@
 package com.dwarfeng.scg.impl.handler.pusher;
 
+import com.dwarfeng.scg.sdk.handler.pusher.AbstractPusher;
 import org.springframework.stereotype.Component;
 
 /**

@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  * 序列码生成设置粒度字段有效性验证注解。
  *
  * @author DwArFeng
- * @since 1.2.0
+ * @since 1.3.0
  */
 @Documented
 @Constraint(

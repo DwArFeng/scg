@@ -11,7 +11,7 @@ import java.util.Objects;
  * FastJson 流水码生成设置。
  *
  * @author DwArFeng
- * @since 1.0.0
+ * @since 1.3.0
  */
 public class FastJsonScgSetting implements Bean {
 

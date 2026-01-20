@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * 序列码设置粒度条目。
  *
  * @author DwArFeng
- * @since 1.2.0
+ * @since 1.3.0
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
