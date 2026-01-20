@@ -126,6 +126,10 @@
 
 ### Bug 修复
 
+- 修正错误的 dubbo 应用名称。
+  - 修正 `scg-api` 模块中错误的 dubbo 应用名称。
+  - 修正 `scg-impl` 模块中错误的 dubbo 应用名称。
+
 - 修复 telqos 工具类中部分注解不正确的 bug。
   - com.dwarfeng.scg.impl.service.telqos.CommandUtil。
 
