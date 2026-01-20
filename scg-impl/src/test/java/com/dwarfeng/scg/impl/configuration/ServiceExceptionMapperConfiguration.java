@@ -22,6 +22,6 @@ public class ServiceExceptionMapperConfiguration {
         destination.put(UnsupportedGeneratorTypeException.class, ServiceExceptionCodes.UNSUPPORTED_GENERATOR_TYPE);
         destination.put(ScgSettingNotExistsException.class, ServiceExceptionCodes.SCG_SETTING_NOT_EXISTS);
         destination.put(ScgSettingDisabledException.class, ServiceExceptionCodes.SCG_SETTING_DISABLED);
-        return new MapServiceExceptionMapper(destination, com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.UNDEFINE);
+        return new MapServiceExceptionMapper(destination, com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.UNDEFINED);
     }
 }

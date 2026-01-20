@@ -155,12 +155,21 @@ public class CommonVariableMaintainServiceImpl implements CommonVariableMaintain
         return crudService.batchGetIfExists(keys);
     }
 
+    @Deprecated
     @Override
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<CommonVariableKey> batchInsertIfExists(@SkipRecord List<CommonVariable> elements) throws ServiceException {
         return crudService.batchInsertIfExists(elements);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @SkipRecord
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
+    public List<CommonVariableKey> batchInsertIfNotExists(@SkipRecord List<CommonVariable> elements) throws ServiceException {
+        return crudService.batchInsertIfNotExists(elements);
     }
 
     @Override

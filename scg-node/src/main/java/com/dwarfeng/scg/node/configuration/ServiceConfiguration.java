@@ -67,11 +67,11 @@ public class ServiceConfiguration {
     @Bean
     public GeneralBatchCrudService<StringIdKey, GeneratorSupport> generatorSupportGeneralBatchCrudService() {
         return new GeneralBatchCrudService<>(
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN,
                 generatorSupportDao,
                 generatorSupportCache,
                 new ExceptionKeyGenerator<>(),
-                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN,
                 generatorSupportTimeout
         );
     }
@@ -79,57 +79,57 @@ public class ServiceConfiguration {
     @Bean
     public DaoOnlyEntireLookupService<GeneratorSupport> generatorSupportDaoOnlyEntireLookupService() {
         return new DaoOnlyEntireLookupService<>(
-                generatorSupportDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
+                LogLevel.WARN,
+                generatorSupportDao
         );
     }
 
     @Bean
     public DaoOnlyPresetLookupService<GeneratorSupport> generatorSupportDaoOnlyPresetLookupService() {
         return new DaoOnlyPresetLookupService<>(
-                generatorSupportDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
+                LogLevel.WARN,
+                generatorSupportDao
         );
     }
 
     @Bean
     public CustomBatchCrudService<StringIdKey, ScgSetting> scgSettingCustomBatchCrudService() {
         return new CustomBatchCrudService<>(
-                scgSettingCrudOperation,
-                new ExceptionKeyGenerator<>(),
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
+                LogLevel.WARN,
+                scgSettingCrudOperation,
+                new ExceptionKeyGenerator<>()
         );
     }
 
     @Bean
     public DaoOnlyEntireLookupService<ScgSetting> scgSettingDaoOnlyEntireLookupService() {
         return new DaoOnlyEntireLookupService<>(
-                scgSettingDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
+                LogLevel.WARN,
+                scgSettingDao
         );
     }
 
     @Bean
     public DaoOnlyPresetLookupService<ScgSetting> scgSettingDaoOnlyPresetLookupService() {
         return new DaoOnlyPresetLookupService<>(
-                scgSettingDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
+                LogLevel.WARN,
+                scgSettingDao
         );
     }
 
     @Bean
     public GeneralBatchCrudService<NodeVariableKey, NodeVariable> nodeVariableGeneralBatchCrudService() {
         return new GeneralBatchCrudService<>(
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN,
                 nodeVariableDao,
                 nodeVariableCache,
                 new ExceptionKeyGenerator<>(),
-                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN,
                 nodeVariableTimeout
         );
     }
@@ -137,29 +137,29 @@ public class ServiceConfiguration {
     @Bean
     public DaoOnlyEntireLookupService<NodeVariable> nodeVariableDaoOnlyEntireLookupService() {
         return new DaoOnlyEntireLookupService<>(
-                nodeVariableDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
+                LogLevel.WARN,
+                nodeVariableDao
         );
     }
 
     @Bean
     public DaoOnlyPresetLookupService<NodeVariable> nodeVariableDaoOnlyPresetLookupService() {
         return new DaoOnlyPresetLookupService<>(
-                nodeVariableDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
+                LogLevel.WARN,
+                nodeVariableDao
         );
     }
 
     @Bean
     public GeneralBatchCrudService<CommonVariableKey, CommonVariable> commonVariableGeneralBatchCrudService() {
         return new GeneralBatchCrudService<>(
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN,
                 commonVariableDao,
                 commonVariableCache,
                 new ExceptionKeyGenerator<>(),
-                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN,
                 commonVariableTimeout
         );
     }
@@ -167,18 +167,18 @@ public class ServiceConfiguration {
     @Bean
     public DaoOnlyEntireLookupService<CommonVariable> commonVariableDaoOnlyEntireLookupService() {
         return new DaoOnlyEntireLookupService<>(
-                commonVariableDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
+                LogLevel.WARN,
+                commonVariableDao
         );
     }
 
     @Bean
     public DaoOnlyPresetLookupService<CommonVariable> commonVariableDaoOnlyPresetLookupService() {
         return new DaoOnlyPresetLookupService<>(
-                commonVariableDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
+                LogLevel.WARN,
+                commonVariableDao
         );
     }
 }
