@@ -4,6 +4,8 @@
 
 ### 功能构建
 
+- 优化实体映射器机制。
+
 - 实现运维指令。
   - com.dwarfeng.scg.impl.service.telqos.SupportCommand。
 

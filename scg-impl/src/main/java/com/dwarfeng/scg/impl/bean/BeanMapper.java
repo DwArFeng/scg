@@ -12,56 +12,55 @@ import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
 import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
 import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
 import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
-import com.dwarfeng.subgrade.sdk.bean.key.HibernateLongIdKey;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateStringIdKey;
-import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
- * Hibernate Bean 映射器。
+ * Bean 映射器。
+ *
+ * <p>
+ * 该映射器中包含了 <code>impl</code> 模块中所有实体与 <code>stack</code> 模块中对应实体的映射方法。
  *
  * @author DwArFeng
- * @since 1.1.0
+ * @since 1.3.0
  */
 @Mapper
-public interface HibernateMapper {
+public interface BeanMapper {
 
-    HibernateLongIdKey longIdKeyToHibernate(LongIdKey longIdKey);
-
-    @InheritInverseConfiguration
-    LongIdKey longIdKeyFromHibernate(HibernateLongIdKey hibernateLongIdKey);
-
+    // -----------------------------------------------------------Subgrade Key-----------------------------------------------------------
     HibernateStringIdKey stringIdKeyToHibernate(StringIdKey stringIdKey);
 
     @InheritInverseConfiguration
     StringIdKey stringIdKeyFromHibernate(HibernateStringIdKey hibernateStringIdKey);
+
+    // -----------------------------------------------------------Scg Key-----------------------------------------------------------
+    HibernateCommonVariableKey commonVariableKeyToHibernate(CommonVariableKey commonVariableKey);
+
+    @InheritInverseConfiguration
+    CommonVariableKey commonVariableKeyFromHibernate(HibernateCommonVariableKey hibernateCommonVariableKey);
 
     HibernateNodeVariableKey nodeVariableKeyToHibernate(NodeVariableKey nodeVariableKey);
 
     @InheritInverseConfiguration
     NodeVariableKey nodeVariableKeyFromHibernate(HibernateNodeVariableKey hibernateNodeVariableKey);
 
-    HibernateCommonVariableKey commonVariableKeyToHibernate(CommonVariableKey commonVariableKey);
+    // -----------------------------------------------------------Scg Entity-----------------------------------------------------------
+    @Mapping(target = "variableId", ignore = true)
+    @Mapping(target = "scgSettingId", ignore = true)
+    @Mapping(target = "scgSetting", ignore = true)
+    HibernateCommonVariable commonVariableToHibernate(CommonVariable commonVariable);
 
     @InheritInverseConfiguration
-    CommonVariableKey commonVariableKeyFromHibernate(HibernateCommonVariableKey hibernateCommonVariableKey);
+    CommonVariable commonVariableFromHibernate(HibernateCommonVariable hibernateCommonVariable);
 
     @Mapping(target = "stringId", ignore = true)
     HibernateGeneratorSupport generatorSupportToHibernate(GeneratorSupport generatorSupport);
 
     @InheritInverseConfiguration
     GeneratorSupport generatorSupportFromHibernate(HibernateGeneratorSupport hibernateGeneratorSupport);
-
-    @Mapping(target = "stringId", ignore = true)
-    @Mapping(target = "nodeVariables", ignore = true)
-    @Mapping(target = "commonVariables", ignore = true)
-    HibernateScgSetting scgSettingToHibernate(ScgSetting scgSetting);
-
-    @InheritInverseConfiguration
-    ScgSetting scgSettingFromHibernate(HibernateScgSetting hibernateScgSetting);
 
     @Mapping(target = "variableId", ignore = true)
     @Mapping(target = "scgSettingId", ignore = true)
@@ -72,11 +71,11 @@ public interface HibernateMapper {
     @InheritInverseConfiguration
     NodeVariable nodeVariableFromHibernate(HibernateNodeVariable hibernateNodeVariable);
 
-    @Mapping(target = "variableId", ignore = true)
-    @Mapping(target = "scgSettingId", ignore = true)
-    @Mapping(target = "scgSetting", ignore = true)
-    HibernateCommonVariable commonVariableToHibernate(CommonVariable commonVariable);
+    @Mapping(target = "stringId", ignore = true)
+    @Mapping(target = "nodeVariables", ignore = true)
+    @Mapping(target = "commonVariables", ignore = true)
+    HibernateScgSetting scgSettingToHibernate(ScgSetting scgSetting);
 
     @InheritInverseConfiguration
-    CommonVariable commonVariableFromHibernate(HibernateCommonVariable hibernateCommonVariable);
+    ScgSetting scgSettingFromHibernate(HibernateScgSetting hibernateScgSetting);
 }

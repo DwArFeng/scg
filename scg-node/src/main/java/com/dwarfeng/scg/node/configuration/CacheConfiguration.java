@@ -1,6 +1,6 @@
 package com.dwarfeng.scg.node.configuration;
 
-import com.dwarfeng.scg.sdk.bean.FastJsonMapper;
+import com.dwarfeng.scg.sdk.bean.BeanMapper;
 import com.dwarfeng.scg.sdk.bean.entity.FastJsonCommonVariable;
 import com.dwarfeng.scg.sdk.bean.entity.FastJsonGeneratorSupport;
 import com.dwarfeng.scg.sdk.bean.entity.FastJsonNodeVariable;
@@ -48,7 +48,7 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonGeneratorSupport>) template,
                 new StringIdStringKeyFormatter(generatorSupportPrefix),
                 new MapStructBeanTransformer<>(
-                        GeneratorSupport.class, FastJsonGeneratorSupport.class, FastJsonMapper.class
+                        GeneratorSupport.class, FastJsonGeneratorSupport.class, BeanMapper.class
                 )
         );
     }
@@ -59,7 +59,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonScgSetting>) template,
                 new StringIdStringKeyFormatter(scgSettingPrefix),
-                new MapStructBeanTransformer<>(ScgSetting.class, FastJsonScgSetting.class, FastJsonMapper.class)
+                new MapStructBeanTransformer<>(ScgSetting.class, FastJsonScgSetting.class, BeanMapper.class)
         );
     }
 
@@ -71,7 +71,7 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonNodeVariable>) template,
                 new NodeVariableStringKeyFormatter(nodeVariablePrefix),
                 new MapStructBeanTransformer<>(
-                        NodeVariable.class, FastJsonNodeVariable.class, FastJsonMapper.class
+                        NodeVariable.class, FastJsonNodeVariable.class, BeanMapper.class
                 )
         );
     }
@@ -84,7 +84,7 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonCommonVariable>) template,
                 new CommonVariableStringKeyFormatter(commonVariablePrefix),
                 new MapStructBeanTransformer<>(
-                        CommonVariable.class, FastJsonCommonVariable.class, FastJsonMapper.class
+                        CommonVariable.class, FastJsonCommonVariable.class, BeanMapper.class
                 )
         );
     }
