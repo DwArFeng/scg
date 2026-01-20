@@ -26,6 +26,7 @@
     <dubbo:reference
             id="generateService"
             interface="com.dwarfeng.scg.stack.service.GenerateService"
+            check="false"
             group="${dubbo.consumer.scg.group}"
     />
 </beans>
