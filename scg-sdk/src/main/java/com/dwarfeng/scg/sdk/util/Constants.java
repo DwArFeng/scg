@@ -44,7 +44,7 @@ public final class Constants {
      * 该粒度的序列码生成时，会在设备级别下的本地锁中完成，因此在一个集群中，每个设备可同时执行生成方法。<br>
      * 此粒度下，生成器允许访问节点变量，但不允许访问公共变量。<br>
      * 此粒度下，流水码的生成器效率较高，适合生顺序不敏感且频率较高的序列码。<br>
-     * 典型的序列码格式：1992-12-18-01-000123(年-月-日-设备ID-当日序号)。
+     * 典型的序列码格式：<code>1992-12-18-01-000123</code>(<code>年-月-日-设备 ID-当日序号</code>)。
      */
     @ScgSettingGranularityItem
     public static final int SCG_SETTING_GRANULARITY_DEVICE = 1;
