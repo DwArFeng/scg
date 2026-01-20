@@ -42,7 +42,7 @@ public class GenerateLocalCacheHandlerImpl implements GenerateLocalCacheHandler 
 
     @BehaviorAnalyse
     @Override
-    public void clear() throws HandlerException {
+    public void clear() {
         handler.clear();
     }
 

@@ -60,7 +60,7 @@ public class GeneratorHandlerImpl implements GeneratorHandler {
             LOGGER.debug("生成器构建成功!");
             generator.init(generatorContext);
             LOGGER.debug("生成器初始化成功!");
-            LOGGER.debug("生成器: " + generator);
+            LOGGER.debug("生成器: {}", generator);
             return generator;
         } catch (GeneratorException e) {
             throw e;

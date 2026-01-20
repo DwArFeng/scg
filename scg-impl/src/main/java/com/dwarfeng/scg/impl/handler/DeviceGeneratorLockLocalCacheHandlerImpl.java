@@ -43,7 +43,7 @@ public class DeviceGeneratorLockLocalCacheHandlerImpl implements DeviceGenerator
 
     @BehaviorAnalyse
     @Override
-    public void clear() throws HandlerException {
+    public void clear() {
         handler.clear();
     }
 

@@ -43,7 +43,7 @@ public class SettingGeneratorLockLocalCacheHandlerImpl implements SettingGenerat
 
     @BehaviorAnalyse
     @Override
-    public void clear() throws HandlerException {
+    public void clear() {
         handler.clear();
     }
 
