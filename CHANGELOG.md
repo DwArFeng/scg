@@ -4,6 +4,12 @@
 
 ### 功能构建
 
+- 优化部分维护服务实现中的部分方法的性能。
+  - com.dwarfeng.scg.impl.service.CommonVariableMaintainServiceImpl。
+  - com.dwarfeng.scg.impl.service.GeneratorSupportMaintainServiceImpl。
+  - com.dwarfeng.scg.impl.service.NodeVariableMaintainServiceImpl。
+  - com.dwarfeng.scg.impl.service.ScgSettingMaintainServiceImpl。
+
 - 导入运维指令。
   - com.dwarfeng.datamark.service.telqos.*。
 
