@@ -1,35 +1,36 @@
 @echo off
 
-rem 程序的根目录
-SET basedir=C:\Program Files\scg
+rem Set the root directory of the program.
+cd /d "%~dp0.."
+SET "basedir=%cd%"
 
-rem JVM 内存设置。
-rem 如果您希望系统自动分配内存，注释掉下方注释...
+rem JVM memory settings.
+rem If you want the program to automatically allocate memory, please comment out the content below...
 SET jvm_memory_opts=^
 -Xmx100m ^
 -XX:MaxMetaspaceSize=130m ^
 -XX:ReservedCodeCacheSize=15m ^
 -XX:CompressedClassSpaceSize=15m
-rem 并打开此注释。
+rem and uncomment the content below.
 rem SET jvm_memory_opts=
 
-rem JAVA JMXREMOTE 配置。
-rem 如果您希望启用 JMX 远程管理，注释掉下方注释...
+rem JAVA JMXREMOTE configuration.
+rem If you want to enable JMX remote management, please comment out the content below...
 SET java_jmxremote_opts=
-rem 并打开此注释。
+rem and uncomment the content below.
 rem SET java_jmxremote_opts=^
 rem -Dcom.sun.management.jmxremote.port=23000 ^
 rem -Dcom.sun.management.jmxremote.authenticate=false ^
 rem -Dcom.sun.management.jmxremote.ssl=false
 
-rem JAVA 日志配置。
-rem 固定配置，请勿编辑此行。
+rem JAVA logging configuration.
+rem Fixed configuration, please do not edit this line.
 SET java_logging_opts=^
 -Dlog4j2.configurationFile=confext/logging-settings.xml,conf/logging/settings.xml ^
 -Dlog4j.shutdownHookEnabled=false ^
 -Dlog4j2.is.webapp=false
 
-rem 打开目录，执行程序
+rem Open directory and execute program.
 cd "%basedir%"
 start "Scg" /MAX ^
 java -classpath "lib\*;libext\*" ^

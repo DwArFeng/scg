@@ -1,6 +1,7 @@
 #!/bin/sh
-# 程序的根目录
-basedir="/usr/local/scg"
+
+# Set the root directory of the program.
+basedir="$(cd "$(dirname "$0")/.." && pwd)"
 
 PID=$(cat "$basedir/scg.pid")
 kill "$PID"
