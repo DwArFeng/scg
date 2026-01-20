@@ -54,7 +54,7 @@ public class GenerateCommand extends CliCommand {
         );
         list.add(
                 Option.builder(CMD_OPTION_FILE).optionalArg(true).hasArg(true).argName("file-path")
-                        .desc("生成的CSV的路径").type(String.class).build()
+                        .desc("生成的 CSV 的路径").type(String.class).build()
         );
         return list;
     }

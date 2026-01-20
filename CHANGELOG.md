@@ -4,6 +4,15 @@
 
 ### 功能构建
 
+- `scg-impl` 子模块类优化注释、文档注释格式、代码换行格式。
+  - com.dwarfeng.scg.impl.handler.generator.GroovyGeneratorRegistry。
+  - com.dwarfeng.scg.impl.service.telqos.GenerateCommand。
+  - groovy/ExampleGeneratorProcessor.groovy。
+
+- `scg-sdk` 子模块类优化注释、文档注释格式、代码换行格式。
+  - com.dwarfeng.scg.sdk.util.Constants。
+  - com.dwarfeng.scg.sdk.util.Constraints。
+
 - 优化文件格式。
   - 优化 `assembly.xml` 文件的格式。
   - 优化 `*.properties` 文件的格式。

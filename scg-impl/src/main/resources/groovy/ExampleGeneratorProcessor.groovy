@@ -11,7 +11,7 @@ import static com.dwarfeng.scg.stack.handler.Generator.*
  *
  * <p>
  * 该生成器获取当前日期，并将序列号自增。<br>
- * 前缀 + 当前日期 + 设备ID + 添加前导 0 的序列号组成流水码。<br>
+ * 前缀 + 当前日期 + 设备 ID + 添加前导 0 的序列号组成流水码。<br>
  * 流水码一天一清。
  */
 @SuppressWarnings("GrPackage")

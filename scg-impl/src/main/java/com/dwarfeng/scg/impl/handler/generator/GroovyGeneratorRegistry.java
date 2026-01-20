@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
- * Groovy生成器注册。
+ * Groovy 生成器注册。
  *
  * @author DwArFeng
  * @since 1.0.0
@@ -43,12 +43,12 @@ public class GroovyGeneratorRegistry extends AbstractGeneratorRegistry {
 
     @Override
     public String provideLabel() {
-        return "Groovy生成器";
+        return "Groovy 生成器";
     }
 
     @Override
     public String provideDescription() {
-        return "通过自定义的Groovy脚本生成流水码。";
+        return "通过自定义的 Groovy 脚本生成流水码。";
     }
 
     @Override
@@ -72,7 +72,7 @@ public class GroovyGeneratorRegistry extends AbstractGeneratorRegistry {
     @Override
     public Generator makeGenerator(String type, String param) throws GeneratorException {
         try (GroovyClassLoader classLoader = new GroovyClassLoader()) {
-            // 通过Groovy脚本生成处理器。
+            // 通过 Groovy 脚本生成处理器。
             Class<?> aClass = classLoader.parseClass(param);
             Processor processor = (Processor) aClass.newInstance();
             ctx.getAutowireCapableBeanFactory().autowireBean(processor);
