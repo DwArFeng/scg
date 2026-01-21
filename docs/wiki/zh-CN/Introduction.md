@@ -37,21 +37,21 @@ SCG 支持分布式部署，通过粒度级别（Granularity）机制，可以�
 
 ## 文档
 
-该项目的文档位于 [docs](./docs) 目录下，包括：
+该项目的文档位于 [docs](../../../docs) 目录下，包括：
 
 ### wiki
 
 wiki 为项目的开发人员为本项目编写的详细文档，包含不同语言的版本，主要入口为：
 
-1. [简介](docs/wiki/zh-CN/Introduction.md) - 镜像的 `README.md`，与本文件内容基本相同。
-2. [目录](docs/wiki/zh-CN/Contents.md) - 文档目录。
+1. [简介](./Introduction.md) - 即本文件。
+2. [目录](./Contents.md) - 文档目录。
 
 ## 运行截图
 
 Telnet 运维平台 banner：
 
-![Telnet 运维平台 banner](./docs/wiki/zh-CN/images/TelqosBanner.png "Telnet 运维平台 banner")
+![Telnet 运维平台 banner](./images/TelqosBanner.png "Telnet 运维平台 banner")
 
 Telnet 运维平台指令合集：
 
-![Telnet 运维平台指令合集](./docs/wiki/zh-CN/images/TelqosCommands.png "Telnet 运维平台指令合集")
+![Telnet 运维平台指令合集](./images/TelqosCommands.png "Telnet 运维平台指令合集")

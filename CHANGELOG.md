@@ -4,6 +4,15 @@
 
 ### 功能构建
 
+- 更新 README.md。
+
+- Wiki 编写。
+  - 构建 wiki 目录结构。
+  - docs/wiki/en-US/Contents.md。
+  - docs/wiki/en-US/Introduction.md。
+  - docs/wiki/zh-CN/Contents.md。
+  - docs/wiki/zh-CN/Introduction.md。
+
 - 依赖优化。
   - 优化部分依赖的排除项，以避免潜在的 `netty` 版本冲突问题。
 
