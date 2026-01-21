@@ -4,6 +4,12 @@
 
 ### 功能构建
 
+- 优化部分单元测试代码，以规避潜在的 bug。
+  - com.dwarfeng.scg.impl.service.CommonVariableMaintainServiceImplTest。
+  - com.dwarfeng.scg.impl.service.GeneratorSupportMaintainServiceImplTest。
+  - com.dwarfeng.scg.impl.service.NodeVariableMaintainServiceImplTest。
+  - com.dwarfeng.scg.impl.service.ScgSettingMaintainServiceImplTest。
+
 - 部分 dubbo 消费者服务注册配置添加 `check="false"` 属性。
   - generateService。
 

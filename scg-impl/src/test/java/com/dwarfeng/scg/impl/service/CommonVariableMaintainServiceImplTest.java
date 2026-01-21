@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -70,9 +71,14 @@ public class CommonVariableMaintainServiceImplTest {
             }
         } finally {
             for (CommonVariable commonVariable : commonVariables) {
+                if (Objects.isNull(commonVariable.getKey())) {
+                    continue;
+                }
                 commonVariableMaintainService.deleteIfExists(commonVariable.getKey());
             }
-            scgSettingMaintainService.deleteIfExists(scgSetting.getKey());
+            if (Objects.nonNull(scgSetting.getKey())) {
+                scgSettingMaintainService.deleteIfExists(scgSetting.getKey());
+            }
         }
     }
 
@@ -100,9 +106,14 @@ public class CommonVariableMaintainServiceImplTest {
             ));
         } finally {
             for (CommonVariable commonVariable : commonVariables) {
+                if (Objects.isNull(commonVariable.getKey())) {
+                    continue;
+                }
                 commonVariableMaintainService.deleteIfExists(commonVariable.getKey());
             }
-            scgSettingMaintainService.deleteIfExists(scgSetting.getKey());
+            if (Objects.nonNull(scgSetting.getKey())) {
+                scgSettingMaintainService.deleteIfExists(scgSetting.getKey());
+            }
         }
     }
 }
