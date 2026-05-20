@@ -30,13 +30,17 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface BeanMapper {
 
-    // -----------------------------------------------------------Subgrade Key-----------------------------------------------------------
+    // region Subgrade Key
+
     HibernateStringIdKey stringIdKeyToHibernate(StringIdKey stringIdKey);
 
     @InheritInverseConfiguration
     StringIdKey stringIdKeyFromHibernate(HibernateStringIdKey hibernateStringIdKey);
 
-    // -----------------------------------------------------------Scg Key-----------------------------------------------------------
+    // endregion
+
+    // region Scg Key
+
     HibernateCommonVariableKey commonVariableKeyToHibernate(CommonVariableKey commonVariableKey);
 
     @InheritInverseConfiguration
@@ -47,7 +51,10 @@ public interface BeanMapper {
     @InheritInverseConfiguration
     NodeVariableKey nodeVariableKeyFromHibernate(HibernateNodeVariableKey hibernateNodeVariableKey);
 
-    // -----------------------------------------------------------Scg Entity-----------------------------------------------------------
+    // endregion
+
+    // region Scg Entity
+
     @Mapping(target = "variableId", ignore = true)
     @Mapping(target = "scgSettingId", ignore = true)
     @Mapping(target = "scgSetting", ignore = true)
@@ -80,4 +87,6 @@ public interface BeanMapper {
 
     @InheritInverseConfiguration
     ScgSetting scgSettingFromHibernate(HibernateScgSetting hibernateScgSetting);
+
+    // endregion
 }

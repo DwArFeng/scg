@@ -20,12 +20,16 @@ public class HibernateScgSetting implements Bean {
 
     private static final long serialVersionUID = -172859853778754625L;
 
-    // -----------------------------------------------------------主键-----------------------------------------------------------
+    // region 主键
+
     @Id
     @Column(name = "id", length = Constraints.LENGTH_ID, nullable = false, unique = true)
     private String stringId;
 
-    // -----------------------------------------------------------主属性字段-----------------------------------------------------------
+    // endregion
+
+    // region 主属性字段
+
     @Column(name = "label", length = Constraints.LENGTH_LABEL)
     private String label;
 
@@ -44,14 +48,20 @@ public class HibernateScgSetting implements Bean {
     @Column(name = "granularity")
     private int granularity = Constants.SCG_SETTING_GRANULARITY_SETTING;
 
-    // -----------------------------------------------------------一对多-----------------------------------------------------------
+    // endregion
+
+    // region 一对多
+
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateNodeVariable.class, mappedBy = "scgSetting")
     private Set<HibernateNodeVariable> nodeVariables = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateCommonVariable.class, mappedBy = "scgSetting")
     private Set<HibernateCommonVariable> commonVariables = new HashSet<>();
 
-    // -----------------------------------------------------------审计-----------------------------------------------------------
+    // endregion
+
+    // region 审计
+
     @DatamarkField(handlerName = "scgSettingDatamarkHandler")
     @Column(
             name = "created_datamark",
@@ -67,10 +77,13 @@ public class HibernateScgSetting implements Bean {
     )
     private String modifiedDatamark;
 
+    // endregion
+
     public HibernateScgSetting() {
     }
 
-    // -----------------------------------------------------------映射用属性区-----------------------------------------------------------
+    // region 映射用属性区
+
     public HibernateStringIdKey getKey() {
         return Optional.ofNullable(stringId).map(HibernateStringIdKey::new).orElse(null);
     }
@@ -79,7 +92,10 @@ public class HibernateScgSetting implements Bean {
         this.stringId = Optional.ofNullable(idKey).map(HibernateStringIdKey::getStringId).orElse(null);
     }
 
-    // -----------------------------------------------------------常规属性区-----------------------------------------------------------
+    // endregion
+
+    // region 常规属性区
+
     public String getStringId() {
         return stringId;
     }
@@ -167,6 +183,8 @@ public class HibernateScgSetting implements Bean {
     public void setModifiedDatamark(String modifiedDatamark) {
         this.modifiedDatamark = modifiedDatamark;
     }
+
+    // endregion
 
     @Override
     public String toString() {

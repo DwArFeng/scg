@@ -15,7 +15,8 @@ public class HibernateCommonVariable implements Bean {
 
     private static final long serialVersionUID = -4774890677541047944L;
 
-    // -----------------------------------------------------------主键-----------------------------------------------------------
+    // region 主键
+
     @Id
     @Column(name = "scg_setting_id", length = Constraints.LENGTH_ID, nullable = false)
     private String scgSettingId;
@@ -24,7 +25,10 @@ public class HibernateCommonVariable implements Bean {
     @Column(name = "variable_id", length = Constraints.LENGTH_ID, nullable = false)
     private String variableId;
 
-    // -----------------------------------------------------------主属性字段-----------------------------------------------------------
+    // endregion
+
+    // region 主属性字段
+
     @Column(name = "string_value", columnDefinition = "TEXT")
     private String stringValue;
 
@@ -48,17 +52,23 @@ public class HibernateCommonVariable implements Bean {
     @Column(name = "last_updated_date")
     private Date lastUpdatedDate;
 
-    // -----------------------------------------------------------多对一-----------------------------------------------------------
+    // endregion
+
+    // region 多对一
+
     @ManyToOne(targetEntity = HibernateScgSetting.class)
     @JoinColumns({ //
             @JoinColumn(name = "scg_setting_id", referencedColumnName = "id", insertable = false, updatable = false), //
     })
     private HibernateScgSetting scgSetting;
 
+    // endregion
+
     public HibernateCommonVariable() {
     }
 
-    // -----------------------------------------------------------映射用属性区-----------------------------------------------------------
+    // region 映射用属性区
+
     public HibernateCommonVariableKey getKey() {
         return new HibernateCommonVariableKey(scgSettingId, variableId);
     }
@@ -73,7 +83,10 @@ public class HibernateCommonVariable implements Bean {
         }
     }
 
-    // -----------------------------------------------------------常规属性区-----------------------------------------------------------
+    // endregion
+
+    // region 常规属性区
+
     public String getScgSettingId() {
         return scgSettingId;
     }
@@ -153,6 +166,8 @@ public class HibernateCommonVariable implements Bean {
     public void setScgSetting(HibernateScgSetting scgSetting) {
         this.scgSetting = scgSetting;
     }
+
+    // endregion
 
     @Override
     public String toString() {

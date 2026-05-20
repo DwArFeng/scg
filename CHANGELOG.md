@@ -4,6 +4,13 @@
 
 ### 功能构建
 
+- `scg-impl` 子模块类优化注释、文档注释格式、代码换行格式。
+  - com.dwarfeng.scg.impl.bean.BeanMapper。
+  - com.dwarfeng.scg.impl.bean.entity.HibernateCommonVariable。
+  - com.dwarfeng.scg.impl.bean.entity.HibernateGeneratorSupport。
+  - com.dwarfeng.scg.impl.bean.entity.HibernateNodeVariable。
+  - com.dwarfeng.scg.impl.bean.entity.HibernateScgSetting。
+
 - `scg-sdk` 子模块类优化注释、文档注释格式、代码换行格式。
   - com.dwarfeng.scg.sdk.bean.BeanMapper。
   - com.dwarfeng.scg.sdk.util.ValidScgSettingGranularity。
