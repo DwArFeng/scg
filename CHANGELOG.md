@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- `scg-api` 子模块类优化注释、文档注释格式、代码换行格式。
+  - com.dwarfeng.scg.api.configuration.GenerateConfiguration。
+
 - `scg-impl` 子模块类优化注释、文档注释格式、代码换行格式。
   - com.dwarfeng.scg.impl.bean.BeanMapper。
   - com.dwarfeng.scg.impl.bean.entity.HibernateCommonVariable。
