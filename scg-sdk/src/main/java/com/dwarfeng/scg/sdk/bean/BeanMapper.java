@@ -31,7 +31,8 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BeanMapper {
 
-    // -----------------------------------------------------------Subgrade Key-----------------------------------------------------------
+    // region Subgrade Key
+
     FastJsonStringIdKey stringIdKeyToFastJson(StringIdKey stringIdKey);
 
     @InheritInverseConfiguration
@@ -42,7 +43,10 @@ public interface BeanMapper {
     @InheritInverseConfiguration
     StringIdKey stringIdKeyFromWebInput(WebInputStringIdKey webInputStringIdKey);
 
-    // -----------------------------------------------------------Scg Key-----------------------------------------------------------
+    // endregion
+
+    // region Scg Key
+
     FastJsonCommonVariableKey commonVariableKeyToFastJson(CommonVariableKey commonVariableKey);
 
     @InheritInverseConfiguration
@@ -58,7 +62,10 @@ public interface BeanMapper {
     @InheritInverseConfiguration
     ScgNodeKey scgNodeKeyFromFastJson(FastJsonScgNodeKey fastJsonScgNodeKey);
 
-    // -----------------------------------------------------------Scg Entity-----------------------------------------------------------
+    // endregion
+
+    // region Scg Entity
+
     FastJsonCommonVariable commonVariableToFastJson(CommonVariable commonVariable);
 
     @InheritInverseConfiguration
@@ -94,7 +101,10 @@ public interface BeanMapper {
     @InheritInverseConfiguration
     ScgSetting scgSettingFromWebInput(WebInputScgSetting webInputScgSetting);
 
-    // -----------------------------------------------------------Scg DTO-----------------------------------------------------------
+    // endregion
+
+    // region Scg DTO
+
     WebInputBatchGenerateInfo batchGenerateInfoToWebInput(BatchGenerateInfo batchGenerateInfo);
 
     @InheritInverseConfiguration
@@ -152,4 +162,6 @@ public interface BeanMapper {
     NodeVariableUpsertInfo nodeVariableUpsertInfoFromWebInput(
             WebInputNodeVariableUpsertInfo webInputNodeVariableUpsertInfo
     );
+
+    // endregion
 }

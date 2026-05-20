@@ -31,7 +31,6 @@ public @interface ValidScgSettingGranularity {
 
     class InternalConstraintValidator implements ConstraintValidator<ValidScgSettingGranularity, Integer> {
 
-        // 执行校验操作
         @Override
         public boolean isValid(Integer value, ConstraintValidatorContext context) {
             try {

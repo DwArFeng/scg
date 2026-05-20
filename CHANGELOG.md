@@ -4,6 +4,10 @@
 
 ### 功能构建
 
+- `scg-sdk` 子模块类优化注释、文档注释格式、代码换行格式。
+  - com.dwarfeng.scg.sdk.bean.BeanMapper。
+  - com.dwarfeng.scg.sdk.util.ValidScgSettingGranularity。
+
 - 优化文件格式。
   - 优化 `opt-*.xml` 文件的格式。
   - 优化 `application-context-*.xml` 文件的格式。
