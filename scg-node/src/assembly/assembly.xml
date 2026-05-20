@@ -29,7 +29,7 @@
                 <include>**/*.md</include>
             </includes>
             <filtered>false</filtered>
-            <fileMode>644</fileMode>
+            <fileMode>0644</fileMode>
             <lineEnding>unix</lineEnding>
         </fileSet>
         <fileSet>
@@ -39,7 +39,7 @@
                 <include>**/*.png</include>
             </includes>
             <filtered>false</filtered>
-            <fileMode>644</fileMode>
+            <fileMode>0644</fileMode>
         </fileSet>
         <fileSet>
             <outputDirectory>bin</outputDirectory>
