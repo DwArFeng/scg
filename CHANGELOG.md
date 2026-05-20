@@ -4,6 +4,21 @@
 
 ### 功能构建
 
+- 依赖升级。
+  - 升级 `jedis` 依赖版本为 `3.10.0` 以规避漏洞。
+  - 升级 `spring-data-redis` 依赖版本为 `2.7.18` 以规避漏洞。
+  - 升级 `dubbo` 依赖版本为 `2.7.23` 以规避漏洞。
+  - 升级 `zookeeper` 依赖版本为 `3.9.5` 以规避漏洞。
+  - 升级 `log4j2` 依赖版本为 `2.25.4` 以规避漏洞。
+  - 升级 `mapstruct` 依赖版本为 `1.5.5.Final` 以规避漏洞。
+  - 升级 `dutil` 依赖版本为 `0.4.2.a-beta` 以规避漏洞。
+  - 升级 `subgrade` 依赖版本为 `1.8.2.a` 以规避漏洞。
+  - 升级 `spring-terminator` 依赖版本为 `1.1.0.a` 以规避漏洞。
+  - 升级 `spring-telqos` 依赖版本为 `1.2.0.a` 以规避漏洞。
+  - 升级 `dwarfeng-datamark` 依赖版本为 `1.1.3.a` 以规避漏洞。
+  - 升级 `jackson` 依赖版本为 `2.21.2` 以规避漏洞。
+  - 升级 `groovy` 依赖版本为 `4.0.31` 以规避漏洞。
+
 - `scg-api` 子模块类优化注释、文档注释格式、代码换行格式。
   - com.dwarfeng.scg.api.configuration.GenerateConfiguration。
 
