@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- 为部分重置器的依赖注入对象增加限定符，以避免潜在的冲突。
+  - com.dwarfeng.scg.impl.handler.resetter.DubboResetter。
+
 - 依赖升级。
   - 升级 `jedis` 依赖版本为 `3.10.0` 以规避漏洞。
   - 升级 `spring-data-redis` 依赖版本为 `2.7.18` 以规避漏洞。
