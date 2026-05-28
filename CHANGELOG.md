@@ -4,6 +4,9 @@
 
 ### 功能构建
 
+- Wiki 编写。
+  - docs/wiki/zh-CN/VersionBlacklist.md。
+
 - 为部分重置器的依赖注入对象增加限定符，以避免潜在的冲突。
   - com.dwarfeng.scg.impl.handler.resetter.DubboResetter。
 
