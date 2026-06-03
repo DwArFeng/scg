@@ -1,7 +1,5 @@
 package com.dwarfeng.scg.impl.configuration;
 
-import com.dwarfeng.scg.sdk.util.ServiceExceptionCodes;
-import com.dwarfeng.scg.stack.exception.*;
 import com.dwarfeng.subgrade.impl.exception.MapServiceExceptionMapper;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
@@ -15,16 +13,11 @@ public class ServiceExceptionMapperConfiguration {
 
     @Bean
     public MapServiceExceptionMapper mapServiceExceptionMapper() {
-        Map<Class<? extends Exception>, ServiceException.Code> destination = ServiceExceptionHelper.putDefaultDestination(null);
-        destination = com.dwarfeng.springtelqos.sdk.util.ServiceExceptionHelper.putDefaultDestination(destination);
-        destination = com.dwarfeng.springterminator.sdk.util.ServiceExceptionHelper.putDefaultDestination(destination);
-        destination = com.dwarfeng.datamark.sdk.util.ServiceExceptionHelper.putDefaultDestination(destination);
-        destination.put(GeneratorException.class, ServiceExceptionCodes.GENERATOR_FAILED);
-        destination.put(GeneratorExecutionException.class, ServiceExceptionCodes.GENERATOR_EXECUTION_FAILED);
-        destination.put(GeneratorMakeException.class, ServiceExceptionCodes.GENERATOR_MAKE_FAILED);
-        destination.put(UnsupportedGeneratorTypeException.class, ServiceExceptionCodes.UNSUPPORTED_GENERATOR_TYPE);
-        destination.put(ScgSettingNotExistsException.class, ServiceExceptionCodes.SCG_SETTING_NOT_EXISTS);
-        destination.put(ScgSettingDisabledException.class, ServiceExceptionCodes.SCG_SETTING_DISABLED);
-        return new MapServiceExceptionMapper(destination, com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.UNDEFINED);
+        Map<Class<? extends Exception>, ServiceException.Code> des = ServiceExceptionHelper.putDefaultDestination(null);
+        des = com.dwarfeng.springtelqos.sdk.util.ServiceExceptionHelper.putDefaultDestination(des);
+        des = com.dwarfeng.springterminator.sdk.util.ServiceExceptionHelper.putDefaultDestination(des);
+        des = com.dwarfeng.datamark.sdk.util.ServiceExceptionHelper.putDefaultDestination(des);
+        des = com.dwarfeng.scg.sdk.util.ServiceExceptionHelper.putDefaultDestination(des);
+        return new MapServiceExceptionMapper(des, com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.UNDEFINED);
     }
 }
