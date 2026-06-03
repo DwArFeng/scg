@@ -49,13 +49,13 @@
         <log4j2.version>2.25.4</log4j2.version>
         <jboss-logging.version>3.4.3.Final</jboss-logging.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <dutil.version>0.4.2.a-beta</dutil.version>
-        <subgrade.version>1.8.2.a</subgrade.version>
-        <spring-terminator.version>1.1.0.a</spring-terminator.version>
-        <spring-telqos.version>1.2.0.a</spring-telqos.version>
-        <dwarfeng-datamark.version>1.1.3.a</dwarfeng-datamark.version>
         <jackson.version>2.21.2</jackson.version>
         <groovy.version>4.0.31</groovy.version>
+        <dutil.version>0.4.2.a-beta</dutil.version>
+        <subgrade.version>1.8.2.a</subgrade.version>
+        <spring-telqos.version>1.2.0.a</spring-telqos.version>
+        <spring-terminator.version>1.1.0.a</spring-terminator.version>
+        <dwarfeng-datamark.version>1.1.3.a</dwarfeng-datamark.version>
         <!-- Maven 插件版本声明 -->
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -330,6 +330,58 @@
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
+            <!-- Jackson 组件 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- Groovy 支持 -->
+            <dependency>
+                <groupId>org.apache.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <type>pom</type>
+                <version>${groovy.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jackson-databind</artifactId>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>jackson-dataformat-yaml</artifactId>
+                        <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>ivy</artifactId>
+                        <groupId>org.apache.ivy</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>groovy-test</artifactId>
+                        <groupId>org.apache.groovy</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>groovy-test-junit5</artifactId>
+                        <groupId>org.apache.groovy</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>groovy-groovydoc</artifactId>
+                        <groupId>org.apache.groovy</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>groovy-servlet</artifactId>
+                        <groupId>org.apache.groovy</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>groovy-swing</artifactId>
+                        <groupId>org.apache.groovy</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
             <!-- Dutil 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
@@ -388,12 +440,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!-- Spring-terminator 组件 -->
-            <dependency>
-                <groupId>com.dwarfeng</groupId>
-                <artifactId>spring-terminator</artifactId>
-                <version>${spring-terminator.version}</version>
-            </dependency>
             <!-- Spring-telqos 组件 -->
             <dependency>
                 <groupId>com.dwarfeng</groupId>
@@ -405,57 +451,11 @@
                 <artifactId>spring-telqos-api</artifactId>
                 <version>${spring-telqos.version}</version>
             </dependency>
-            <!-- Jackson 组件 -->
+            <!-- Spring-terminator 组件 -->
             <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.dataformat</groupId>
-                <artifactId>jackson-dataformat-yaml</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <!-- Groovy 支持 -->
-            <dependency>
-                <groupId>org.apache.groovy</groupId>
-                <artifactId>groovy-all</artifactId>
-                <type>pom</type>
-                <version>${groovy.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>jackson-databind</artifactId>
-                        <groupId>com.fasterxml.jackson.core</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>jackson-dataformat-yaml</artifactId>
-                        <groupId>com.fasterxml.jackson.dataformat</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>ivy</artifactId>
-                        <groupId>org.apache.ivy</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>groovy-test</artifactId>
-                        <groupId>org.apache.groovy</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>groovy-test-junit5</artifactId>
-                        <groupId>org.apache.groovy</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>groovy-groovydoc</artifactId>
-                        <groupId>org.apache.groovy</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>groovy-servlet</artifactId>
-                        <groupId>org.apache.groovy</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>groovy-swing</artifactId>
-                        <groupId>org.apache.groovy</groupId>
-                    </exclusion>
-                </exclusions>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>spring-terminator</artifactId>
+                <version>${spring-terminator.version}</version>
             </dependency>
             <!-- Dwarfeng-datamark 组件 -->
             <dependency>
