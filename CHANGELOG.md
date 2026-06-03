@@ -4,6 +4,20 @@
 
 ### 功能构建
 
+- 部分代理类实现中的字段类型提升为对应的接口，与具体实现解耦。
+  - com.dwarfeng.scg.impl.cache.CommonVariableCacheImpl。
+  - com.dwarfeng.scg.impl.cache.GeneratorSupportCacheImpl。
+  - com.dwarfeng.scg.impl.cache.NodeVariableCacheImpl。
+  - com.dwarfeng.scg.impl.cache.ScgSettingCacheImpl。
+  - com.dwarfeng.scg.impl.dao.CommonVariableDaoImpl。
+  - com.dwarfeng.scg.impl.dao.GeneratorSupportDaoImpl。
+  - com.dwarfeng.scg.impl.dao.NodeVariableDaoImpl。
+  - com.dwarfeng.scg.impl.dao.ScgSettingDaoImpl。
+  - com.dwarfeng.scg.impl.service.CommonVariableMaintainServiceImpl。
+  - com.dwarfeng.scg.impl.service.GeneratorSupportMaintainServiceImpl。
+  - com.dwarfeng.scg.impl.service.NodeVariableMaintainServiceImpl。
+  - com.dwarfeng.scg.impl.service.ScgSettingMaintainServiceImpl。
+
 - 优化项目的异常处理机制。
   - `scg-sdk` 子模块新增 `ServiceExceptionHelper` 工具类，统一维护项目自身的异常映射关系。
   - `scg-impl` 子模块 `ServiceExceptionMapperConfiguration` 配置类的异常映射处理逻辑优化。

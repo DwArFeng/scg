@@ -3,14 +3,14 @@ package com.dwarfeng.scg.impl.service;
 import com.dwarfeng.scg.stack.bean.entity.NodeVariable;
 import com.dwarfeng.scg.stack.bean.key.NodeVariableKey;
 import com.dwarfeng.scg.stack.service.NodeVariableMaintainService;
-import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
-import com.dwarfeng.subgrade.impl.service.DaoOnlyPresetLookupService;
-import com.dwarfeng.subgrade.impl.service.GeneralBatchCrudService;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
+import com.dwarfeng.subgrade.stack.service.BatchCrudService;
+import com.dwarfeng.subgrade.stack.service.EntireLookupService;
+import com.dwarfeng.subgrade.stack.service.PresetLookupService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,16 +19,16 @@ import java.util.List;
 @Service
 public class NodeVariableMaintainServiceImpl implements NodeVariableMaintainService {
 
-    private final GeneralBatchCrudService<NodeVariableKey, NodeVariable> crudService;
-    private final DaoOnlyEntireLookupService<NodeVariable> entireLookupService;
-    private final DaoOnlyPresetLookupService<NodeVariable> presetLookupService;
+    private final BatchCrudService<NodeVariableKey, NodeVariable> batchCrudService;
+    private final EntireLookupService<NodeVariable> entireLookupService;
+    private final PresetLookupService<NodeVariable> presetLookupService;
 
     public NodeVariableMaintainServiceImpl(
-            GeneralBatchCrudService<NodeVariableKey, NodeVariable> crudService,
-            DaoOnlyEntireLookupService<NodeVariable> entireLookupService,
-            DaoOnlyPresetLookupService<NodeVariable> presetLookupService
+            BatchCrudService<NodeVariableKey, NodeVariable> batchCrudService,
+            EntireLookupService<NodeVariable> entireLookupService,
+            PresetLookupService<NodeVariable> presetLookupService
     ) {
-        this.crudService = crudService;
+        this.batchCrudService = batchCrudService;
         this.entireLookupService = entireLookupService;
         this.presetLookupService = presetLookupService;
     }
@@ -37,84 +37,84 @@ public class NodeVariableMaintainServiceImpl implements NodeVariableMaintainServ
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean exists(NodeVariableKey key) throws ServiceException {
-        return crudService.exists(key);
+        return batchCrudService.exists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public NodeVariable get(NodeVariableKey key) throws ServiceException {
-        return crudService.get(key);
+        return batchCrudService.get(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public NodeVariableKey insert(NodeVariable element) throws ServiceException {
-        return crudService.insert(element);
+        return batchCrudService.insert(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void update(NodeVariable element) throws ServiceException {
-        crudService.update(element);
+        batchCrudService.update(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void delete(NodeVariableKey key) throws ServiceException {
-        crudService.delete(key);
+        batchCrudService.delete(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public NodeVariable getIfExists(NodeVariableKey key) throws ServiceException {
-        return crudService.getIfExists(key);
+        return batchCrudService.getIfExists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public NodeVariableKey insertIfNotExists(NodeVariable element) throws ServiceException {
-        return crudService.insertIfNotExists(element);
+        return batchCrudService.insertIfNotExists(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void updateIfExists(NodeVariable element) throws ServiceException {
-        crudService.updateIfExists(element);
+        batchCrudService.updateIfExists(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void deleteIfExists(NodeVariableKey key) throws ServiceException {
-        crudService.deleteIfExists(key);
+        batchCrudService.deleteIfExists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public NodeVariableKey insertOrUpdate(NodeVariable element) throws ServiceException {
-        return crudService.insertOrUpdate(element);
+        return batchCrudService.insertOrUpdate(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean allExists(@SkipRecord List<NodeVariableKey> keys) throws ServiceException {
-        return crudService.allExists(keys);
+        return batchCrudService.allExists(keys);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean nonExists(@SkipRecord List<NodeVariableKey> keys) throws ServiceException {
-        return crudService.nonExists(keys);
+        return batchCrudService.nonExists(keys);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class NodeVariableMaintainServiceImpl implements NodeVariableMaintainServ
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public List<NodeVariable> batchGet(@SkipRecord List<NodeVariableKey> keys) throws ServiceException {
-        return crudService.batchGet(keys);
+        return batchCrudService.batchGet(keys);
     }
 
     @Override
@@ -130,21 +130,21 @@ public class NodeVariableMaintainServiceImpl implements NodeVariableMaintainServ
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<NodeVariableKey> batchInsert(@SkipRecord List<NodeVariable> elements) throws ServiceException {
-        return crudService.batchInsert(elements);
+        return batchCrudService.batchInsert(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchUpdate(@SkipRecord List<NodeVariable> elements) throws ServiceException {
-        crudService.batchUpdate(elements);
+        batchCrudService.batchUpdate(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchDelete(@SkipRecord List<NodeVariableKey> keys) throws ServiceException {
-        crudService.batchDelete(keys);
+        batchCrudService.batchDelete(keys);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class NodeVariableMaintainServiceImpl implements NodeVariableMaintainServ
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public List<NodeVariable> batchGetIfExists(@SkipRecord List<NodeVariableKey> keys) throws ServiceException {
-        return crudService.batchGetIfExists(keys);
+        return batchCrudService.batchGetIfExists(keys);
     }
 
     @Deprecated
@@ -161,7 +161,7 @@ public class NodeVariableMaintainServiceImpl implements NodeVariableMaintainServ
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<NodeVariableKey> batchInsertIfExists(@SkipRecord List<NodeVariable> elements) throws ServiceException {
-        return crudService.batchInsertIfExists(elements);
+        return batchCrudService.batchInsertIfExists(elements);
     }
 
     @Override
@@ -169,21 +169,21 @@ public class NodeVariableMaintainServiceImpl implements NodeVariableMaintainServ
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<NodeVariableKey> batchInsertIfNotExists(@SkipRecord List<NodeVariable> elements) throws ServiceException {
-        return crudService.batchInsertIfNotExists(elements);
+        return batchCrudService.batchInsertIfNotExists(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchUpdateIfExists(@SkipRecord List<NodeVariable> elements) throws ServiceException {
-        crudService.batchUpdateIfExists(elements);
+        batchCrudService.batchUpdateIfExists(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchDeleteIfExists(@SkipRecord List<NodeVariableKey> keys) throws ServiceException {
-        crudService.batchDeleteIfExists(keys);
+        batchCrudService.batchDeleteIfExists(keys);
     }
 
     @Override
@@ -191,7 +191,7 @@ public class NodeVariableMaintainServiceImpl implements NodeVariableMaintainServ
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<NodeVariableKey> batchInsertOrUpdate(@SkipRecord List<NodeVariable> elements) throws ServiceException {
-        return crudService.batchInsertOrUpdate(elements);
+        return batchCrudService.batchInsertOrUpdate(elements);
     }
 
     @Override

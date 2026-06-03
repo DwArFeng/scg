@@ -2,15 +2,15 @@ package com.dwarfeng.scg.impl.service;
 
 import com.dwarfeng.scg.stack.bean.entity.ScgSetting;
 import com.dwarfeng.scg.stack.service.ScgSettingMaintainService;
-import com.dwarfeng.subgrade.impl.service.CustomBatchCrudService;
-import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
-import com.dwarfeng.subgrade.impl.service.DaoOnlyPresetLookupService;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
+import com.dwarfeng.subgrade.stack.service.BatchCrudService;
+import com.dwarfeng.subgrade.stack.service.EntireLookupService;
+import com.dwarfeng.subgrade.stack.service.PresetLookupService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,16 +19,16 @@ import java.util.List;
 @Service
 public class ScgSettingMaintainServiceImpl implements ScgSettingMaintainService {
 
-    private final CustomBatchCrudService<StringIdKey, ScgSetting> crudService;
-    private final DaoOnlyEntireLookupService<ScgSetting> entireLookupService;
-    private final DaoOnlyPresetLookupService<ScgSetting> presetLookupService;
+    private final BatchCrudService<StringIdKey, ScgSetting> batchCrudService;
+    private final EntireLookupService<ScgSetting> entireLookupService;
+    private final PresetLookupService<ScgSetting> presetLookupService;
 
     public ScgSettingMaintainServiceImpl(
-            CustomBatchCrudService<StringIdKey, ScgSetting> crudService,
-            DaoOnlyEntireLookupService<ScgSetting> entireLookupService,
-            DaoOnlyPresetLookupService<ScgSetting> presetLookupService
+            BatchCrudService<StringIdKey, ScgSetting> batchCrudService,
+            EntireLookupService<ScgSetting> entireLookupService,
+            PresetLookupService<ScgSetting> presetLookupService
     ) {
-        this.crudService = crudService;
+        this.batchCrudService = batchCrudService;
         this.entireLookupService = entireLookupService;
         this.presetLookupService = presetLookupService;
     }
@@ -37,84 +37,84 @@ public class ScgSettingMaintainServiceImpl implements ScgSettingMaintainService 
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean exists(StringIdKey key) throws ServiceException {
-        return crudService.exists(key);
+        return batchCrudService.exists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public ScgSetting get(StringIdKey key) throws ServiceException {
-        return crudService.get(key);
+        return batchCrudService.get(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public StringIdKey insert(ScgSetting element) throws ServiceException {
-        return crudService.insert(element);
+        return batchCrudService.insert(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void update(ScgSetting element) throws ServiceException {
-        crudService.update(element);
+        batchCrudService.update(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void delete(StringIdKey key) throws ServiceException {
-        crudService.delete(key);
+        batchCrudService.delete(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public ScgSetting getIfExists(StringIdKey key) throws ServiceException {
-        return crudService.getIfExists(key);
+        return batchCrudService.getIfExists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public StringIdKey insertIfNotExists(ScgSetting element) throws ServiceException {
-        return crudService.insertIfNotExists(element);
+        return batchCrudService.insertIfNotExists(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void updateIfExists(ScgSetting element) throws ServiceException {
-        crudService.updateIfExists(element);
+        batchCrudService.updateIfExists(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void deleteIfExists(StringIdKey key) throws ServiceException {
-        crudService.deleteIfExists(key);
+        batchCrudService.deleteIfExists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public StringIdKey insertOrUpdate(ScgSetting element) throws ServiceException {
-        return crudService.insertOrUpdate(element);
+        return batchCrudService.insertOrUpdate(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean allExists(@SkipRecord List<StringIdKey> keys) throws ServiceException {
-        return crudService.allExists(keys);
+        return batchCrudService.allExists(keys);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean nonExists(@SkipRecord List<StringIdKey> keys) throws ServiceException {
-        return crudService.nonExists(keys);
+        return batchCrudService.nonExists(keys);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class ScgSettingMaintainServiceImpl implements ScgSettingMaintainService 
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public List<ScgSetting> batchGet(@SkipRecord List<StringIdKey> keys) throws ServiceException {
-        return crudService.batchGet(keys);
+        return batchCrudService.batchGet(keys);
     }
 
     @Override
@@ -130,21 +130,21 @@ public class ScgSettingMaintainServiceImpl implements ScgSettingMaintainService 
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<StringIdKey> batchInsert(@SkipRecord List<ScgSetting> elements) throws ServiceException {
-        return crudService.batchInsert(elements);
+        return batchCrudService.batchInsert(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchUpdate(@SkipRecord List<ScgSetting> elements) throws ServiceException {
-        crudService.batchUpdate(elements);
+        batchCrudService.batchUpdate(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchDelete(@SkipRecord List<StringIdKey> keys) throws ServiceException {
-        crudService.batchDelete(keys);
+        batchCrudService.batchDelete(keys);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class ScgSettingMaintainServiceImpl implements ScgSettingMaintainService 
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public List<ScgSetting> batchGetIfExists(@SkipRecord List<StringIdKey> keys) throws ServiceException {
-        return crudService.batchGetIfExists(keys);
+        return batchCrudService.batchGetIfExists(keys);
     }
 
     @Deprecated
@@ -161,7 +161,7 @@ public class ScgSettingMaintainServiceImpl implements ScgSettingMaintainService 
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<StringIdKey> batchInsertIfExists(@SkipRecord List<ScgSetting> elements) throws ServiceException {
-        return crudService.batchInsertIfExists(elements);
+        return batchCrudService.batchInsertIfExists(elements);
     }
 
     @Override
@@ -169,21 +169,21 @@ public class ScgSettingMaintainServiceImpl implements ScgSettingMaintainService 
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<StringIdKey> batchInsertIfNotExists(@SkipRecord List<ScgSetting> elements) throws ServiceException {
-        return crudService.batchInsertIfNotExists(elements);
+        return batchCrudService.batchInsertIfNotExists(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchUpdateIfExists(@SkipRecord List<ScgSetting> elements) throws ServiceException {
-        crudService.batchUpdateIfExists(elements);
+        batchCrudService.batchUpdateIfExists(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchDeleteIfExists(@SkipRecord List<StringIdKey> keys) throws ServiceException {
-        crudService.batchDeleteIfExists(keys);
+        batchCrudService.batchDeleteIfExists(keys);
     }
 
     @Override
@@ -191,7 +191,7 @@ public class ScgSettingMaintainServiceImpl implements ScgSettingMaintainService 
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<StringIdKey> batchInsertOrUpdate(@SkipRecord List<ScgSetting> elements) throws ServiceException {
-        return crudService.batchInsertOrUpdate(elements);
+        return batchCrudService.batchInsertOrUpdate(elements);
     }
 
     @Override

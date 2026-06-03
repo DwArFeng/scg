@@ -1,16 +1,14 @@
 package com.dwarfeng.scg.impl.dao;
 
-import com.dwarfeng.scg.impl.bean.entity.HibernateCommonVariable;
-import com.dwarfeng.scg.impl.bean.key.HibernateCommonVariableKey;
 import com.dwarfeng.scg.stack.bean.entity.CommonVariable;
 import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
 import com.dwarfeng.scg.stack.dao.CommonVariableDao;
-import com.dwarfeng.subgrade.impl.dao.HibernateBatchBaseDao;
-import com.dwarfeng.subgrade.impl.dao.HibernateEntireLookupDao;
-import com.dwarfeng.subgrade.impl.dao.HibernatePresetLookupDao;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
+import com.dwarfeng.subgrade.stack.dao.BatchBaseDao;
+import com.dwarfeng.subgrade.stack.dao.EntireLookupDao;
+import com.dwarfeng.subgrade.stack.dao.PresetLookupDao;
 import com.dwarfeng.subgrade.stack.exception.DaoException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,16 +18,14 @@ import java.util.List;
 @Repository
 public class CommonVariableDaoImpl implements CommonVariableDao {
 
-    private final HibernateBatchBaseDao<CommonVariableKey, HibernateCommonVariableKey, CommonVariable,
-            HibernateCommonVariable> batchBaseDao;
-    private final HibernateEntireLookupDao<CommonVariable, HibernateCommonVariable> entireLookupDao;
-    private final HibernatePresetLookupDao<CommonVariable, HibernateCommonVariable> presetLookupDao;
+    private final BatchBaseDao<CommonVariableKey, CommonVariable> batchBaseDao;
+    private final EntireLookupDao<CommonVariable> entireLookupDao;
+    private final PresetLookupDao<CommonVariable> presetLookupDao;
 
     public CommonVariableDaoImpl(
-            HibernateBatchBaseDao<CommonVariableKey, HibernateCommonVariableKey, CommonVariable, HibernateCommonVariable>
-                    batchBaseDao,
-            HibernateEntireLookupDao<CommonVariable, HibernateCommonVariable> entireLookupDao,
-            HibernatePresetLookupDao<CommonVariable, HibernateCommonVariable> presetLookupDao
+            BatchBaseDao<CommonVariableKey, CommonVariable> batchBaseDao,
+            EntireLookupDao<CommonVariable> entireLookupDao,
+            PresetLookupDao<CommonVariable> presetLookupDao
     ) {
         this.batchBaseDao = batchBaseDao;
         this.entireLookupDao = entireLookupDao;

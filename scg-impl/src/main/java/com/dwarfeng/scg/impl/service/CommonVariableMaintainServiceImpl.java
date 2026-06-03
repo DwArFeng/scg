@@ -3,14 +3,14 @@ package com.dwarfeng.scg.impl.service;
 import com.dwarfeng.scg.stack.bean.entity.CommonVariable;
 import com.dwarfeng.scg.stack.bean.key.CommonVariableKey;
 import com.dwarfeng.scg.stack.service.CommonVariableMaintainService;
-import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
-import com.dwarfeng.subgrade.impl.service.DaoOnlyPresetLookupService;
-import com.dwarfeng.subgrade.impl.service.GeneralBatchCrudService;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
+import com.dwarfeng.subgrade.stack.service.BatchCrudService;
+import com.dwarfeng.subgrade.stack.service.EntireLookupService;
+import com.dwarfeng.subgrade.stack.service.PresetLookupService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,16 +19,16 @@ import java.util.List;
 @Service
 public class CommonVariableMaintainServiceImpl implements CommonVariableMaintainService {
 
-    private final GeneralBatchCrudService<CommonVariableKey, CommonVariable> crudService;
-    private final DaoOnlyEntireLookupService<CommonVariable> entireLookupService;
-    private final DaoOnlyPresetLookupService<CommonVariable> presetLookupService;
+    private final BatchCrudService<CommonVariableKey, CommonVariable> batchCrudService;
+    private final EntireLookupService<CommonVariable> entireLookupService;
+    private final PresetLookupService<CommonVariable> presetLookupService;
 
     public CommonVariableMaintainServiceImpl(
-            GeneralBatchCrudService<CommonVariableKey, CommonVariable> crudService,
-            DaoOnlyEntireLookupService<CommonVariable> entireLookupService,
-            DaoOnlyPresetLookupService<CommonVariable> presetLookupService
+            BatchCrudService<CommonVariableKey, CommonVariable> batchCrudService,
+            EntireLookupService<CommonVariable> entireLookupService,
+            PresetLookupService<CommonVariable> presetLookupService
     ) {
-        this.crudService = crudService;
+        this.batchCrudService = batchCrudService;
         this.entireLookupService = entireLookupService;
         this.presetLookupService = presetLookupService;
     }
@@ -37,84 +37,84 @@ public class CommonVariableMaintainServiceImpl implements CommonVariableMaintain
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean exists(CommonVariableKey key) throws ServiceException {
-        return crudService.exists(key);
+        return batchCrudService.exists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public CommonVariable get(CommonVariableKey key) throws ServiceException {
-        return crudService.get(key);
+        return batchCrudService.get(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public CommonVariableKey insert(CommonVariable element) throws ServiceException {
-        return crudService.insert(element);
+        return batchCrudService.insert(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void update(CommonVariable element) throws ServiceException {
-        crudService.update(element);
+        batchCrudService.update(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void delete(CommonVariableKey key) throws ServiceException {
-        crudService.delete(key);
+        batchCrudService.delete(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public CommonVariable getIfExists(CommonVariableKey key) throws ServiceException {
-        return crudService.getIfExists(key);
+        return batchCrudService.getIfExists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public CommonVariableKey insertIfNotExists(CommonVariable element) throws ServiceException {
-        return crudService.insertIfNotExists(element);
+        return batchCrudService.insertIfNotExists(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void updateIfExists(CommonVariable element) throws ServiceException {
-        crudService.updateIfExists(element);
+        batchCrudService.updateIfExists(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void deleteIfExists(CommonVariableKey key) throws ServiceException {
-        crudService.deleteIfExists(key);
+        batchCrudService.deleteIfExists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public CommonVariableKey insertOrUpdate(CommonVariable element) throws ServiceException {
-        return crudService.insertOrUpdate(element);
+        return batchCrudService.insertOrUpdate(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean allExists(@SkipRecord List<CommonVariableKey> keys) throws ServiceException {
-        return crudService.allExists(keys);
+        return batchCrudService.allExists(keys);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean nonExists(@SkipRecord List<CommonVariableKey> keys) throws ServiceException {
-        return crudService.nonExists(keys);
+        return batchCrudService.nonExists(keys);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class CommonVariableMaintainServiceImpl implements CommonVariableMaintain
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public List<CommonVariable> batchGet(@SkipRecord List<CommonVariableKey> keys) throws ServiceException {
-        return crudService.batchGet(keys);
+        return batchCrudService.batchGet(keys);
     }
 
     @Override
@@ -130,21 +130,21 @@ public class CommonVariableMaintainServiceImpl implements CommonVariableMaintain
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<CommonVariableKey> batchInsert(@SkipRecord List<CommonVariable> elements) throws ServiceException {
-        return crudService.batchInsert(elements);
+        return batchCrudService.batchInsert(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchUpdate(@SkipRecord List<CommonVariable> elements) throws ServiceException {
-        crudService.batchUpdate(elements);
+        batchCrudService.batchUpdate(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchDelete(@SkipRecord List<CommonVariableKey> keys) throws ServiceException {
-        crudService.batchDelete(keys);
+        batchCrudService.batchDelete(keys);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class CommonVariableMaintainServiceImpl implements CommonVariableMaintain
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public List<CommonVariable> batchGetIfExists(@SkipRecord List<CommonVariableKey> keys) throws ServiceException {
-        return crudService.batchGetIfExists(keys);
+        return batchCrudService.batchGetIfExists(keys);
     }
 
     @Deprecated
@@ -161,7 +161,7 @@ public class CommonVariableMaintainServiceImpl implements CommonVariableMaintain
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<CommonVariableKey> batchInsertIfExists(@SkipRecord List<CommonVariable> elements) throws ServiceException {
-        return crudService.batchInsertIfExists(elements);
+        return batchCrudService.batchInsertIfExists(elements);
     }
 
     @Override
@@ -169,21 +169,21 @@ public class CommonVariableMaintainServiceImpl implements CommonVariableMaintain
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<CommonVariableKey> batchInsertIfNotExists(@SkipRecord List<CommonVariable> elements) throws ServiceException {
-        return crudService.batchInsertIfNotExists(elements);
+        return batchCrudService.batchInsertIfNotExists(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchUpdateIfExists(@SkipRecord List<CommonVariable> elements) throws ServiceException {
-        crudService.batchUpdateIfExists(elements);
+        batchCrudService.batchUpdateIfExists(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchDeleteIfExists(@SkipRecord List<CommonVariableKey> keys) throws ServiceException {
-        crudService.batchDeleteIfExists(keys);
+        batchCrudService.batchDeleteIfExists(keys);
     }
 
     @Override
@@ -191,7 +191,7 @@ public class CommonVariableMaintainServiceImpl implements CommonVariableMaintain
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public List<CommonVariableKey> batchInsertOrUpdate(@SkipRecord List<CommonVariable> elements) throws ServiceException {
-        return crudService.batchInsertOrUpdate(elements);
+        return batchCrudService.batchInsertOrUpdate(elements);
     }
 
     @Override
