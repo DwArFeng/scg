@@ -16,7 +16,9 @@ public class ServiceExceptionMapperConfiguration {
     @Bean
     public MapServiceExceptionMapper mapServiceExceptionMapper() {
         Map<Class<? extends Exception>, ServiceException.Code> destination = ServiceExceptionHelper.putDefaultDestination(null);
-        destination = com.dwarfeng.datamark.util.ServiceExceptionHelper.putDefaultDestination(destination);
+        destination = com.dwarfeng.springtelqos.sdk.util.ServiceExceptionHelper.putDefaultDestination(destination);
+        destination = com.dwarfeng.springterminator.sdk.util.ServiceExceptionHelper.putDefaultDestination(destination);
+        destination = com.dwarfeng.datamark.sdk.util.ServiceExceptionHelper.putDefaultDestination(destination);
         destination.put(GeneratorException.class, ServiceExceptionCodes.GENERATOR_FAILED);
         destination.put(GeneratorExecutionException.class, ServiceExceptionCodes.GENERATOR_EXECUTION_FAILED);
         destination.put(GeneratorMakeException.class, ServiceExceptionCodes.GENERATOR_MAKE_FAILED);
