@@ -71,35 +71,33 @@ buildNumber.properties
 #################
 ## Logger Files
 #################
-/scg-sdk/logs/
 /scg-impl/logs/
-/scg-node/logs/
+/scg-node/scg-node-all-he/logs/
 /scg-api/logs/
 
 #################
 ## Configuration Files
 #################
 /scg-impl/conf/
-/scg-sdk/conf/
-/scg-node/conf/
+/scg-node/scg-node-all-he/conf/
 /scg-api/conf/
 
 #################
 ## Libext Files
 #################
-/scg-node/libext/
+/scg-node/scg-node-all-he/libext/
 
 #################
 ## Opt Files
 #################
-/scg-node/opt/
+/scg-node/scg-node-all-he/opt/
 
 #################
 ## Optext Files
 #################
-/scg-node/optext/
+/scg-node/scg-node-all-he/optext/
 
 #################
 ## Confext Files
 #################
-/scg-node/confext/
+/scg-node/scg-node-all-he/confext/

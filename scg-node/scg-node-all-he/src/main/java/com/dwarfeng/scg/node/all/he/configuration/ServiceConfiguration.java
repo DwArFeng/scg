@@ -1,4 +1,4 @@
-package com.dwarfeng.scg.node.configuration;
+package com.dwarfeng.scg.node.all.he.configuration;
 
 import com.dwarfeng.scg.impl.service.operation.ScgSettingCrudOperation;
 import com.dwarfeng.scg.stack.bean.entity.CommonVariable;

@@ -494,6 +494,16 @@
                 <artifactId>scg-node</artifactId>
                 <version>2.0.0.a-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>scg-node-all-he</artifactId>
+                <version>2.0.0.a-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dwarfeng</groupId>
+                <artifactId>scg-distribute</artifactId>
+                <version>2.0.0.a-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -540,5 +550,6 @@
         <module>scg-impl</module>
         <module>scg-node</module>
         <module>scg-api</module>
+        <module>scg-distribute</module>
     </modules>
 </project>

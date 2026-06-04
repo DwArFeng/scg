@@ -1,4 +1,4 @@
-package com.dwarfeng.scg.node.configuration;
+package com.dwarfeng.scg.node.all.he.configuration;
 
 import com.dwarfeng.scg.sdk.util.ServiceExceptionCodes;
 import org.springframework.beans.factory.annotation.Value;

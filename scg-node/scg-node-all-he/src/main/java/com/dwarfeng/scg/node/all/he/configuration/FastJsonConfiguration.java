@@ -1,4 +1,4 @@
-package com.dwarfeng.scg.node.configuration;
+package com.dwarfeng.scg.node.all.he.configuration;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.dwarfeng.scg.sdk.bean.entity.FastJsonCommonVariable;
