@@ -13,7 +13,7 @@ public class GenerateConfiguration {
 
     private final GenerateService generateService;
 
-    @Value("#{new com.dwarfeng.subgrade.stack.bean.key.StringIdKey('${test.scg_setting_id}')}")
+    @Value("#{new com.dwarfeng.subgrade.stack.bean.key.StringIdKey('${com.dwarfeng.scg.test.scg_setting_id}')}")
     private StringIdKey scgSettingKey;
 
     public GenerateConfiguration(GenerateService generateService) {

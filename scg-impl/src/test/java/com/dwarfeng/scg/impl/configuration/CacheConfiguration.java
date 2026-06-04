@@ -27,13 +27,13 @@ public class CacheConfiguration {
 
     private final RedisTemplate<String, ?> template;
 
-    @Value("${cache.prefix.entity.generator_support}")
+    @Value("${com.dwarfeng.scg.cache.prefix.entity.generator_support}")
     private String generatorSupportPrefix;
-    @Value("${cache.prefix.entity.scg_setting}")
+    @Value("${com.dwarfeng.scg.cache.prefix.entity.scg_setting}")
     private String scgSettingPrefix;
-    @Value("${cache.prefix.entity.node_variable}")
+    @Value("${com.dwarfeng.scg.cache.prefix.entity.node_variable}")
     private String nodeVariablePrefix;
-    @Value("${cache.prefix.entity.common_variable}")
+    @Value("${com.dwarfeng.scg.cache.prefix.entity.common_variable}")
     private String commonVariablePrefix;
 
     public CacheConfiguration(RedisTemplate<String, ?> template) {

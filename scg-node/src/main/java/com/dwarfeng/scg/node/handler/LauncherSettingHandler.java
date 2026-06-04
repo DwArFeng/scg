@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class LauncherSettingHandler implements Handler {
 
-    @Value("${launcher.reset_generator_support}")
+    @Value("${com.dwarfeng.scg.launcher.reset_generator_support}")
     private boolean resetGeneratorSupport;
 
-    @Value("${launcher.start_reset_delay}")
+    @Value("${com.dwarfeng.scg.launcher.start_reset_delay}")
     private long startResetDelay;
 
     public boolean isResetGeneratorSupport() {

@@ -34,7 +34,7 @@ public class GeneratorHandlerImpl implements GeneratorHandler {
 
     private final List<GeneratorMaker> generatorMakers;
 
-    @Value("${generate.device_id}")
+    @Value("${com.dwarfeng.scg.generate.device_id}")
     private int deviceId;
 
     private final InternalGeneratorContext generatorContext = new InternalGeneratorContext();

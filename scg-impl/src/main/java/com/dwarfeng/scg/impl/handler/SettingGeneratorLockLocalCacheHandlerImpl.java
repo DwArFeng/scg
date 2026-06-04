@@ -54,7 +54,7 @@ public class SettingGeneratorLockLocalCacheHandlerImpl implements SettingGenerat
 
         private final CuratorFramework curatorFramework;
 
-        @Value("${curator.mutex_prefix.setting_generator_lock}")
+        @Value("${com.dwarfeng.scg.curator.mutex_prefix.setting_generator_lock}")
         private String mutexPrefix;
 
         public LockFetcher(

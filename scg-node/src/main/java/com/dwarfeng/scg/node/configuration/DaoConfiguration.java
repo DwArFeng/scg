@@ -39,7 +39,7 @@ public class DaoConfiguration {
     private final NodeVariablePresetCriteriaMaker nodeVariablePresetCriteriaMaker;
     private final CommonVariablePresetCriteriaMaker commonVariablePresetCriteriaMaker;
 
-    @Value("${hibernate.jdbc.batch_size}")
+    @Value("${com.dwarfeng.scg.hibernate.jdbc.batch_size}")
     private int batchSize;
 
     public DaoConfiguration(

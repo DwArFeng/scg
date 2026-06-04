@@ -35,7 +35,7 @@ public class ScgSettingCrudOperation implements BatchCrudOperation<StringIdKey, 
     private final CommonVariableDao commonVariableDao;
     private final CommonVariableCache commonVariableCache;
 
-    @Value("${cache.timeout.entity.scg_setting}")
+    @Value("${com.dwarfeng.scg.cache.timeout.entity.scg_setting}")
     private long scgSettingTimeout;
 
     public ScgSettingCrudOperation(

@@ -15,7 +15,7 @@ public class PushHandlerImpl implements PushHandler {
 
     private final List<com.dwarfeng.scg.sdk.handler.Pusher> pushers;
 
-    @Value("${pusher.type}")
+    @Value("${com.dwarfeng.scg.pusher.type}")
     private String pusherType;
 
     private com.dwarfeng.scg.sdk.handler.Pusher pusher;

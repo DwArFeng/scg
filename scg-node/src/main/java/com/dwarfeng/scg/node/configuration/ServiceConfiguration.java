@@ -39,11 +39,11 @@ public class ServiceConfiguration {
     private final CommonVariableDao commonVariableDao;
     private final CommonVariableCache commonVariableCache;
 
-    @Value("${cache.timeout.entity.generator_support}")
+    @Value("${com.dwarfeng.scg.cache.timeout.entity.generator_support}")
     private long generatorSupportTimeout;
-    @Value("${cache.timeout.entity.node_variable}")
+    @Value("${com.dwarfeng.scg.cache.timeout.entity.node_variable}")
     private long nodeVariableTimeout;
-    @Value("${cache.timeout.entity.common_variable}")
+    @Value("${com.dwarfeng.scg.cache.timeout.entity.common_variable}")
     private long commonVariableTimeout;
 
     public ServiceConfiguration(
